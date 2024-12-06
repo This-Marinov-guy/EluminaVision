@@ -60,7 +60,7 @@ const itemVariants = {
 
 const HeroSection = () => {
   return (
-    <section className={styles.wrapper}>
+    <section id="hero" className={styles.wrapper}>
       <div className={styles.carouselWrapper}>
         <Carousel showDots infinite draggable arrows={false} responsive={responsive} customDot={<CustomDot />}>
           {carousel.map((item) => (

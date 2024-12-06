@@ -1,28 +1,29 @@
+"use client";
 import React from "react";
+import Image from "next/image";
+import classNames from "classnames";
+import { Link as ScrollLink } from "react-scroll";
 
 import styles from "./style.module.scss";
-import Image from "next/image";
-import Link from "next/link";
-import classNames from "classnames";
 
 const linkMap = [
-  { name: "About", link: "#" },
-  { name: "Service", link: "#" },
-  { name: "Team", link: "#" },
-  { name: "Contact", link: "#" },
+  { name: "About", link: "about" },
+  { name: "Service", link: "service" },
+  { name: "Team", link: "team" },
+  { name: "Contact", link: "contact" },
 ];
 
 const NavBar = () => {
   return (
     <nav className={styles.wrapper}>
-      <div className={styles.logoWrapper}>
+      <ScrollLink to="hero" smooth={true} duration={500} className={styles.logoWrapper}>
         <Image src="/img/logo.png" alt={"logo"} width={400} height={200} className={styles.logo} />
-      </div>
+      </ScrollLink>
       <div className={styles.navs}>
         {linkMap.map((item) => (
-          <Link key={item.name} href={item.link}>
+          <ScrollLink to={item.link} smooth={true} duration={500} key={item.name} href={item.link}>
             <div className={classNames(styles.nav, { [styles.active]: item.name === "About" })}>{item.name}</div>
-          </Link>
+          </ScrollLink>
         ))}
       </div>
     </nav>

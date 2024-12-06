@@ -39,7 +39,7 @@ const containerVariants = {
 
 const TeamSection = () => {
   return (
-    <section className={styles.wrapper}>
+    <section id="team" className={styles.wrapper}>
       <motion.div
         initial="hidden"
         whileInView="visible"

@@ -18,12 +18,14 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-multi-carousel": "^2.8.5",
+    "react-scroll": "^1.9.0",
     "sass": "^1.82.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-scroll": "^1.8.10",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "postcss": "^8",

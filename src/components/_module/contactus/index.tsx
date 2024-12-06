@@ -20,7 +20,7 @@ const containerVariants = {
 
 const ContactUsSection = () => {
   return (
-    <section className={styles.wrapper}>
+    <section id="contact" className={styles.wrapper}>
       <motion.div
         initial="hidden"
         whileInView="visible"
