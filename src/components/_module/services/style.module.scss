@@ -2,7 +2,7 @@
   @apply bg-semiDark pt-24 pb-10;
 
   .services {
-    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-2 text-white py-10;
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-2 text-white py-10;
 
     .service {
       @apply p-8 rounded-lg cursor-pointer h-full;
