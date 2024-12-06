@@ -7,6 +7,7 @@ import OurServicesSection from "../../_module/services";
 import TeamSection from "../../_module/teams";
 
 import styles from "./style.module.scss";
+import ContactUsSection from "../../_module/contactus";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <AboutUsSection />
       <OurServicesSection />
       <TeamSection />
+      <ContactUsSection />
     </div>
   );
 };
