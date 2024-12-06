@@ -21,7 +21,13 @@ const containerVariants = {
 const ContactUsSection = () => {
   return (
     <section className={styles.wrapper}>
-      <motion.div initial="hidden" whileInView="visible" transition={{ duration: 0.5 }} variants={containerVariants}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
         <PageContainer>
           <PageSectionHeading title="Contact us." slogan="get in touch" />
           <div className={styles.content}>

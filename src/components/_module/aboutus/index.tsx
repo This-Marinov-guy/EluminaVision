@@ -32,7 +32,13 @@ const containerVariants = {
 const AboutUsSection = () => {
   return (
     <section className={styles.wrapper}>
-      <motion.div initial="hidden" whileInView="visible" transition={{ duration: 0.5 }} variants={containerVariants}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
         <PageContainer className={styles.container}>
           <div className={styles.content}>
             <div className={styles.introWrapper}>

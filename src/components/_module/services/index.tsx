@@ -64,7 +64,13 @@ const containerVariants = {
 const OurServicesSection = () => {
   return (
     <section className={styles.wrapper}>
-      <motion.div initial="hidden" whileInView="visible" transition={{ duration: 0.5 }} variants={containerVariants}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
         <PageContainer>
           <PageSectionHeading title="Our services" slogan="what do we offer" />
           <div className={styles.services}>
