@@ -1,0 +1,23 @@
+.wrapper {
+  @apply fixed top-0 inset-x-0 h-44 p-8 flex justify-between items-start;
+
+  .logoWrapper {
+    @apply flex-none;
+
+    .logo {
+      @apply w-52 h-auto;
+    }
+  }
+
+  .navs {
+    @apply hidden md:flex items-center justify-end gap-6;
+
+    .nav {
+      @apply text-white font-semibold text-base transition-all duration-200;
+
+      &.active {
+        @apply text-opacity-50;
+      }
+    }
+  }
+}

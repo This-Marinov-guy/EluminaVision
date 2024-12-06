@@ -1,0 +1,15 @@
+.wrapper {
+  @apply w-screen h-screen flex items-center justify-center bg-dark;
+
+  .loaderSection {
+    @apply flex flex-col items-center gap-1;
+
+    .logo {
+      @apply h-12 w-auto flex-none;
+    }
+
+    .text {
+      @apply text-base text-gray;
+    }
+  }
+}

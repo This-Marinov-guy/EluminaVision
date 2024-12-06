@@ -1,0 +1,23 @@
+.wrapper {
+  @apply h-screen bg-dark;
+
+  .heroContentWrapper {
+    @apply absolute inset-0 flex items-center justify-center text-white;
+
+    .heroContent {
+      @apply flex flex-col items-center text-center;
+
+      .title {
+        @apply text-2xl font-bold;
+      }
+
+      .heading {
+        @apply text-6xl md:text-[120px] font-extrabold max-w-fit leading-tight;
+      }
+
+      .button {
+        @apply mt-8;
+      }
+    }
+  }
+}

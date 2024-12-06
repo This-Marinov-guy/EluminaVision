@@ -1,0 +1,19 @@
+.wrapper {
+  @apply bg-semiDark py-24;
+
+  .services {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-white;
+
+    .service {
+      @apply p-8 rounded-lg;
+
+      .heading {
+        @apply text-xl font-bold;
+      }
+
+      .description {
+        @apply mt-4 leading-relaxed text-sm;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.wrapper {
+  @apply bg-brown py-24 w-screen overflow-x-hidden;
+
+  .content {
+    @apply grid grid-cols-1 md:grid-cols-5 gap-12;
+
+    .introWrapper {
+      @apply col-span-3 text-white mt-10;
+
+      .text {
+        @apply mt-5 leading-relaxed max-w-2xl;
+      }
+
+      .button {
+        @apply mt-12;
+      }
+    }
+
+    .imageWrapper {
+      @apply col-span-2 text-white mt-10 relative rounded-lg overflow-hidden w-full aspect-[1.5];
+
+      .image {
+        @apply object-cover;
+      }
+    }
+  }
+
+  .featureWrapper {
+    @apply text-white grid grid-cols-1 md:grid-cols-3 gap-12 mt-12;
+
+    .heading {
+      @apply text-xl font-bold;
+    }
+
+    .body {
+      @apply mt-3 leading-relaxed text-sm;
+    }
+  }
+}
