@@ -12,10 +12,12 @@
     "classnames": "^2.5.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "framer-motion": "^11.13.1",
     "next": "15.0.4",
     "prettier": "^3.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-multi-carousel": "^2.8.5",
     "sass": "^1.82.0"
   },
   "devDependencies": {

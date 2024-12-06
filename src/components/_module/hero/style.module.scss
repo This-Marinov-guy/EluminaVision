@@ -1,8 +1,8 @@
 .wrapper {
-  @apply h-screen bg-dark;
+  @apply h-screen bg-dark w-screen;
 
   .heroContentWrapper {
-    @apply absolute inset-0 flex items-center justify-center text-white;
+    @apply absolute inset-0 flex items-center justify-center text-white z-10;
 
     .heroContent {
       @apply flex flex-col items-center text-center;
@@ -19,5 +19,25 @@
         @apply mt-8;
       }
     }
+  }
+
+  .carouselWrapper {
+    @apply w-screen h-screen absolute inset-0 z-0;
+
+    .item {
+      @apply relative w-screen h-screen;
+    }
+
+    .image {
+      @apply object-cover opacity-60;
+    }
+  }
+}
+
+.dot {
+  @apply w-2.5 h-2.5 bg-white bg-opacity-90 rounded-full mx-3;
+
+  &.active {
+    @apply bg-red;
   }
 }

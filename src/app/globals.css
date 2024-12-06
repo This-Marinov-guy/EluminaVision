@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "react-multi-carousel/lib/styles.css";
+
 @font-face {
   font-family: "Gilroy";
   src: url("./fonts/Gilroy-Bold.eot");
@@ -66,4 +68,18 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-poppins);
+}
+
+.react-multi-carousel-list {
+  @apply w-full h-full;
+}
+
+.react-multi-carousel-track {
+  @apply w-full h-full
+}
+
+.react-multi-carousel-dot-list {
+  left: 44px !important;
+  bottom: 44px;
+  width: fit-content !important;
 }
