@@ -1,10 +1,12 @@
+"use client";
 import React from "react";
+import classNames from "classnames";
+import { motion } from "framer-motion";
 
 import PageSectionHeading from "../../_basic/heading";
 import PageContainer from "../container";
 
 import styles from "./style.module.scss";
-import classNames from "classnames";
 
 const services = [
   {
@@ -51,20 +53,30 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0, y: 100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
 const OurServicesSection = () => {
   return (
     <section className={styles.wrapper}>
-      <PageContainer>
-        <PageSectionHeading title="Our services" slogan="what do we offer" />
-        <div className={styles.services}>
-          {services.map((service) => (
-            <div key={service.heading} className={classNames(styles.service, service.color)}>
-              <h4 className={styles.heading}>{service.heading}</h4>
-              <p className={styles.description}>{service.description}</p>
-            </div>
-          ))}
-        </div>
-      </PageContainer>
+      <motion.div initial="hidden" whileInView="visible" transition={{ duration: 0.5 }} variants={containerVariants}>
+        <PageContainer>
+          <PageSectionHeading title="Our services" slogan="what do we offer" />
+          <div className={styles.services}>
+            {services.map((service) => (
+              <div key={service.heading} className={classNames(styles.service, service.color)}>
+                <h4 className={styles.heading}>{service.heading}</h4>
+                <p className={styles.description}>{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </PageContainer>
+      </motion.div>
     </section>
   );
 };

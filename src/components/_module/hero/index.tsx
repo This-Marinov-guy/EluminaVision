@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import Carousel from "react-multi-carousel";
+import Image from "next/image";
+import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import Button from "../../_basic/button";
 
 import styles from "./style.module.scss";
-import Image from "next/image";
-import classNames from "classnames";
 
 const responsive = {
   superLargeDesktop: {
