@@ -62,7 +62,18 @@ const HeroSection = () => {
   return (
     <section id="hero" className={styles.wrapper}>
       <div className={styles.carouselWrapper}>
-        <Carousel showDots infinite draggable arrows={false} responsive={responsive} customDot={<CustomDot />}>
+        <Carousel
+          showDots
+          autoPlay
+          autoPlaySpeed={5000}
+          rewind
+          infinite
+          pauseOnHover={false}
+          draggable
+          arrows={false}
+          responsive={responsive}
+          customDot={<CustomDot />}
+        >
           {carousel.map((item) => (
             <CarouselItem key={item.alt} {...item} />
           ))}
