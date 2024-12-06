@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
+import Footer from "../components/_module/footer";
+
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
@@ -21,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} overflow-x-hidden w-screen`}>{children}</body>
+      <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
