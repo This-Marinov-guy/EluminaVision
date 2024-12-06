@@ -2,10 +2,10 @@
   @apply bg-brown py-24;
 
   .section {
-    @apply grid grid-cols-3 gap-6 mt-12;
+    @apply mt-12 w-full;
 
     .member {
-      @apply bg-semiDark rounded-lg p-10 flex flex-col items-center text-white;
+      @apply bg-semiDark rounded-lg p-10 flex flex-col items-center text-white mx-3 md:mx-6 w-[350px] md:w-96;
 
       .avatar {
         @apply rounded-full overflow-hidden;

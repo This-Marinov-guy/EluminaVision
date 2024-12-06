@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Carousel from "react-multi-carousel";
 import { motion } from "framer-motion";
 
 import PageContainer from "../container";
@@ -29,6 +30,33 @@ const members = [
   },
 ];
 
+const responsive = {
+  desktop: {
+    breakpoint: {
+      max: 3000,
+      min: 1024,
+    },
+    items: 3,
+    partialVisibilityGutter: 40,
+  },
+  mobile: {
+    breakpoint: {
+      max: 464,
+      min: 0,
+    },
+    items: 1,
+    partialVisibilityGutter: 30,
+  },
+  tablet: {
+    breakpoint: {
+      max: 1024,
+      min: 464,
+    },
+    items: 2,
+    partialVisibilityGutter: 30,
+  },
+};
+
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
   visible: {
@@ -49,7 +77,7 @@ const TeamSection = () => {
       >
         <PageContainer>
           <PageSectionHeading title="Team." slogan="who are the people behind the project" />
-          <div className={styles.section}>
+          <Carousel infinite slidesToSlide={1} arrows={false} responsive={responsive} className={styles.section}>
             {members.map((member) => (
               <div key={member.name} className={styles.member}>
                 <div className={styles.avatar}>
@@ -68,7 +96,7 @@ const TeamSection = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </Carousel>
         </PageContainer>
       </motion.div>
     </section>

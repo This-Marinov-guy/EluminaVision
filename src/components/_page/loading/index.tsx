@@ -29,7 +29,13 @@ const LoadingScreen = () => {
             delay: 0.8,
             duration: 0.3,
           }}
-          style={{ position: "absolute", right: 0, width: "50%", height: "100vh", backgroundColor: "#010101" }}
+          style={{
+            position: "absolute",
+            right: 0,
+            width: "calc(50% + 2px)",
+            height: "100vh",
+            backgroundColor: "#010101",
+          }}
         ></motion.div>
         <motion.div
           initial={{ opacity: 1 }}
