@@ -14,15 +14,15 @@ import styles from "./style.module.scss";
 const HomePage = () => {
   return (
     <>
+      <NavBar />
+      <LoadingScreen />
       <div className={styles.wrapper}>
-        <NavBar />
         <HeroSection />
         <AboutUsSection />
         <OurServicesSection />
         <TeamSection />
         <ContactUsSection />
       </div>
-      <LoadingScreen />
     </>
   );
 };
