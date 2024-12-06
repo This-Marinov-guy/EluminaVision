@@ -80,7 +80,7 @@ const OurServicesSection = () => {
                 key={service.heading}
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.08 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+                transition={{ duration: 0.35, ease: "easeIn" }}
               >
                 <div className={classNames(styles.service, service.color)}>
                   <div className={styles.avatar}>
