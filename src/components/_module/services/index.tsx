@@ -7,6 +7,7 @@ import PageSectionHeading from "../../_basic/heading";
 import PageContainer from "../container";
 
 import styles from "./style.module.scss";
+import Image from "next/image";
 
 const services = [
   {
@@ -75,10 +76,20 @@ const OurServicesSection = () => {
           <PageSectionHeading title="Our services" slogan="what do we offer" />
           <div className={styles.services}>
             {services.map((service) => (
-              <div key={service.heading} className={classNames(styles.service, service.color)}>
-                <h4 className={styles.heading}>{service.heading}</h4>
-                <p className={styles.description}>{service.description}</p>
-              </div>
+              <motion.div
+                key={service.heading}
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                <div className={classNames(styles.service, service.color)}>
+                  <div className={styles.avatar}>
+                    <Image src={"/img/logo.png"} width={100} height={100} alt="icon" className={styles.icon} />
+                  </div>
+                  <h4 className={styles.heading}>{service.heading}</h4>
+                  <p className={styles.description}>{service.description}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </PageContainer>
