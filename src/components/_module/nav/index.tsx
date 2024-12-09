@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { Link as ScrollLink } from "react-scroll";
@@ -15,6 +15,7 @@ const linkMap = [
 ];
 
 const NavBar = () => {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   return (
     <nav className={styles.wrapper}>
       <ScrollLink to="hero" smooth={true} duration={500} className={styles.logoWrapper}>
@@ -45,6 +46,22 @@ const NavBar = () => {
             </motion.div>
           </ScrollLink>
         ))}
+      </div>
+      <div className={styles.mobileNav}>
+        <button className={styles.hamburger} onClick={() => setIsOpenMenu((prev) => !prev)}>
+          <div className={classNames(styles.line1, { [styles.active]: isOpenMenu })}></div>
+          <div className={classNames(styles.line2, { [styles.active]: isOpenMenu })}></div>
+          <div className={classNames(styles.line3, { [styles.active]: isOpenMenu })}></div>
+        </button>
+        <div className={classNames(styles.mobilePanel, { [styles.active]: isOpenMenu })}>
+          {linkMap.map((link) => (
+            <div key={link.name}>
+              <ScrollLink to={link.link} smooth={true} className={styles.link} onClick={() => setIsOpenMenu(false)}>
+                {link.name}
+              </ScrollLink>
+            </div>
+          ))}
+        </div>
       </div>
     </nav>
   );
