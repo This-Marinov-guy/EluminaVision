@@ -9,21 +9,16 @@ import TeamSection from "../../_module/teams";
 import ContactUsSection from "../../_module/contactus";
 import LoadingScreen from "../loading";
 
-import styles from "./style.module.scss";
-import "/public/icon-fonts/flat-icon/flaticon.css";
-
 const HomePage = () => {
   return (
     <>
       <NavBar />
       <LoadingScreen />
-      <div className={styles.wrapper}>
-        <HeroSection />
-        <AboutUsSection />
-        <OurServicesSection />
-        <TeamSection />
-        <ContactUsSection />
-      </div>
+      <HeroSection />
+      <AboutUsSection />
+      <OurServicesSection />
+      <TeamSection />
+      <ContactUsSection />
     </>
   );
 };

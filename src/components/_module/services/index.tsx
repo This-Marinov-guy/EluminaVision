@@ -11,21 +11,21 @@ import Image from "next/image";
 
 const services = [
   {
-    icon: "",
+    icon: "flaticon-020-paint-palette",
     heading: "Branding",
     description:
       "Your brand is your identity. A logo and some colors that represent your goals are a must in order a customer to embed your product in their mind.",
     color: "bg-red",
   },
   {
-    icon: "",
+    icon: "flaticon-041-computer",
     heading: "Web Development",
     description:
       "Get yourself available on the web with a graceful informative website that corresponds to your style. Option for scaling into web app is available (examples: orders, payments, etc.).",
     color: "bg-yellow",
   },
   {
-    icon: "",
+    icon: "flaticon-001-rgb",
     heading: "Social Media",
     description:
       "Influence people by your social platforms. Our young team best knows what is trendy and how to attract customers to your product/service.",
@@ -39,14 +39,14 @@ const services = [
     color: "bg-yellow",
   },
   {
-    icon: "",
+    icon: "flaticon-034-video-camera",
     heading: "Content Creation",
     description:
       "For advertising, for presentations, for everything. We make messages clear with our short movies with appealing editing and strong mix of music and video.",
     color: "bg-red",
   },
   {
-    icon: "",
+    icon: "flaticon-038-origami",
     heading: "Analysis",
     description:
       "If you do not know what is suitable for you, we can advice you. By exploring your business, we can easily examine your target audience and what is the most optimal and fastest way of attracting them to you.",
@@ -83,10 +83,10 @@ const OurServicesSection = () => {
                 transition={{ duration: 0.35, ease: "easeIn" }}
               >
                 <div className={classNames(styles.service, service.color)}>
-                  <div className={styles.avatar}>
-                    <i style={{fontSize: '3em'}} className={service.icon}></i>
+                  <div className="flex items-center justify-between mb-8">
+                    <h4 className={styles.heading}>{service.heading}</h4>
+                    <i className={service.icon}></i>
                   </div>
-                  <h4 className={styles.heading}>{service.heading}</h4>
                   <p className={styles.description}>{service.description}</p>
                 </div>
               </motion.div>

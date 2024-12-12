@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   description: "Elumina Vision",
 };
 
+import styles from "./style.module.scss";
+import "/public/icon-fonts/fontawesome-5.0.6/css/fontawesome-all.min.css";
+import "/public/icon-fonts/flat-icon/flaticon.css";
+
 export default function RootLayout({
   children,
 }: Readonly<{

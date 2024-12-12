@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Button from "../../_basic/button";
 
 import styles from "./style.module.scss";
+import { FACEBOOK, INSTAGRAM } from "@/utils/defines";
 
 const responsive = {
   superLargeDesktop: {
@@ -78,6 +79,14 @@ const HeroSection = () => {
             <CarouselItem key={item.alt} {...item} />
           ))}
         </Carousel>
+      </div>
+      <div className="text-3xl flex items-center justify-center gap-3 absolute bottom-2 right-5">
+        <a href={FACEBOOK} target="_blank" className={styles.social}>
+          <i className="fab fa-facebook" aria-hidden="true" />
+        </a>
+        <a href={INSTAGRAM} target="_blank" className={styles.social}>
+          <i className="fab fa-instagram" aria-hidden="true" />
+        </a>
       </div>
     </section>
   );

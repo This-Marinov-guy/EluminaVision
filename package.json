@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "emailjs": "^4.0.3",
+    "emailjs-com": "^3.2.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "framer-motion": "^11.13.1",

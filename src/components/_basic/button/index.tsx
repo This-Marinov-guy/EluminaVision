@@ -3,15 +3,11 @@ import classNames from "classnames";
 
 import styles from "./style.module.scss";
 
-type Props = {
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-};
+const Button: React.FC<any> = (props) => {
+  const {className, children} = props;
 
-const Button: React.FC<Props> = ({ children, className, onClick }) => {
   return (
-    <button className={classNames(styles.wrapper, className)} onClick={onClick}>
+    <button {...props} className={classNames(styles.wrapper, className)}>
       {children}
     </button>
   );
