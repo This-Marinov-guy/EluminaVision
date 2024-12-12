@@ -32,7 +32,7 @@ const services = [
     color: "bg-red",
   },
   {
-    icon: "",
+    icon: "flaticon-009-eye",
     heading: "Advertising",
     description:
       "Drag some attention on all platforms with our catchy ads. A guaranteed way of increasing targeted customers and let people know about you.",
@@ -84,7 +84,7 @@ const OurServicesSection = () => {
               >
                 <div className={classNames(styles.service, service.color)}>
                   <div className={styles.avatar}>
-                    <Image src={"/img/logo.png"} width={100} height={100} alt="icon" className={styles.icon} />
+                    <i style={{fontSize: '3em'}} className={service.icon}></i>
                   </div>
                   <h4 className={styles.heading}>{service.heading}</h4>
                   <p className={styles.description}>{service.description}</p>
