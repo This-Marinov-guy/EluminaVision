@@ -1,0 +1,71 @@
+.wrapper {
+  @apply fixed z-40 top-0 inset-x-0 h-44 p-8 flex justify-between items-start;
+
+  .logoWrapper {
+    @apply flex-none;
+
+    .logo {
+      @apply w-40 md:w-52 h-auto;
+    }
+  }
+
+  .navs {
+    @apply hidden md:flex items-center justify-end gap-6;
+
+    .nav {
+      @apply text-white font-semibold text-base h-5 overflow-hidden;
+
+      &:focus {
+        @apply outline-none ring-0;
+      }
+
+      &.active {
+        @apply text-opacity-50;
+      }
+    }
+  }
+
+  .mobileNav {
+    @apply relative block md:hidden;
+
+    .hamburger {
+      @apply relative z-50;
+
+      .line1 {
+        @apply w-9 h-0.5 bg-white absolute top-0 right-0 transition-all duration-150;
+
+        &.active {
+          @apply rotate-45 translate-y-3;
+        }
+      }
+
+      .line2 {
+        @apply w-9 h-0.5 bg-white absolute top-2.5 right-0 transition-all duration-150;
+
+        &.active {
+          @apply opacity-0;
+        }
+      }
+
+      .line3 {
+        @apply w-9 h-0.5 bg-white  absolute top-5 right-0 transition-all duration-150;
+
+        &.active {
+          @apply -rotate-45 -translate-y-2;
+        }
+      }
+    }
+
+    .mobilePanel {
+      @apply px-5 py-10 bg-brown shadow-2xl fixed inset-x-0 top-0 text-center space-y-3 transform -translate-y-full transition-all duration-300 ease-in-out;
+
+      &.active {
+        @apply translate-y-0;
+      }
+
+      .link {
+        @apply text-2xl text-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "react-multi-carousel/lib/styles.css";
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("./fonts/Gilroy-Bold.eot");
+  src:
+    url("./fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/Gilroy-Bold.woff2") format("woff2"),
+    url("./fonts/Gilroy-Bold.woff") format("woff"),
+    url("./fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("./fonts/Gilroy-ExtraBold.eot");
+  src:
+    url("./fonts/Gilroy-ExtraBold.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/Gilroy-ExtraBold.woff2") format("woff2"),
+    url("./fonts/Gilroy-ExtraBold.woff") format("woff"),
+    url("./fonts/Gilroy-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("./fonts/Gilroy-Black.eot");
+  src:
+    url("./fonts/Gilroy-Black.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/Gilroy-Black.woff2") format("woff2"),
+    url("./fonts/Gilroy-Black.woff") format("woff"),
+    url("./fonts/Gilroy-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("./fonts/Gilroy-Regular.eot");
+  src:
+    url("./fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/Gilroy-Regular.woff2") format("woff2"),
+    url("./fonts/Gilroy-Regular.woff") format("woff"),
+    url("./fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-poppins);
+}
+
+.react-multi-carousel-list {
+  @apply w-full h-full;
+}
+
+.react-multi-carousel-track {
+  @apply w-full h-full
+}
+
+.react-multi-carousel-dot-list {
+  left: 44px !important;
+  bottom: 44px;
+  width: fit-content !important;
+}

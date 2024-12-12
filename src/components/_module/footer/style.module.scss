@@ -1,0 +1,39 @@
+.wrapper {
+  @apply bg-brown py-16;
+
+  .container {
+    @apply flex flex-col md:flex-row gap-6 md:gap-0 items-center justify-between text-white;
+
+    .logoWrapper {
+      @apply flex flex-col items-center md:items-start gap-2;
+
+      .logo {
+        @apply w-8;
+      }
+
+      .copyright {
+        @apply text-sm text-gray;
+      }
+    }
+
+    .socials {
+      @apply flex items-center gap-3;
+
+      .social {
+        @apply w-10 h-10 rounded-full bg-white bg-opacity-15 flex items-center justify-center hover:rotate-[360deg] transition-all duration-100 ease-in-out;
+      }
+    }
+
+    .getTouch {
+      @apply flex flex-col items-end;
+
+      .title {
+        @apply text-[26px] font-semibold;
+      }
+
+      .email {
+        @apply text-sm text-gray;
+      }
+    }
+  }
+}

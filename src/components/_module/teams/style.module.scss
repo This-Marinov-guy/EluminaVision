@@ -1,0 +1,31 @@
+.wrapper {
+  @apply bg-brown py-24;
+
+  .section {
+    @apply mt-12 w-full;
+
+    .member {
+      @apply bg-semiDark rounded-lg p-10 flex flex-col items-center text-white mx-3 md:mx-6 w-[350px] md:w-96;
+
+      .avatar {
+        @apply rounded-full overflow-hidden;
+      }
+
+      .info {
+        @apply flex flex-col items-center mt-6 text-center;
+
+        .name {
+          @apply text-lg font-bold;
+        }
+
+        .role {
+          @apply text-red text-sm;
+        }
+
+        .description {
+          @apply mt-3 text-sm max-w-60;
+        }
+      }
+    }
+  }
+}
