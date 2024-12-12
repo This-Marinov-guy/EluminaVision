@@ -42,6 +42,8 @@ const ContactUsSection = () => {
         () => {
           setMessage("Your message was received - we will come back to you shortly!");
           setMessageClass("text-green-500");
+
+          e.target.reset();
         },
         () => {
           setMessage("There was a problem with your message - please try again!");
@@ -66,7 +68,7 @@ const ContactUsSection = () => {
       >
         <PageContainer>
           <PageSectionHeading title="Contact us." slogan="get in touch" />
-          <form onSubmit={handleSubmit} className={styles.content}>
+          <form onSubmit={handleSubmit} action="#" className={styles.content}>
             <div className={styles.infoWrapper}>
               <div className={styles.info}>
                 <div className={styles.icon}></div>
