@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   description: "Elumina Vision",
 };
 
-import styles from "./style.module.scss";
 import "/public/icon-fonts/fontawesome-5.0.6/css/fontawesome-all.min.css";
 import "/public/icon-fonts/flat-icon/flaticon.css";
 
@@ -28,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/public/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
         {children}
