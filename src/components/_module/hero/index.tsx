@@ -9,6 +9,7 @@ import Button from "../../_basic/button";
 
 import styles from "./style.module.scss";
 import { FACEBOOK, INSTAGRAM } from "@/utils/defines";
+import { useRouter } from "next/navigation";
 
 const responsive = {
   superLargeDesktop: {
@@ -93,6 +94,8 @@ const HeroSection = () => {
 };
 
 const CarouselItem = ({ alt, heading, image }: { alt: string; heading: string; image: string }) => {
+    const router = useRouter();
+
   return (
     <div className={styles.item}>
       <div className={styles.heroContentWrapper}>
@@ -105,7 +108,7 @@ const CarouselItem = ({ alt, heading, image }: { alt: string; heading: string; i
               <h1 className={styles.heading}>{heading}</h1>
             </motion.li>
             <motion.li variants={itemVariants}>
-              <Button className={styles.button}>SEE MORE</Button>
+              <Button onClick={() => router.push('#service')} className={styles.button}>SEE MORE</Button>
             </motion.li>
           </div>
         </motion.ul>
