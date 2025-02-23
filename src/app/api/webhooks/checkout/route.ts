@@ -36,18 +36,15 @@ export async function POST(req: Request) {
       const phone = customerDetails?.phone;
       const shippingAddress = shippingDetails?.address;
 
-      // Safely parse metadata and handle potential format issues
       const items = Object.entries(metadata)
         .map(([key, value]) => {
           if (!value) return null;
 
           try {
-            // Check if the value is already an object
             if (typeof value === "object") {
               return value;
             }
 
-            // Handle potential single quotes
             const sanitizedValue = value.replace(/'/g, '"');
             return JSON.parse(sanitizedValue);
           } catch (err) {
