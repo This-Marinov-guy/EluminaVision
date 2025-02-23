@@ -6,8 +6,8 @@
   ],
   "rules": {
     "react/display-name": "off",
-    "no-unused-vars": "warn",
-    "prettier/prettier": "warn",
+    "no-unused-vars": "off",
+    "prettier/prettier": "off",
     "react-hooks/exhaustive-deps": "off"
   }
 }
