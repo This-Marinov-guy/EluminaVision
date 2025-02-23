@@ -3,7 +3,6 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { v4 as uuidv4 } from "uuid";
 import { writeToGoogleSheet } from "@/server/google/spreadsheet-service";
-import mailTrap from "@/server/mails/mail-trap";
 import { ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -38,9 +37,16 @@ export async function POST(req: Request) {
       const shippingAddress = shippingDetails?.address;
 
       // Convert metadata into an array of objects
-      let items = Object.keys(metadata).map((key) => {
-        return JSON.parse(metadata[key]);
-      });
+      let items = Object.keys(metadata)
+        .map((key) => {
+          try {
+            return JSON.parse(metadata[key]); // Attempt to parse the metadata
+          } catch (err) {
+            console.error(`Failed to parse metadata key: ${key}`, err);
+            return null;
+          }
+        })
+        .filter((item) => item !== null); // Filter out any null results if parsing fails
 
       items = items.map((item) => {
         return `${item.quantity} x ${item.title} (${item.variant}) - ${item.currency}${item.price}`;
@@ -49,19 +55,7 @@ export async function POST(req: Request) {
       const data = [orderNumber, name, email, phone, shippingAddress, items.join(", ")];
 
       try {
-          await writeToGoogleSheet(data, ORDERS_GOOGLE_SHEET_ID);
-        //   await mailTrap({
-        //     receiver: email,
-        //     template_uuid: "",
-        //     subject: "Order Confirmation",
-        //     data: {
-        //         orderNumber,
-        //         name,
-        //         phone,
-        //         shippingAddress,
-        //         items,
-        //     },
-        //   });
+        await writeToGoogleSheet(data, ORDERS_GOOGLE_SHEET_ID);
       } catch (err) {
         console.error("Error in webhook:", err);
         throw new Error("Error in webhook: " + err);
