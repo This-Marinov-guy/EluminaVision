@@ -24,6 +24,14 @@ export async function POST(request) {
       phone_number_collection: {
         enabled: true,
       },
+      shipping_options: [
+        {
+          shipping_rate: "shr_1Qvm1iLUXmDaRfFYelNucXsc",
+        },
+        {
+          shipping_rate: "shr_1Qvm2JLUXmDaRfFYkVMN5yOr",
+        },
+      ],
       shipping_address_collection: {
         allowed_countries: ALLOWED_CHECKOUT_COUNTRIES,
       },
