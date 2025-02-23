@@ -64,7 +64,7 @@ export class CartStore {
     this.commonStore.setLoading(true);
 
     axios
-      .post("/api/checkout", {items: this.items})
+      .post("/api/checkout", { items: this.items })
       .then((response) => {
         if (response.data.url) {
           window.location.href = response.data.url;
@@ -78,6 +78,11 @@ export class CartStore {
       .finally(() => {
         this.commonStore.setLoading(false);
       });
+  };
+
+  clearCart = () => {
+    this.items = [];
+    localStorage.removeItem(CART_LOCAL_STORAGE_KEY);
   };
 
   get totalItems() {
