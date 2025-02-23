@@ -36,23 +36,17 @@ export async function POST(req: Request) {
       const phone = customerDetails?.phone;
       const shippingAddress = shippingDetails?.address;
 
-      const items = Object.entries(metadata)
-        .map(([key, value]) => {
-          if (!value) return null;
-
+      // Convert metadata into an array of objects
+      const items = Object.keys(metadata)
+        .map((key) => {
           try {
-            if (typeof value === "object") {
-              return value;
-            }
-
-            const sanitizedValue = value.replace(/'/g, '"');
-            return JSON.parse(sanitizedValue);
+            return JSON.parse(metadata[key]); // Attempt to parse the metadata
           } catch (err) {
-            console.error(`Failed to parse metadata for key ${key}:`, err);
+            console.error(`Failed to parse metadata key: ${key}`, err);
             return null;
           }
         })
-        .filter((item): item is NonNullable<typeof item> => item !== null);
+        .filter((item) => item !== null); // Filter out any null results if parsing fails
 
       const formattedItems = items.map((item) => {
         return `${item.quantity} x ${item.title} (${item.variant}) - ${item.currency}${item.price}`;
@@ -75,6 +69,7 @@ export async function POST(req: Request) {
           {
             received: true,
             warning: "Order received but failed to write to spreadsheet",
+            log: err.message,
           },
           { status: 200 },
         );
