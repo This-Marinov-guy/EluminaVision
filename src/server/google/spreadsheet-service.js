@@ -13,7 +13,7 @@ export const writeToGoogleSheet = async (data, spreadsheetId) => {
   const sheets = google.sheets({ version: "v4", auth: client });
 
   // Spreadsheet ID and range of data
-  const range = "All";
+  const range = "website";
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
