@@ -24,10 +24,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {/* <!--====== Animate Css ======--> */}
-        <link rel="robots" href="../../robots.txt" />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=5" />
+        <meta name="description" content={metadata.description} />
+        <title>{metadata.title}</title>
+
+        {/* Open Graph / Facebook Meta Tags */}
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourwebsite.com" />
+        <meta property="og:image" content="https://yourwebsite.com/og-image.jpg" />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metadata.title} />
+        <meta name="twitter:description" content={metadata.description} />
+        <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg" />
       </head>
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
         <StoreProvider>
