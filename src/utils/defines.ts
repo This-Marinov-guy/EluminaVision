@@ -55,3 +55,5 @@ export const ALLOWED_CHECKOUT_COUNTRIES: Stripe.Checkout.SessionCreateParams.Shi
     "UA",
     "VA",
   ];
+
+  export const ORDERS_GOOGLE_SHEET_ID = "1heilbVL1Vq09nW94QTm1gS1sPo9luxCyZCCUKcEkkEE";

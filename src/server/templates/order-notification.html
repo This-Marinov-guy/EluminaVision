@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Template</title>
+    <style>
+      /* Your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Номер на поръчката {{orderNumber}}</h1>
+    <hr />
+    <p>Име: {{name}}</p>
+    <p>Имейл: {{email}}</p>
+    <p>Телефон: {{phone}}</p>
+    <p>Град: {{city}}</p>
+    <p>Адрес: {{address}}</p>
+    <p>Пощенски код: {{zip}}</p>
+
+    <p>Начин на доставка: {{payment}}</p>
+    <p>Надпис: {{text}}
+    <p>Модел: {{model}}</p>
+    <p>Размер: {{size}}</p>
+    <p>Бележка: {{note}}</p>
+
+    <p>Обявена цена: {{price}}</p>
+    <hr />
+    <h3>Снимки</h3>
+    {{#each images}}
+    <img src={{this}} alt="Image">
+    </img>
+    {{/each}}
+  </body>
+</html>
