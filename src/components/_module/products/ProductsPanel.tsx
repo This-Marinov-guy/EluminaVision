@@ -85,6 +85,7 @@ const ProductsPanel = () => {
                       Add to cart
                     </Button>
                   </motion.button>
+                  {/* {item.limit && <small className="text-black mt-3">*limited to {item.limit} per purchase</small>} */}
                 </CardBody>
               </Card>
             ))}
@@ -95,6 +96,10 @@ const ProductsPanel = () => {
           {totalItems > 0 && (
             <motion.button
               className="m-auto flex justify-center gap-3"
+              initial={{ scale: 0, opacity: 0, y: -10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0, opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
             >
