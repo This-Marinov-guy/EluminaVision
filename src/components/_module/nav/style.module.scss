@@ -57,7 +57,7 @@
     }
 
     .mobilePanel {
-      @apply px-5 py-10 bg-brown shadow-2xl fixed inset-x-0 top-0 text-center space-y-3 transform -translate-y-full transition-all duration-300 ease-in-out;
+      @apply flex flex-col px-5 py-10 bg-brown shadow-2xl fixed inset-x-0 top-0 text-center space-y-3 transform -translate-y-full transition-all duration-300 ease-in-out;
 
       &.active {
         @apply translate-y-0;

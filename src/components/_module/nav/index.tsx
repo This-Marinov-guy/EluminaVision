@@ -2,16 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
-import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
-
-import styles from "./style.module.scss";
-import { useToast } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import CartButton from "@/components/_basic/button/CartButton";
+import { useToast, Button } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
+
+import styles from "./style.module.scss";
+import CartButton from "@/components/_basic/button/CartButton";
 
 const linkMap = [
   { name: "Products", link: "products", external: true, className: "special" },
@@ -21,11 +19,11 @@ const linkMap = [
   { name: "Contact", link: "contact" },
 ];
 
+const mobileLinkMap = [...linkMap.slice(1), linkMap[0]]; // Keeps original intact
+
 const NavBar = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-
   const toast = useToast();
-
   const { cartStore, commonStore } = useStore();
   const { loadCart } = cartStore;
   const router = useRouter();
@@ -59,65 +57,50 @@ const NavBar = () => {
 
   return (
     <nav className={styles.wrapper}>
-      <ScrollLink to="hero" smooth={true} duration={500} className={styles.logoWrapper}>
-        <Image
-          onClick={() => handleHomeRedirect()}
-          src="/img/logo.png"
-          alt={"logo"}
-          width={400}
-          height={200}
-          className={styles.logo}
-        />
-      </ScrollLink>
+      {/* Logo */}
+      <a href="/" className={styles.logoWrapper} onClick={() => handleHomeRedirect()}>
+        <Image src="/img/logo.png" alt="logo" width={400} height={200} className={styles.logo} />
+      </a>
+
+      {/* Desktop Navigation */}
       <div className={styles.navs}>
         <CartButton />
         {linkMap.map((item) =>
           item.external ? (
-            <Button
-              key={item.name}
-              onClick={() => handleHomeRedirect(item.link)}
-              className={classNames(styles.nav) + " " + styles[item.className]}
-            >
+            <a href={`/${item.link}`} key={item.name} className={classNames(styles.nav, styles[item.className])}>
               <motion.div
                 initial={{ y: 0, opacity: 1 }}
-                whileHover={{
-                  y: -20,
-                  opacity: 0.5,
-                  transition: {
-                    duration: 0.5,
-                  },
-                }}
+                whileHover={{ y: -20, opacity: 0.5, transition: { duration: 0.5 } }}
               >
                 <div className="h-5">{item.name}</div>
               </motion.div>
-            </Button>
+            </a>
           ) : (
-            <ScrollLink
-              smooth={true}
-              duration={500}
+            <a
+              href={`/#${item.link}`}
               key={item.name}
-              to={item.link}
-              activeClass="text-opacity-50"
-              className={classNames(styles.nav) + " " + styles[item.className]}
-              onClick={() => handleHomeRedirect(item.link)}
+              className={classNames(styles.nav, styles[item.className])}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default anchor behavior
+                handleHomeRedirect(item.link); // Smooth scrolling
+              }}
             >
               <motion.div
                 initial={{ y: 0, opacity: 1 }}
                 whileHover={{
                   y: -5,
                   opacity: 0.7,
-                  transition: {
-                    duration: 0.3,
-                    ease: "easeOut",
-                  },
+                  transition: { duration: 0.3, ease: "easeOut" },
                 }}
               >
                 <div className="h-5">{item.name}</div>
               </motion.div>
-            </ScrollLink>
+            </a>
           ),
         )}
       </div>
+
+      {/* Mobile Navigation */}
       <div className={styles.mobileNav}>
         <div className="flex row items-center align-center justify-center gap-16">
           <CartButton />
@@ -127,27 +110,26 @@ const NavBar = () => {
             <div className={classNames(styles.line3, { [styles.active]: isOpenMenu })}></div>
           </button>
         </div>
+
+        {/* Mobile Dropdown Panel */}
         <div className={classNames(styles.mobilePanel, { [styles.active]: isOpenMenu })}>
-          {linkMap.map((link) =>
+          {mobileLinkMap.map((link) =>
             link.external ? (
-              <Button
+              <a href={`/${link.link}`} key={link.name} className={classNames(styles.link, styles[link.className])}>
+                {link.name}
+              </a>
+            ) : (
+              <a
+                href={`/#${link.link}`}
                 key={link.name}
-                onClick={() => handleHomeRedirect(link.link)}
-                className={classNames(styles.link) + " " + styles[link.className]}
+                className={classNames(styles.link, styles[link.className])}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleHomeRedirect(link.link);
+                }}
               >
                 {link.name}
-              </Button>
-            ) : (
-              <div key={link.name}>
-                <ScrollLink
-                  to={link.link}
-                  smooth={true}
-                  className={styles.link + " " + styles[link.className]}
-                  onClick={() => handleHomeRedirect(link.link)}
-                >
-                  {link.name}
-                </ScrollLink>
-              </div>
+              </a>
             ),
           )}
         </div>
