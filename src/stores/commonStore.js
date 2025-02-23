@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-export class CartStore {
+export class CommonStore {
   loading = false;
   invalidFields = [];
   error = "";
@@ -10,11 +10,11 @@ export class CartStore {
     makeAutoObservable(this, { rootStore: false });
   }
 
-  setLoading(loading) {
+  setLoading = (loading) => {
     this.loading = loading;
   }
 
-  setError(error) {
+  setError = (error) => {
     this.error = error;
   }
 

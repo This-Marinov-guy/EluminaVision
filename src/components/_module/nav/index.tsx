@@ -6,10 +6,12 @@ import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 
 import styles from "./style.module.scss";
+import { useToast } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import CartButton from "@/components/_basic/button/CartButton";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/stores/storeProvider";
+import { observer } from "mobx-react-lite";
 
 const linkMap = [
   { name: "Products", link: "products", external: true, className: "special" },
@@ -22,7 +24,9 @@ const linkMap = [
 const NavBar = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
-  const { cartStore } = useStore();
+  const toast = useToast();
+
+  const { cartStore, commonStore } = useStore();
   const { loadCart } = cartStore;
   const router = useRouter();
 
@@ -43,6 +47,15 @@ const NavBar = () => {
   useEffect(() => {
     loadCart();
   }, []);
+
+  useEffect(() => {
+    if (commonStore.error) {
+      toast({
+        title: commonStore.error,
+        status: "error",
+      });
+    }
+  }, [commonStore.error]);
 
   return (
     <nav className={styles.wrapper}>
@@ -143,4 +156,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default observer(NavBar);

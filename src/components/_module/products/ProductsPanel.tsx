@@ -16,8 +16,9 @@ const containerVariants = {
 };
 
 const ProductsPanel = () => {
-  const { cartStore } = useStore();
-  const { totalItems, toggleCartModal } = cartStore;
+  const { cartStore, commonStore } = useStore();
+  const {loading} = commonStore;
+  const { totalItems, toggleCartModal, goToCheckout } = cartStore;
 
   const [quantities, setQuantities] = useState(NFC_GOOGLE_CARDS.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {}));
 
@@ -93,12 +94,15 @@ const ProductsPanel = () => {
 
           {totalItems > 0 && (
             <motion.button
-              className="m-auto flex justify-center"
+              className="m-auto flex justify-center gap-3"
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
             >
-              <Button className="btn-light gap-2" onClick={toggleCartModal}>
+              <Button disabled={loading} className="btn-light gap-2" onClick={toggleCartModal}>
                 Go to Cart <i className="fa-solid fa-cart-arrow-down"></i>
+              </Button>
+              <Button disabled={loading} className="btn-dark gap-2" onClick={goToCheckout}>
+                Go to Checkout<i className="fa-solid fa-basket-shopping"></i>
               </Button>
             </motion.button>
           )}

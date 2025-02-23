@@ -1,10 +1,15 @@
+import { makeAutoObservable } from "mobx";
 import { UserStore } from "./userStore";
 import { CartStore } from "./cartStore";
+import { CommonStore } from "./commonStore";
 
 export class RootStore {
   constructor() {
+    this.commonStore = new CommonStore(this);
     this.userStore = new UserStore(this);
-    this.cartStore = new CartStore(this);
+    this.cartStore = new CartStore(this, this.commonStore);
+
+    makeAutoObservable(this);
   }
 }
 

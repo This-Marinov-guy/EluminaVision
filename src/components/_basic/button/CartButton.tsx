@@ -19,8 +19,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Counter from "@/components/_basic/input/Counter";
 
 const CartButton = () => {
-  const { cartStore } = useStore();
-  const { items, totalItems, totalPrice, trashItem, cartModal, toggleCartModal } = cartStore;
+  const { cartStore, commonStore } = useStore();
+  const { loading } = commonStore;
+  const { items, totalItems, totalPrice, trashItem, cartModal, toggleCartModal, goToCheckout } = cartStore;
   const router = useRouter();
 
   const goToProducts = () => {
@@ -101,7 +102,7 @@ const CartButton = () => {
 
           <ModalFooter className="flex m-auto align-center justify-center gap-3">
             {totalItems > 0 ? (
-              <Button className={styles.btn} colorScheme="orange" size="sm">
+              <Button disabled={loading} onClick={goToCheckout} className={styles.btn} colorScheme="orange" size="sm">
                 Checkout
               </Button>
             ) : (
@@ -109,10 +110,11 @@ const CartButton = () => {
                 Go to Products
               </Button>
             )}
-            <Button onClick={toggleCartModal} colorScheme="red" variant="outline" size="sm">
+            <Button disabled={loading} onClick={toggleCartModal} colorScheme="red" variant="outline" size="sm">
               Close
             </Button>
           </ModalFooter>
+          <small className="mb-2 mx-auto">*For deliveries outside Europe, please contact us directly</small>
         </ModalContent>
       </Modal>
     </>

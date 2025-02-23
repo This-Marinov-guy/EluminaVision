@@ -1,23 +1,24 @@
 import { makeAutoObservable } from "mobx";
-
+import axios from "axios";
 const CART_LOCAL_STORAGE_KEY = "EV_cart";
 
 export class CartStore {
   items = [];
   cartModal = false;
 
-  constructor(rootStore) {
+  constructor(rootStore, commonStore) {
     this.rootStore = rootStore;
-    makeAutoObservable(this, { rootStore: false });
+    this.commonStore = commonStore;
+    makeAutoObservable(this, { rootStore: false, commonStore: false });
   }
 
   loadCart = () => {
     const cart = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
 
-    if (cart) {      
+    if (cart) {
       this.items = JSON.parse(cart);
     }
-  }
+  };
 
   addItem(item, quantity = 1) {
     if (quantity <= 0) return;
@@ -57,6 +58,26 @@ export class CartStore {
     this.items = this.items.filter((item) => item.id !== itemId);
 
     localStorage.setItem(CART_LOCAL_STORAGE_KEY, JSON.stringify(this.items));
+  };
+
+  goToCheckout = () => {
+    this.commonStore.setLoading(true);
+
+    axios
+      .post("/api/checkout", {items: this.items})
+      .then((response) => {
+        if (response.data.url) {
+          window.location.href = response.data.url;
+        } else if (response.data.error) {
+          this.commonStore.setError(response.data.error);
+        }
+      })
+      .catch((error) => {
+        this.commonStore.setError(error.message);
+      })
+      .finally(() => {
+        this.commonStore.setLoading(false);
+      });
   };
 
   get totalItems() {

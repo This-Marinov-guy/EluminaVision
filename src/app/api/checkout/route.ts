@@ -1,26 +1,42 @@
-export async function GET(request) {
-  const products = [
-    { id: 1, name: "Product A", price: 10 },
-    { id: 2, name: "Product B", price: 20 },
-  ];
+import { ALLOWED_CHECKOUT_COUNTRIES } from "@/utils/defines";
+import Stripe from "stripe";
 
-  return new Response(JSON.stringify(products), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-}
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
-  const newProduct = await request.json();
+  try {
+    const { items } = await request.json();
 
-  newProduct.id = Math.floor(Math.random() * 1000); // Random ID for demo
+    const lineItems = items.map((item) => ({
+      price: item.priceId,
+      quantity: item.quantity,
+    }));
 
-  return new Response(JSON.stringify(newProduct), {
-    status: 201,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+    const metadata = items.reduce((acc, item, index) => {
+      acc[`item_${index}`] = JSON.stringify(item); // Creates a unique key for each item
+      return acc;
+    }, {});
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: lineItems,
+      mode: "payment",
+      metadata,
+      phone_number_collection: {
+        enabled: true,
+      },
+      shipping_address_collection: {
+        allowed_countries: ALLOWED_CHECKOUT_COUNTRIES,
+      },
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/failed`,
+    });
+
+    return new Response(JSON.stringify({ url: session.url }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Stripe Checkout Error:", error);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
 }
