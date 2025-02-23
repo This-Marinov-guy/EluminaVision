@@ -13,7 +13,7 @@
     @apply hidden md:flex items-center justify-end gap-6;
 
     .nav {
-      @apply text-white font-semibold text-base h-5 overflow-hidden;
+      @apply text-white cursor-pointer font-semibold text-base flex items-center justify-center overflow-hidden;
 
       &:focus {
         @apply outline-none ring-0;
@@ -29,10 +29,10 @@
     @apply relative block md:hidden;
 
     .hamburger {
-      @apply relative z-50;
+      @apply z-50;
 
       .line1 {
-        @apply w-9 h-0.5 bg-white absolute top-0 right-0 transition-all duration-150;
+        @apply w-9 h-0.5 bg-white absolute top-2 right-0 transition-all duration-150;
 
         &.active {
           @apply rotate-45 translate-y-3;
@@ -40,7 +40,7 @@
       }
 
       .line2 {
-        @apply w-9 h-0.5 bg-white absolute top-2.5 right-0 transition-all duration-150;
+        @apply w-9 h-0.5 bg-white absolute top-4 right-0 transition-all duration-150;
 
         &.active {
           @apply opacity-0;
@@ -48,7 +48,7 @@
       }
 
       .line3 {
-        @apply w-9 h-0.5 bg-white  absolute top-5 right-0 transition-all duration-150;
+        @apply w-9 h-0.5 bg-white  absolute top-6 right-0 transition-all duration-150;
 
         &.active {
           @apply -rotate-45 -translate-y-2;
@@ -68,4 +68,10 @@
       }
     }
   }
+}
+
+.special {
+  background-color: rgb(245 157 106) !important;
+  padding: 5px 10px;
+  border-radius: 1rem;
 }

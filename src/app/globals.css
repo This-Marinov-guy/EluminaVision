@@ -67,7 +67,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins) !important;
 }
 
 .react-multi-carousel-list {

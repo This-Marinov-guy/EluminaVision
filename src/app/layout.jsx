@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Poppins } from "next/font/google";
-import "./globals.css";
-
+import { StoreProvider } from "../stores/storeProvider";
 import Footer from "../components/_module/footer";
 
+import "./globals.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+// Font configuration
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
@@ -11,27 +14,22 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Elumina Vision",
   description: "Elumina Vision",
 };
 
-import "/public/icon-fonts/fontawesome-5.0.6/css/fontawesome-all.min.css";
-import "/public/icon-fonts/flat-icon/flaticon.css";
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
+      <head />
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
-        {children}
-        <Footer />
+        <StoreProvider>
+          <ChakraProvider>
+            {children}
+            <Footer />
+          </ChakraProvider>
+        </StoreProvider>
       </body>
     </html>
   );

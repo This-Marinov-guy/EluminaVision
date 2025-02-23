@@ -1,0 +1,41 @@
+.wrapper {
+  @apply bg-semiDark pt-24 pb-10;
+
+  .services {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-2 py-10;
+
+    .service {
+      @apply p-8 rounded-lg cursor-pointer h-full;
+
+      .avatar {
+        @apply w-20 h-20 relative;
+
+        .image {
+          @apply object-cover;
+        }
+      }
+
+      .heading {
+        @apply text-xl font-bold;
+      }
+
+      .description {
+        @apply mt-4 leading-relaxed text-sm;
+      }
+    }
+
+    img {
+      object-fit: contain;
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
+
+.btn {
+  background-color: rgb(245 157 106) !important;
+}
+
+.card {
+  @apply p-2
+}
