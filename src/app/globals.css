@@ -83,3 +83,18 @@ body {
   bottom: 44px;
   width: fit-content !important;
 }
+
+.btn-dark {
+  color: white !important;
+  background-color: rgb(81 39 53) !important;
+}
+
+.btn-light {
+  color: white !important;
+  background-color: rgb(245 157 106) !important;
+}
+
+.btn-light-2 {
+  color: black !important;
+  background-color: rgb(245 157 106) !important;
+}

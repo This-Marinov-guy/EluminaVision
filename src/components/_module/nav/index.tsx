@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { Link as ScrollLink } from "react-scroll";
@@ -9,6 +9,7 @@ import styles from "./style.module.scss";
 import { Button } from "@chakra-ui/react";
 import CartButton from "@/components/_basic/button/CartButton";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/stores/storeProvider";
 
 const linkMap = [
   { name: "Products", link: "products", external: true, className: "special" },
@@ -20,21 +21,28 @@ const linkMap = [
 
 const NavBar = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const { cartStore } = useStore();
+  const { loadCart } = cartStore;
   const router = useRouter();
 
-const handleHomeRedirect = async (section = "") => {
-  if (section === "products") {
-    await router.push(`/products`);
-  } else if (section) {
-    await router.push(`/#${section}`);
-    setTimeout(() => {
-      const element = document.getElementById(section);
-      element?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  } else {
-    await router.push("/"); 
-  }
-};
+  const handleHomeRedirect = async (section = "") => {
+    if (section === "products") {
+      await router.push(`/products`);
+    } else if (section) {
+      await router.push(`/#${section}`);
+      setTimeout(() => {
+        const element = document.getElementById(section);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      await router.push("/");
+    }
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, []);
 
   return (
     <nav className={styles.wrapper}>

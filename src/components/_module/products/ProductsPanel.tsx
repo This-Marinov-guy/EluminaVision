@@ -8,6 +8,7 @@ import Counter from "@/components/_basic/input/Counter";
 import { getCurrencySymbol } from "@/utils/helpers";
 import { NFC_GOOGLE_CARDS } from "@/utils/products";
 import { useStore } from "@/stores/storeProvider";
+import { observer } from "mobx-react-lite";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -16,6 +17,7 @@ const containerVariants = {
 
 const ProductsPanel = () => {
   const { cartStore } = useStore();
+  const { totalItems, toggleCartModal } = cartStore;
 
   const [quantities, setQuantities] = useState(NFC_GOOGLE_CARDS.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {}));
 
@@ -43,7 +45,6 @@ const ProductsPanel = () => {
       >
         <PageContainer>
           <PageSectionHeading title="NFC Google review card" slogan="Get a headstart in the digital world" />
-
           <div className="text-white">
             <h2 className="text-xl mt-10 mb-3">How to use it</h2>
             <ul>
@@ -58,10 +59,9 @@ const ProductsPanel = () => {
               </li>
             </ul>
           </div>
-
           <div className={styles.services}>
             {NFC_GOOGLE_CARDS.map((item) => (
-              <Card className={styles.card} flexDirection="row" overflow="hidden" maxW="xl">
+              <Card key={item.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="xl">
                 <Image src={item.imageUrl} alt={item.title} />
                 <CardBody className="flex flex-col items-center justify-center gap-2">
                   <Badge
@@ -79,18 +79,33 @@ const ProductsPanel = () => {
 
                   <p>{item.description}</p>
 
-                  {/* ✅ Add to cart button uses counter value */}
-                  <Button className={styles.btn} colorScheme="orange" onClick={() => addItemsToCart(item)}>
-                    Add to cart
-                  </Button>
+                  <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }}>
+                    <Button className={"btn-light"} onClick={() => addItemsToCart(item)}>
+                      Add to cart
+                    </Button>
+                  </motion.button>
                 </CardBody>
               </Card>
             ))}
           </div>
+
+          {/*  TODO: Add button for cart modal */}
+
+          {totalItems > 0 && (
+            <motion.button
+              className="m-auto flex justify-center"
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <Button className="btn-light gap-2" onClick={toggleCartModal}>
+                Go to Cart <i className="fa-solid fa-cart-arrow-down"></i>
+              </Button>
+            </motion.button>
+          )}
         </PageContainer>
       </motion.div>
     </section>
   );
 };
 
-export default ProductsPanel;
+export default observer(ProductsPanel);

@@ -19,20 +19,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import Counter from "@/components/_basic/input/Counter";
 
 const CartButton = () => {
-  const [cartModalOpen, setCartModalOpen] = useState(false);
-
   const { cartStore } = useStore();
-  const { items, totalItems, totalPrice, trashItem } = cartStore;
+  const { items, totalItems, totalPrice, trashItem, cartModal, toggleCartModal } = cartStore;
   const router = useRouter();
 
   const goToProducts = () => {
-    setCartModalOpen(false);
+    toggleCartModal();
     router.push("/products");
   };
 
   return (
     <>
-      <div className="relative cursor-pointer" onClick={() => setCartModalOpen((prev) => !prev)}>
+      <div className="relative cursor-pointer" onClick={toggleCartModal}>
         {totalItems > 0 && (
           <motion.div
             initial={{ scale: 0, opacity: 0, y: -10 }}
@@ -48,7 +46,7 @@ const CartButton = () => {
         <i className={"fas fa-shopping-cart " + styles.cart_btn + " " + styles.btn} aria-hidden="true" />
       </div>
 
-      <Modal isOpen={cartModalOpen} onClose={() => setCartModalOpen(false)} size="xl">
+      <Modal isOpen={cartModal} onClose={toggleCartModal} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Your cart</ModalHeader>
@@ -111,7 +109,7 @@ const CartButton = () => {
                 Go to Products
               </Button>
             )}
-            <Button onClick={() => setCartModalOpen(false)} colorScheme="red" variant="outline" size="sm">
+            <Button onClick={toggleCartModal} colorScheme="red" variant="outline" size="sm">
               Close
             </Button>
           </ModalFooter>
