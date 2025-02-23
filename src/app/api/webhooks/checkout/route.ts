@@ -29,36 +29,58 @@ export async function POST(req: Request) {
       const orderNumber = uuidv4();
       const customerDetails = session.customer_details;
       const shippingDetails = session.shipping_details;
-      const metadata = session.metadata;
+      const metadata = session.metadata || {};
 
       const email = customerDetails?.email;
       const name = customerDetails?.name;
       const phone = customerDetails?.phone;
       const shippingAddress = shippingDetails?.address;
 
-      // Convert metadata into an array of objects
-      let items = Object.keys(metadata)
-        .map((key) => {
+      // Safely parse metadata and handle potential format issues
+      const items = Object.entries(metadata)
+        .map(([key, value]) => {
+          if (!value) return null;
+
           try {
-            return JSON.parse(metadata[key]); // Attempt to parse the metadata
+            // Check if the value is already an object
+            if (typeof value === "object") {
+              return value;
+            }
+
+            // Handle potential single quotes
+            const sanitizedValue = value.replace(/'/g, '"');
+            return JSON.parse(sanitizedValue);
           } catch (err) {
-            console.error(`Failed to parse metadata key: ${key}`, err);
+            console.error(`Failed to parse metadata for key ${key}:`, err);
             return null;
           }
         })
-        .filter((item) => item !== null); // Filter out any null results if parsing fails
+        .filter((item): item is NonNullable<typeof item> => item !== null);
 
-      items = items.map((item) => {
+      const formattedItems = items.map((item) => {
         return `${item.quantity} x ${item.title} (${item.variant}) - ${item.currency}${item.price}`;
       });
 
-      const data = [orderNumber, name, email, phone, shippingAddress, items.join(", ")];
+      const data = [
+        orderNumber,
+        name || "",
+        email || "",
+        phone || "",
+        shippingAddress ? JSON.stringify(shippingAddress) : "",
+        formattedItems.join(", "),
+      ];
 
       try {
         await writeToGoogleSheet(data, ORDERS_GOOGLE_SHEET_ID);
       } catch (err) {
-        console.error("Error in webhook:", err);
-        throw new Error("Error in webhook: " + err);
+        console.error("Error writing to Google Sheet:", err);
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed to write to spreadsheet",
+          },
+          { status: 200 },
+        );
       }
 
       break;
