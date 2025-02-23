@@ -16,13 +16,19 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "Elumina Vision",
-  description: "Elumina Vision",
+  description:
+    "Elumina Vision is a forward-thinking marketing agency dedicated to helping brands grow, engage, and thrive in the digital world. We specialize in brand strategy, digital marketing, content creation, and social media management, crafting data-driven campaigns that drive real results.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* <!--====== Animate Css ======--> */}
+        <link rel="robots" href="../../robots.txt" />
+      </head>
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
         <StoreProvider>
           <ChakraProvider>
