@@ -8,8 +8,8 @@ const mailTrap = (options) => {
         const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
         const sender = {
-            email: "noreply@daskichka.bg",
-            name: "Екипът на Дъскичка",
+            email: "noreply@eluminavision.com",
+            name: "Elumina Vision Solutions",
         };
         const recipients = [
             {

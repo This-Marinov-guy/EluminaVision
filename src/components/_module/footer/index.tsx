@@ -12,7 +12,7 @@ const Footer = () => {
       <PageContainer className={styles.container}>
         <div className={styles.logoWrapper}>
           <Image src="/img/logo-1.png" alt={"logo"} width={100} height={100} className={styles.logo} />
-          <span className={styles.copyright}>© {new Date().getFullYear()} Elumina Vision Solutions</span>
+          <span className={styles.copyright}>© {new Date().getFullYear()} Elumina Vision Solutions LTD</span>
         </div>
         <div className={styles.socials}>
           <a href={FACEBOOK} target="_blank" className={styles.social}>

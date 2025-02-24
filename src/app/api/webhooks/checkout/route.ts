@@ -3,7 +3,8 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { v4 as uuidv4 } from "uuid";
 import { writeToGoogleSheet } from "@/server/google/spreadsheet-service";
-import { ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
+import { ORDER_EMAIL_TEMPLATE_ID, ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
+import mailTrap from "@/server/mails/mail-trap";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -69,6 +70,31 @@ export async function POST(req: Request) {
           {
             received: true,
             warning: "Order received but failed to write to spreadsheet",
+            log: err.message,
+          },
+          { status: 200 },
+        );
+      }
+
+      try {
+        await mailTrap({
+          receiver: email,
+          template_uuid: ORDER_EMAIL_TEMPLATE_ID,
+          data: {
+            orderNumber,
+            name,
+            email,
+            phone,
+            shippingAddress,
+            items: formattedItems,
+          },
+        });
+      } catch (err) {
+        console.error("Error sending mail:", err);
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed to send confirmation mail",
             log: err.message,
           },
           { status: 200 },
