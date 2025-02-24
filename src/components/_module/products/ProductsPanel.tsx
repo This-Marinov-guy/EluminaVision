@@ -74,7 +74,7 @@ const ProductsPanel = () => {
                     {item.price}
                   </Badge>
 
-                  <CardHeader fontSize="xl" fontWeight="bold">
+                  <CardHeader fontSize="lg" fontWeight="bold">
                     {item.variant}
                   </CardHeader>
 
