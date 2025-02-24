@@ -28,6 +28,10 @@
       object-fit: contain;
       width: 200px;
       height: 200px;
+
+      @media (max-width: 400px) {
+        width: 150px;
+      }
     }
   }
 }
@@ -37,5 +41,5 @@
 }
 
 .card {
-  @apply p-2
+  @apply p-2;
 }
