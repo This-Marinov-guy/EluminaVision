@@ -5,7 +5,7 @@
     @apply mt-12 w-full;
 
     .member {
-      @apply bg-semiDark rounded-lg p-10 flex flex-col items-center text-white mx-3 md:mx-6 w-[350px] md:w-96;
+      @apply bg-semiDark rounded-lg p-10 flex flex-col items-center text-white md:mx-6 w-[350px] md:w-96;
 
       .avatar {
         @apply rounded-full overflow-hidden;

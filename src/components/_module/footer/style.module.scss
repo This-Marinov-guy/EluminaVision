@@ -8,7 +8,7 @@
       @apply flex flex-col items-center md:items-start gap-2;
 
       .logo {
-        @apply w-8;
+      @apply w-32 h-auto;
       }
 
       .copyright {
