@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { writeToGoogleSheet } from "@/server/google/spreadsheet-service";
 import { ORDER_EMAIL_TEMPLATE_ID, ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
 import mailTrap from "@/server/mails/mail-trap";
+import { getShippingCostDetails } from "@/utils/helpers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -30,6 +31,8 @@ export async function POST(req: Request) {
       const orderNumber = uuidv4();
       const customerDetails = session.customer_details;
       const shippingDetails = session.shipping_details;
+      const shippingCost = session.shipping_cost;
+      const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? '');
       const metadata = session.metadata || {};
 
       const email = customerDetails?.email;
@@ -60,6 +63,7 @@ export async function POST(req: Request) {
         phone || "",
         shippingAddress ? JSON.stringify(shippingAddress) : "",
         formattedItems.join(", "),
+        shippingCostDetails,
       ];
 
       try {
@@ -87,6 +91,7 @@ export async function POST(req: Request) {
             phone,
             shippingAddress,
             items: formattedItems,
+            shippingCostDetails,
           },
         });
       } catch (err) {
