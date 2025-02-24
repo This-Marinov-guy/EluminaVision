@@ -19,14 +19,14 @@ const members = [
   {
     avatar: "/img/team/team-2.jpeg",
     name: "Georgi Tashev",
-    role: "External Relations",
+    role: "External Relations & Marketing",
     description: "BEng in Electronics and Electrical Engineering | Brunel University London",
   },
   {
     avatar: "/img/team/team-3.jpeg",
-    name: "Vladimir Tsagov",
-    role: "Content Creator",
-    description: "Master Degree in Finance and Investment | Brunel University London",
+    name: "Ivan Babev",
+    role: "Digital Animator",
+    description: "BA in Animation & Interactive Technology | Northumbria University Newcastle",
   },
 ];
 
