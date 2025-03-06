@@ -1,0 +1,15 @@
+.wrapper {
+  @apply w-screen h-screen flex items-center justify-center fixed inset-0 z-40;
+
+  .loaderSection {
+    @apply flex flex-col items-center gap-1 relative;
+
+    .logo {
+      @apply h-12 w-auto flex-none;
+    }
+
+    .text {
+      @apply text-base text-gray;
+    }
+  }
+}
