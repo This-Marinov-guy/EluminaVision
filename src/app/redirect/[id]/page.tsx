@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
 export async function generateStaticParams() {
   return [];
 }
 
-const Redirect = () => {
-  return (
-    <div>Bai hui</div>
-  )
-}
+export const dynamicParams = true;
 
-export default Redirect
+const Redirect = () => {
+  return <div>Bai hui</div>;
+};
+
+export default Redirect;
