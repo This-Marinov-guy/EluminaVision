@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export class UserStore {
+  isAuthModalOpen = false;
   user = null;
   isLoading = false;
 
@@ -9,26 +10,16 @@ export class UserStore {
     makeAutoObservable(this, { rootStore: false });
   }
 
-  setUser(user) {
+  setUser = (user) => {
     this.user = user;
   }
 
-  async login(credentials) {
-    this.isLoading = true;
-    try {
-      // Example login logic
-      const response = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify(credentials),
-      });
-      const user = await response.json();
-      this.setUser(user);
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  toggleAuthModal = () => {
+    this.isAuthModalOpen = !this.isAuthModalOpen;
+  };
 
-  logout() {
-    this.user = null;
-  }
+  closeAuthModal = () => {
+    this.isAuthModalOpen = false;
+  };
+
 }
