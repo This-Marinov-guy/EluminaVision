@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 
 import styles from "./style.module.scss";
 import CartButton from "@/components/_basic/button/CartButton";
+import AuthButton from "@/components/_basic/button/AuthButton";
 
 const linkMap = [
   { name: "Products", link: "products", external: true, className: "special" },
@@ -59,11 +60,12 @@ const NavBar = () => {
     <nav className={styles.wrapper}>
       {/* Logo */}
       <a href="/" className={styles.logoWrapper} onClick={() => handleHomeRedirect()}>
-        <Image src="/img/logo.png" alt="logo" width={400} height={200} className={styles.logo} />
+        <Image src="/img/logo-1.png" alt="logo" width={1000} height={1000} className={styles.logo} />
       </a>
 
       {/* Desktop Navigation */}
       <div className={styles.navs}>
+        <AuthButton />
         <CartButton />
         {linkMap.map((item) =>
           item.external ? (
@@ -102,8 +104,11 @@ const NavBar = () => {
 
       {/* Mobile Navigation */}
       <div className={styles.mobileNav}>
-        <div className="flex row items-center align-center justify-center gap-16">
-          <CartButton />
+        <div className="flex row items-center align-center justify-center gap-12">
+          <div className="flex items-center align-center gap-4">
+            <AuthButton />
+            <CartButton />
+          </div>
           <button className={styles.hamburger} onClick={() => setIsOpenMenu((prev) => !prev)}>
             <div className={classNames(styles.line1, { [styles.active]: isOpenMenu })}></div>
             <div className={classNames(styles.line2, { [styles.active]: isOpenMenu })}></div>
