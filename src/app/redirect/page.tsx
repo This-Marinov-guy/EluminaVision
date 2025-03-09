@@ -1,18 +1,28 @@
-import React from "react";
-import Image from "next/image";
+"use client";
 
-import styles from "./style.module.scss";
-export const dynamicParams = true;
+import PageLoader from "@/components/_page/loading/PageLoader";
+import { useEffect } from "react";
 
-const Redirect = () => {
-  return (
-    <section id="loading" className={styles.wrapper}>
-      <div className={styles.loaderSection}>
-        <Image src="/img/logo.png" alt={"loading"} width={100} height={50} className={styles.logo} />
-        <p className={styles.text}>Loading...</p>
-      </div>
-    </section>
-  );
-};
+export default function RedirectPage() {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-export default Redirect;
+    if (!id) {
+      alert("Missing 'id' parameter in the URL.");
+      return;
+    }
+
+    fetch(`/api/redirect?id=${id}`, {
+      method: "GET",
+    })
+      .then((response) => {
+        window.location.assign(response.url);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  }, []);
+
+  return <PageLoader />;
+}

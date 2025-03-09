@@ -26,7 +26,7 @@
     "encoding": "^0.1.13",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "framer-motion": "^12.4.7",
+    "framer-motion": "^12.4.10",
     "googleapis": "^144.0.0",
     "mailtrap": "^3.4.0",
     "mobx": "^6.13.6",
@@ -43,12 +43,12 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/plugin-proposal-decorators": "^7.24.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-scroll": "^1.8.10",
-    "@babel/core": "^7.25.2",
-    "@babel/plugin-proposal-decorators": "^7.24.7",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
     "postcss": "^8",

@@ -11,5 +11,9 @@
     .text {
       @apply text-base text-gray;
     }
+
+    .textWhite {
+      @apply text-base text-white;
+    }
   }
 }
