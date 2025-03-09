@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/config";
-import { NextResponse } from "next/server"; // For App Router
+import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
