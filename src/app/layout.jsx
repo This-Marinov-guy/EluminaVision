@@ -42,6 +42,8 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg" />
+
+        <meta name="facebook-domain-verification" content="sz77ets71sg2lttigkxfx5b2vz075z" />
       </head>
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
         <StoreProvider>
