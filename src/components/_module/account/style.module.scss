@@ -1,3 +1,45 @@
 .wrapper {
-  @apply bg-dark text-white h-screen w-screen px-12 py-16;
+  @apply bg-semiDark pt-24;
+}
+
+.wrapper2 {
+  @apply bg-semiDark text-white pt-24 pb-10;
+  min-height: 46vh;
+
+  .services {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-2 py-10;
+
+    .card {
+      @apply p-2 m-auto;
+    }
+    .service {
+      @apply p-8 rounded-lg cursor-pointer h-full;
+
+      .avatar {
+        @apply w-20 h-20 relative;
+
+        .image {
+          @apply object-cover;
+        }
+      }
+
+      .heading {
+        @apply text-xl font-bold;
+      }
+
+      .description {
+        @apply mt-4 leading-relaxed text-sm;
+      }
+    }
+
+    img {
+      object-fit: contain;
+      width: 200px;
+      height: 200px;
+
+      @media (max-width: 400px) {
+        width: 150px;
+      }
+    }
+  }
 }

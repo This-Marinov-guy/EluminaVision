@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 
 import styles from "./style.module.scss";
 import CartButton from "@/components/_basic/button/CartButton";
+import AuthButton from "@/components/_basic/button/AuthButton";
 // import AuthButton from "@/components/_basic/button/AuthButton";
 
 const linkMap = [
@@ -65,7 +66,7 @@ const NavBar = () => {
 
       {/* Desktop Navigation */}
       <div className={styles.navs}>
-        {/* <AuthButton /> */}
+        <AuthButton />
         <CartButton />
         {linkMap.map((item) =>
           item.external ? (
@@ -106,7 +107,7 @@ const NavBar = () => {
       <div className={styles.mobileNav}>
         <div className="flex row items-center align-center justify-center gap-12">
           <div className="flex items-center align-center gap-4">
-            {/* <AuthButton /> */}
+            <AuthButton />
             <CartButton />
           </div>
           <button className={styles.hamburger} onClick={() => setIsOpenMenu((prev) => !prev)}>

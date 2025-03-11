@@ -1,9 +1,10 @@
+import { supabase } from "@/utils/config";
 import { makeAutoObservable } from "mobx";
 
 export class UserStore {
   isAuthModalOpen = false;
   user = null;
-  isLoading = false;
+  isLoading = true;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -12,7 +13,11 @@ export class UserStore {
 
   setUser = (user) => {
     this.user = user;
-  }
+  };
+
+  toggleLoading = () => {
+    this.loading = !this.loading;
+  };
 
   toggleAuthModal = () => {
     this.isAuthModalOpen = !this.isAuthModalOpen;
@@ -22,4 +27,9 @@ export class UserStore {
     this.isAuthModalOpen = false;
   };
 
+  signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    this.user = null;
+  };
 }

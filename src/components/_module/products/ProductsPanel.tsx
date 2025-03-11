@@ -91,8 +91,6 @@ const ProductsPanel = () => {
             ))}
           </div>
 
-          {/*  TODO: Add button for cart modal */}
-
           {totalItems > 0 && (
             <motion.button
               className="m-auto flex justify-center gap-3"
