@@ -77,7 +77,14 @@ const TeamSection = () => {
       >
         <PageContainer>
           <PageSectionHeading title="Team." slogan="who are the people behind the project" />
-          <Carousel infinite slidesToSlide={1} arrows={false} responsive={responsive} className={styles.section}>
+          <Carousel
+            infinite
+            autoPlay
+            autoPlaySpeed={5000}
+            arrows={false}
+            responsive={responsive}
+            className={styles.section}
+          >
             {members.map((member) => (
               <div key={member.name} className={styles.member}>
                 <div className={styles.avatar}>
