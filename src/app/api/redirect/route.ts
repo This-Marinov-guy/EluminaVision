@@ -23,5 +23,5 @@ export async function GET(req) {
     return NextResponse.json({ error: "Invalid URL - Please check it again: " + data.link }, { status: 500 });
   }
 
-  return NextResponse.redirect(data.link, 301);
+  // return NextResponse.redirect(data.link, 301);
 }

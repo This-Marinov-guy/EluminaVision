@@ -94,6 +94,21 @@ body {
   background-color: rgb(245 157 106) !important;
 }
 
+.bg-orange {
+  color: white !important;
+  border-radius: 10px;
+  padding: 2px 5px;
+  background-color: rgb(245 157 106) !important;
+}
+
+.bg-dark {
+  color: white !important;
+  border-radius: 10px;
+  padding: 2px 5px;
+  background-color: rgb(81 39 53) !important;
+}
+
+
 .btn-light-2 {
   color: black !important;
   background-color: rgb(245 157 106) !important;

@@ -1,10 +1,14 @@
 import { supabase } from "@/utils/config";
 import { makeAutoObservable } from "mobx";
+import axios from "axios";
 
 export class UserStore {
   isAuthModalOpen = false;
   user = null;
   isLoading = true;
+
+  qrCodes = [];
+  qrCodesLoading = true;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -13,6 +17,23 @@ export class UserStore {
 
   setUser = (user) => {
     this.user = user;
+  };
+
+  loadQrCodes = async () => {
+    try {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
+
+      const response = await axios.get("/api/qr-codes");
+
+      this.qrCodes = response.data.qrCodes;
+
+      console.log("response", response);
+      
+    } catch (error) {
+      console.error("Error fetching codes", error);
+    } finally {
+      this.qrCodesLoading = false;
+    }
   };
 
   toggleLoading = () => {

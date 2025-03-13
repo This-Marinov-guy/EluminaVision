@@ -36,7 +36,8 @@ const UserPanel = () => {
           <div className="flex items-center justify-between">
             <PageSectionHeading title="Welcome back" slogan={user?.email} />
             <Button style={{ zIndex: "999" }} colorScheme="red" variant="solid" onClick={userStore.signOut}>
-              <i className="mr-2 fa-solid fa-door-open"></i> Log out
+              {/* <i className="mr-2 fa-solid fa-door-open"></i>  */}
+              Log out
             </Button>
           </div>
           <div className="text-white">
