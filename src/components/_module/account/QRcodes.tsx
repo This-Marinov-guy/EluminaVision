@@ -47,7 +47,7 @@ const QRcodes = () => {
               />
 
               <CardBody className="flex flex-col items-center justify-center gap-2">
-                <h2 className="bg-orange ">{code.id}</h2>
+                <h2 className="bg-orange ">{code.id.slice(0,8)}</h2>
 
                 <p>Redirect to</p>
                 <InputGroup>

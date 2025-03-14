@@ -56,6 +56,7 @@ const CartButton = () => {
             <ModalBody>
               {items.map((item) => (
                 <motion.div
+                  key={item.id}
                   initial={{ scale: 0, opacity: 0, y: -10 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   exit={{ scale: 0, opacity: 0, y: -10 }}

@@ -10,6 +10,11 @@ export class UserStore {
   qrCodes = [];
   qrCodesLoading = true;
 
+  activateQrCodeModal = false;
+  activationLoading = false;
+  activationStatus = null;
+  activationMessage = "";
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this, { rootStore: false });
@@ -21,19 +26,49 @@ export class UserStore {
     this.loadQrCodes();
   };
 
+  toggleQRCodeModal = () => {
+    this.activateQrCodeModal = !this.activateQrCodeModal;
+  }
+
   loadQrCodes = async () => {
     try {
       if (!this.user?.token) return;
-      
+
       axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
 
-      const response = await axios.get("/api/user-codes/qr-codes");
+      const response = await axios.get("/api/qr-codes/user-codes");
 
       this.qrCodes = response.data.qrCodes;
     } catch (error) {
       console.error("Error fetching codes", error);
     } finally {
       this.qrCodesLoading = false;
+    }
+  };
+
+  activateQrCode = async (codeId) => {
+    this.activationLoading = true;
+    this.activationStatus = null;
+    this.activationMessage = "";
+
+    try {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
+
+      const response = await axios.put(`/api/qr-codes/activate`, { id: codeId });
+
+      this.activationStatus = response.data.status;
+      this.activationMessage = response.data.message;
+
+      if (response.data.status === true) {
+        this.loadQrCodes();
+      }
+    } catch (error) {
+      console.log("Error activating code", error);
+      
+      this.activationStatus = false;
+      this.activationMessage = error.response.data.message ?? "Error activating code - please try again!";
+    } finally {
+      this.activationLoading = false;
     }
   };
 

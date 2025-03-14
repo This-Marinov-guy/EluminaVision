@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 import { Button } from "@chakra-ui/react";
 import { Input, Kbd } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import ActivateQRCode from "@/components/_basic/modals/ActivateQRCode";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -25,6 +26,7 @@ const UserPanel = () => {
 
   return (
     <section id="service" className={styles.wrapper}>
+      <ActivateQRCode />
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -52,7 +54,7 @@ const UserPanel = () => {
                   The Product Page
                 </Button>{" "}
                 or activate the ones you do not see here from the{" "}
-                <Button size="sm" variant="solid" onClick={userStore.signOut}>
+                <Button size="sm" variant="solid" onClick={userStore.toggleQRCodeModal}>
                   <i className="mr-2 fa-solid fa-qrcode"></i> Activate
                 </Button>{" "}
                 button
