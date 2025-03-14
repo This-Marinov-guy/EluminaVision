@@ -41,13 +41,13 @@ export const NFC_GOOGLE_CARDS = [
 export const QR_CODES_VARIANTS = [
   {
     id: 1,
-    title: "NFC Google review card",
-    variant: "Light",
+    title: "Dynamic QR code",
+    variant: "Standard",
     description: "",
     price: 8.99,
     limit: 10,
     currency: "GBP",
-    imageUrl: "/img/products/product1.jpg",
+    imageUrl: "/img/products/qrCodes1.png",
     priceId: "price_1QvZqWLUXmDaRfFYUDeWIwzv",
   },
 ];

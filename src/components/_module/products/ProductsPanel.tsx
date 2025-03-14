@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Badge, Button, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
 import PageSectionHeading from "../../_basic/heading";
 import PageContainer from "../container";
 import styles from "./style.module.scss";
-import Counter from "@/components/_basic/input/Counter";
+import { Skeleton } from "@chakra-ui/react";
 import { getCurrencySymbol } from "@/utils/helpers";
-import { NFC_GOOGLE_CARDS } from "@/utils/products";
+import { NFC_GOOGLE_CARDS, QR_CODES_VARIANTS } from "@/utils/products";
 import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
+import axios from "axios";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -17,9 +18,11 @@ const containerVariants = {
 
 const ProductsPanel = () => {
   const { cartStore, commonStore } = useStore();
-  const {loading} = commonStore;
+  const { loading } = commonStore;
   const { totalItems, toggleCartModal, goToCheckout } = cartStore;
+  const [products, setProducts] = useState(NFC_GOOGLE_CARDS);
 
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [quantities, setQuantities] = useState(NFC_GOOGLE_CARDS.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {}));
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -34,6 +37,24 @@ const ProductsPanel = () => {
     //   cartStore.addItem(item, quantity);
     // }
   };
+
+  useEffect(() => {
+    const checkQRcodesAvailability = async () => {
+      try {
+        const response = await axios.get("/api/qr-codes/availability");
+
+        if (response.data.exists) {
+          setProducts([...NFC_GOOGLE_CARDS, ...QR_CODES_VARIANTS]);
+        }
+      } catch (error) {
+        // do nothing
+      } finally {
+        setLoadingProducts(false);
+      }
+    };
+
+    checkQRcodesAvailability();
+  }, []);
 
   return (
     <section id="service" className={styles.wrapper}>
@@ -61,7 +82,7 @@ const ProductsPanel = () => {
             </ul>
           </div>
           <div className={styles.services}>
-            {NFC_GOOGLE_CARDS.map((item) => (
+            {products.map((item) => (
               <Card key={item.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="xl">
                 <Image src={item.imageUrl} alt={item.title} />
                 <CardBody className="flex flex-col items-center justify-center gap-2">
@@ -89,6 +110,7 @@ const ProductsPanel = () => {
                 </CardBody>
               </Card>
             ))}
+            {loadingProducts && <Skeleton height="220px" width="390px" />}
           </div>
 
           {totalItems > 0 && (

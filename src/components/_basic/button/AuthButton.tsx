@@ -18,11 +18,12 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/utils/config";
+import axios from "axios";
 
 const AuthButton = () => {
   const { userStore, commonStore } = useStore();
   const { loading } = commonStore;
-  const { toggleAuthModal, closeAuthModal, isAuthModalOpen, user, setUser } = userStore;
+  const { toggleAuthModal, closeAuthModal, isAuthModalOpen, user, setUser, loadQrCodes } = userStore;
   const router = useRouter();
 
   const handleAuthButton = () => {
@@ -43,9 +44,9 @@ const AuthButton = () => {
   useEffect(() => {
     supabase.auth.getSession().then((response) => {
       const { session } = response.data;
-      
+
       if (session.user) {
-        setUser(session.user.user_metadata);
+        setUser({ ...session.user.user_metadata, token: session.access_token ?? "" })        
       }
     });
 
