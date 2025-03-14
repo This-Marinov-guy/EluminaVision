@@ -23,7 +23,7 @@ import axios from "axios";
 const AuthButton = () => {
   const { userStore, commonStore } = useStore();
   const { loading } = commonStore;
-  const { toggleAuthModal, closeAuthModal, isAuthModalOpen, user, setUser, loadQrCodes } = userStore;
+  const { toggleAuthModal, closeAuthModal, isAuthModalOpen, user, setUser } = userStore;
   const router = useRouter();
 
   const handleAuthButton = () => {

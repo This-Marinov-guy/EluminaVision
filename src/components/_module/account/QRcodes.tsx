@@ -8,10 +8,10 @@ import styles from "./style.module.scss";
 import { QR_CODE_DOMAIN } from "@/utils/defines";
 import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
+import QrCard from "@/components/_basic/input/QrCard";
 
 const QRcodes = () => {
-  const [codes, setCodes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [link, setLink] = useState("");
 
   const { userStore } = useStore();
   const { user, qrCodesLoading, qrCodes } = userStore;
@@ -39,27 +39,7 @@ const QRcodes = () => {
       ) : (
         <div className={styles.services}>
           {qrCodes.map((code) => (
-            <Card key={code.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="md">
-              <QRCode
-                style={{ height: "auto", width: "5em" }}
-                value={QR_CODE_DOMAIN + code.id}
-                viewBox={`0 0 256 256`}
-              />
-
-              <CardBody className="flex flex-col items-center justify-center gap-2">
-                <h2 className="bg-orange ">{code.id.slice(0,8)}</h2>
-
-                <p>Redirect to</p>
-                <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <i className="fa-solid fa-link"></i>{" "}
-                  </InputLeftElement>
-                  <Input type="tel" placeholder="Link" />
-                </InputGroup>
-
-                {/* {item.limit && <small className="text-black mt-3">*limited to {item.limit} per purchase</small>} */}
-              </CardBody>
-            </Card>
+            <QrCard key={code.id} code={code} />
           ))}
         </div>
       )}
