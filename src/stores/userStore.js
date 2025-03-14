@@ -17,18 +17,19 @@ export class UserStore {
 
   setUser = (user) => {
     this.user = user;
+
+    this.loadQrCodes();
   };
 
   loadQrCodes = async () => {
     try {
+      if (!this.user?.token) return;
+      
       axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
 
-      const response = await axios.get("/api/qr-codes");
+      const response = await axios.get("/api/user-codes/qr-codes");
 
       this.qrCodes = response.data.qrCodes;
-
-      console.log("response", response);
-      
     } catch (error) {
       console.error("Error fetching codes", error);
     } finally {

@@ -4,15 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const userId = extractIdFromRequest(req.headers.get("authorization"));
-  
+
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
   }
 
   const { data, error } = await supabase.from("qr_codes").select("id, link").eq("user_id", userId);
 
-  console.log(data, error);
-  
   if (error || !data) {
     return NextResponse.json({ qrCodes: [] }, { status: 200 });
   }

@@ -5,7 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import { writeToGoogleSheet } from "@/server/google/spreadsheet-service";
 import { ORDER_EMAIL_TEMPLATE_ID, ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
 import mailTrap from "@/server/mails/mail-trap";
-import { getShippingCostDetails } from "@/utils/helpers";
+import { extractIdFromRequest, getShippingCostDetails, updateFirstNRows } from "@/utils/helpers";
+import { QR_CODES_VARIANTS } from "@/utils/products";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -32,8 +33,11 @@ export async function POST(req: Request) {
       const customerDetails = session.customer_details;
       const shippingDetails = session.shipping_details;
       const shippingCost = session.shipping_cost;
-      const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? '');
+      const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? "");
       const metadata = session.metadata || {};
+      const token = session.metadata.token ?? "";
+      const userId = extractIdFromRequest(token);
+      let orderedQrCodesQuantity = 0;
 
       const email = customerDetails?.email;
       const name = customerDetails?.name;
@@ -41,10 +45,10 @@ export async function POST(req: Request) {
       const shippingAddress = shippingDetails?.address;
 
       // Convert metadata into an array of objects
-      const items = Object.keys(metadata)
+      const items = Object.keys(metadata.items)
         .map((key) => {
           try {
-            return JSON.parse(metadata[key]); // Attempt to parse the metadata
+            return JSON.parse(metadata["items"][key]); // Attempt to parse the metadata
           } catch (err) {
             console.error(`Failed to parse metadata key: ${key}`, err);
             return null;
@@ -53,6 +57,10 @@ export async function POST(req: Request) {
         .filter((item) => item !== null); // Filter out any null results if parsing fails
 
       const formattedItems = items.map((item) => {
+        if (QR_CODES_VARIANTS.map((card) => card.title).includes(item.title)) {
+          orderedQrCodesQuantity += item.quantity;
+        }
+
         return `${item.quantity} x ${item.title} (${item.variant}) - ${item.currency}${item.price}`;
       });
 
@@ -65,6 +73,20 @@ export async function POST(req: Request) {
         formattedItems.join(", "),
         shippingCostDetails,
       ];
+
+      try {
+        if (orderedQrCodesQuantity) await updateFirstNRows(orderedQrCodesQuantity, userId);
+      } catch (err) {
+        console.error("Error updating qr codes:", err);
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed to update qr codes",
+            log: err.message,
+          },
+          { status: 200 },
+        );
+      }
 
       try {
         await writeToGoogleSheet(data, ORDERS_GOOGLE_SHEET_ID);
