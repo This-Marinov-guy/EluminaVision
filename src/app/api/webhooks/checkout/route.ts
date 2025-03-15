@@ -35,7 +35,8 @@ export async function POST(req: Request) {
       const shippingCost = session.shipping_cost;
       const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? "");
       const metadata = session.metadata || {};
-      const userId = session.metadata.userId;
+      const userId = metadata.userId;
+      let items = JSON.parse(metadata.items);
       let orderedQrCodesQuantity = 0;
 
       const email = customerDetails?.email;
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
       const shippingAddress = shippingDetails?.address;
 
       // Convert metadata into an array of objects
-      const items = Object.keys(metadata.items)
+      items = Object.keys(metadata.items)
         .map((key) => {
           try {
             return JSON.parse(metadata["items"][key]); // Attempt to parse the metadata

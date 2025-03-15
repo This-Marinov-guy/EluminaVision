@@ -15,10 +15,14 @@ export async function POST(request) {
 
     const metadata = {};
 
-    metadata["items"] = items.reduce((acc, item, index) => {
-      acc[`item_${index}`] = JSON.stringify(item); // Creates a unique key for each item
+    metadata["items"] = JSON.stringify(items.reduce((acc, item, index) => {
+      acc[`item_${index}`] = item; // Creates a unique key for each item
       return acc;
-    }, {});
+    }, {}));
+
+    if (!metadata["items"]) {
+      metadata["items"] = '{}'; 
+    }
 
     metadata["userId"] = request.headers.get("authorization")
       ? extractIdFromRequest(request.headers.get("authorization"))
