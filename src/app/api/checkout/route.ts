@@ -1,4 +1,5 @@
 import { ALLOWED_CHECKOUT_COUNTRIES } from "@/utils/defines";
+import { extractIdFromRequest } from "@/utils/helpers";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -17,7 +18,9 @@ export async function POST(request) {
       return acc;
     }, {});
 
-    metadata["authHeader"] = request.headers.get("authorization") ?? "";
+    metadata["userId"] = request.headers.get("authorization")
+      ? extractIdFromRequest(request.headers.get("authorization"))
+      : null;
 
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
