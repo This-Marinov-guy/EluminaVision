@@ -1,8 +1,9 @@
 import { supabase } from "@/utils/config";
 import { NextResponse } from "next/server";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function PUT(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
 
   const { newLink } = await req.json();
 

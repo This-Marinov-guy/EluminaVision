@@ -22,7 +22,7 @@ const QrCard = (props) => {
       setMessage("Saving...");
       
       try {
-        const response = await axios.put(`/api/qr-codes/change-link/${code.id}`, {
+        const response = await axios.put(`/api/qr-codes/change-link?id=${code.id}`, {
           newLink: event.target.value,
         });
 
