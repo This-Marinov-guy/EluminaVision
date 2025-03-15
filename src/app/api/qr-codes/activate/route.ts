@@ -15,12 +15,13 @@ export async function PUT(req: Request) {
     return NextResponse.json({ status: false, message: "QR Code ID is required" }, { status: 400 });
   }
 
+const prefix = id.substring(0, 8);
 const { data: qrCode, error: fetchError } = await supabase
   .from("qr_codes")
   .select("id, status, user_id")
-  .or(`id.eq.${id}, id.ilike.${id.substring(0, 8)}%`)
+  .or(`id.eq.${id},id.ilike.${prefix}%`)
   .eq("status", 1)
-  .single();
+  .maybeSingle();
 
   if (fetchError || !qrCode) {
     return NextResponse.json({ status: false, message: "QR Code not found or already activated" }, { status: 404 });
