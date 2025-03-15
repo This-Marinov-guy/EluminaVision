@@ -74,7 +74,7 @@ const AuthButton = () => {
       <Modal isOpen={isAuthModalOpen} onClose={toggleAuthModal} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Sign up</ModalHeader>
+          <ModalHeader>Authenticate</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <motion.div
@@ -99,6 +99,7 @@ const AuthButton = () => {
                       fontFamily: "var(--font-poppins)",
                     },
                     input: {
+                      color: "black",
                       backgroundColor: "#f1f1f1",
                     },
                     label: {
