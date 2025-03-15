@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       items = Object.keys(metadata.items)
         .map((key) => {
           try {
-            return JSON.parse(metadata["items"][key]); // Attempt to parse the metadata
+            return metadata["items"][key]; // Attempt to parse the metadata
           } catch (err) {
             console.error(`Failed to parse metadata key: ${key}`, err);
             return null;
