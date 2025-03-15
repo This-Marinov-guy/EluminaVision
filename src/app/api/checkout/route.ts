@@ -13,7 +13,9 @@ export async function POST(request) {
       quantity: item.quantity,
     }));
 
-    const metadata = items.reduce((acc, item, index) => {
+    const metadata = {};
+
+    metadata["items"] = items.reduce((acc, item, index) => {
       acc[`item_${index}`] = JSON.stringify(item); // Creates a unique key for each item
       return acc;
     }, {});
