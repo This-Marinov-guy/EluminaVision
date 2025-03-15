@@ -23,6 +23,8 @@ export class UserStore {
   setUser = (user) => {
     this.user = user;
 
+    this.isLoading = false;
+
     this.loadQrCodes();
   };
 
