@@ -87,7 +87,7 @@ const AuthButton = () => {
                 supabaseClient={supabase}
                 providers={["google"]}
                 view="sign_in"
-                // redirectTo={window.location.href}
+                redirectTo={"/account"}
                 socialLayout="horizontal"
                 theme="dark"
                 appearance={{
