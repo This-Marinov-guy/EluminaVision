@@ -25,6 +25,8 @@ export const getShippingCostDetails = (id) => {
 };
 
 export const extractIdFromRequest = (authHeader: string) => {
+  if (!authHeader) return null;
+
   try {
     const token = authHeader.split(" ")[1];
     const parts = token.split(".");

@@ -35,8 +35,8 @@ export async function POST(req: Request) {
       const shippingCost = session.shipping_cost;
       const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? "");
       const metadata = session.metadata || {};
-      const token = session.metadata.token ?? "";
-      const userId = extractIdFromRequest(token);
+      const authHeader = session.metadata.authHeader ?? "";
+      const userId = authHeader ? extractIdFromRequest(authHeader) : null;
       let orderedQrCodesQuantity = 0;
 
       const email = customerDetails?.email;

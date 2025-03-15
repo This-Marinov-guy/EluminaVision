@@ -17,6 +17,8 @@ export async function POST(request) {
       return acc;
     }, {});
 
+    metadata["authHeader"] = request.headers.get("authorization") ?? "";
+
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
