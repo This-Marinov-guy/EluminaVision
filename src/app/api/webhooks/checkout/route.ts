@@ -51,7 +51,9 @@ export async function POST(req: Request) {
 
         if (error) throw error;
 
-        unfinishedOrder = data.items ?? null;
+        unfinishedOrder = data?.items ? JSON.parse(data.items) : null;
+        console.log(data);
+        
       } catch (err) {
         console.error("Error fetching order:", err);
         return NextResponse.json(
@@ -74,7 +76,6 @@ export async function POST(req: Request) {
         );
       }
 
-      unfinishedOrder = JSON.parse(unfinishedOrder.content);
       const userId = unfinishedOrder.userId;
       let items = unfinishedOrder.items;
       let orderedQrCodesQuantity = 0;
