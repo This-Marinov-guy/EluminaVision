@@ -48,6 +48,6 @@ export const QR_CODES_VARIANTS = [
     limit: 5,
     currency: "GBP",
     imageUrl: "/img/products/qrCodes1.png",
-    priceId: "price_1QvZqWLUXmDaRfFYUDeWIwzv",
+    priceId: "price_1R2zSmLUXmDaRfFYmYARxbeW",
   },
 ];
