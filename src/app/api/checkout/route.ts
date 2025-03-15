@@ -1,6 +1,9 @@
 import { ALLOWED_CHECKOUT_COUNTRIES } from "@/utils/defines";
 import { extractIdFromRequest } from "@/utils/helpers";
+import { v4 as uuidv4 } from "uuid";
 import Stripe from "stripe";
+import { supabase } from "@/utils/config";
+import { content } from "googleapis/build/src/apis/content";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -13,25 +16,33 @@ export async function POST(request) {
       quantity: item.quantity,
     }));
 
-    const metadata = {};
+    const unfinishedOrder = {};
 
-    metadata["items"] = JSON.stringify(items.reduce((acc, item, index) => {
+    unfinishedOrder["items"] = items.reduce((acc, item, index) => {
       acc[`item_${index}`] = item; // Creates a unique key for each item
       return acc;
-    }, {}));
+    }, {});
 
-    if (!metadata["items"]) {
-      metadata["items"] = '{}'; 
+    if (!unfinishedOrder["items"]) {
+      unfinishedOrder["items"] = "{}";
     }
 
-    metadata["userId"] = request.headers.get("authorization")
+    unfinishedOrder["userId"] = request.headers.get("authorization")
       ? extractIdFromRequest(request.headers.get("authorization"))
       : null;
+
+    const orderNumber = uuidv4();
+
+    const { data, error } = await supabase
+      .from("unfinished_orders")
+      .insert([{ id: orderNumber, content: JSON.stringify(unfinishedOrder) }]);
+
+    if (error) throw error;
 
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
-      metadata,
+      metadata: { orderNumber },
       phone_number_collection: {
         enabled: true,
       },

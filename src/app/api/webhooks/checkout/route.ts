@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import { v4 as uuidv4 } from "uuid";
 import { writeToGoogleSheet } from "@/server/google/spreadsheet-service";
 import { ORDER_EMAIL_TEMPLATE_ID, ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines";
 import mailTrap from "@/server/mails/mail-trap";
 import { extractIdFromRequest, getShippingCostDetails, updateFirstNRows } from "@/utils/helpers";
 import { QR_CODES_VARIANTS } from "@/utils/products";
+import { supabase } from "@/utils/config";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -29,20 +29,51 @@ export async function POST(req: Request) {
     case "checkout.session.async_payment_succeeded":
       const session = event.data.object as Stripe.Checkout.Session;
 
-      const orderNumber = uuidv4();
       const customerDetails = session.customer_details;
       const shippingDetails = session.shipping_details;
       const shippingCost = session.shipping_cost;
       const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? "");
-      const metadata = session.metadata || {};
-      const userId = metadata.userId;
-      let items = JSON.parse(metadata.items);
-      let orderedQrCodesQuantity = 0;
 
       const email = customerDetails?.email;
       const name = customerDetails?.name;
       const phone = customerDetails?.phone;
       const shippingAddress = shippingDetails?.address;
+
+      const orderNumber = session.metadata?.orderNumber ?? "";
+      let unfinishedOrder = null;
+
+      try {
+        unfinishedOrder = await supabase
+          .from("unfinished_orders")
+          .select("content")
+          .eq("id", session.metadata?.orderNumber)
+          .single();
+      } catch (err) {
+        console.error("Error fetching order:", err);
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed fetch it",
+            log: err.message,
+          },
+          { status: 200 },
+        );
+      }
+
+      if (!unfinishedOrder) {
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed to find it",
+          },
+          { status: 200 },
+        );
+      }
+
+      unfinishedOrder = JSON.parse(unfinishedOrder.content);
+      const userId = unfinishedOrder.userId;
+      let items = unfinishedOrder.items;
+      let orderedQrCodesQuantity = 0;
 
       // convert items to array without null values
       items = Object.values(items).filter(Boolean);
@@ -119,6 +150,20 @@ export async function POST(req: Request) {
           {
             received: true,
             warning: "Order received but failed to send confirmation mail",
+            log: err.message,
+          },
+          { status: 200 },
+        );
+      }
+
+      try {
+        await supabase.from("unfinished_orders").delete().eq("id", orderNumber);
+      } catch (err) {
+        console.error("Error deleting finished order:", err);
+        return NextResponse.json(
+          {
+            received: true,
+            warning: "Order received but failed to delete unfinished order",
             log: err.message,
           },
           { status: 200 },
