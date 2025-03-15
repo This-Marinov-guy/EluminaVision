@@ -43,11 +43,15 @@ export async function POST(req: Request) {
       let unfinishedOrder = null;
 
       try {
-        unfinishedOrder = await supabase
+        const { data, error } = await supabase
           .from("unfinished_orders")
-          .select("content")
+          .select("items")
           .eq("id", session.metadata?.orderNumber)
           .single();
+
+        if (error) throw error;
+
+        unfinishedOrder = data.items ?? null;
       } catch (err) {
         console.error("Error fetching order:", err);
         return NextResponse.json(
