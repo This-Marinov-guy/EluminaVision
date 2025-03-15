@@ -23,6 +23,8 @@ export class UserStore {
   setUser = (user) => {
     this.user = user;
 
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+
     this.isLoading = false;
 
     this.loadQrCodes();
@@ -30,13 +32,11 @@ export class UserStore {
 
   toggleQRCodeModal = () => {
     this.activateQrCodeModal = !this.activateQrCodeModal;
-  }
+  };
 
   loadQrCodes = async () => {
     try {
       if (!this.user?.token) return;
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
 
       const response = await axios.get("/api/qr-codes/user-codes");
 
@@ -54,8 +54,6 @@ export class UserStore {
     this.activationMessage = "";
 
     try {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.user.token}`;
-
       const response = await axios.put(`/api/qr-codes/activate`, { id: codeId });
 
       this.activationStatus = response.data.status;
@@ -66,7 +64,7 @@ export class UserStore {
       }
     } catch (error) {
       console.log("Error activating code", error);
-      
+
       this.activationStatus = false;
       this.activationMessage = error.response.data.message ?? "Error activating code - please try again!";
     } finally {

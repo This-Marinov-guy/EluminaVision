@@ -36,7 +36,7 @@ const AuthButton = () => {
 
   const handleAuthStateChange = (event, session) => {
     if (event === "SIGNED_IN" && session?.user) {
-      setUser(session.user.user_metadata);
+      setUser({...session.user.user_metadata, token: session.access_token ?? ""});
       closeAuthModal();
     }
   };
