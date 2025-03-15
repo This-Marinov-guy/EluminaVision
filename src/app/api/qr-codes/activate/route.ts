@@ -19,8 +19,9 @@ const prefix = id.substring(0, 8);
 const { data: qrCode, error: fetchError } = await supabase
   .from("qr_codes")
   .select("id, status, user_id")
-  .or(`id.eq.${id},id.ilike.${prefix}%`)
+  .ilike("id", `${prefix}%`)
   .eq("status", 1)
+  .limit(1)
   .maybeSingle();
 
   if (fetchError || !qrCode) {
