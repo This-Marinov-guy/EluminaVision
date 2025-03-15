@@ -40,7 +40,7 @@ export const extractIdFromRequest = (authHeader: string) => {
   }
 };
 
-export async function updateFirstNRows(n: number, userId = null) {
+export async function updateFirstNRows(n: number, userId = null): Promise<number[] | null> {
   // 1️⃣ Fetch first N rows with status = 1
   const { data: rows, error: fetchError } = await supabase
     .from("qr_codes")
@@ -49,9 +49,9 @@ export async function updateFirstNRows(n: number, userId = null) {
     .order("id", { ascending: true }) // Fetch oldest rows first
     .limit(n);
 
-  if (fetchError || !rows.length) {
+  if (fetchError || !rows?.length) {
     console.error("Error fetching rows or no rows found:", fetchError);
-    return;
+    return null;
   }
 
   const qrCodeIds = rows.map((row) => row.id);
@@ -64,7 +64,10 @@ export async function updateFirstNRows(n: number, userId = null) {
 
   if (updateError) {
     console.error("Error updating QR codes:", updateError);
-  } else {
-    console.log(`Successfully updated ${qrCodeIds.length} QR codes!`);
+    return null;
   }
+
+  console.log(`Successfully updated ${qrCodeIds.length} QR codes!`);
+
+  return qrCodeIds;
 }

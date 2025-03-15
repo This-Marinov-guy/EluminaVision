@@ -74,8 +74,13 @@ export async function POST(req: Request) {
         shippingCostDetails,
       ];
 
+      let qrCodes = [];
+
       try {
-        if (orderedQrCodesQuantity) await updateFirstNRows(orderedQrCodesQuantity, userId);
+        if (orderedQrCodesQuantity) {
+          qrCodes = await updateFirstNRows(orderedQrCodesQuantity, userId);
+          data["qrCodes"] = qrCodes.join(", ");
+        }
       } catch (err) {
         console.error("Error updating qr codes:", err);
         return NextResponse.json(
@@ -114,6 +119,7 @@ export async function POST(req: Request) {
             shippingAddress,
             items: formattedItems,
             shippingCostDetails,
+            qrCodes,
           },
         });
       } catch (err) {
