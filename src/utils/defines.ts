@@ -57,6 +57,7 @@ export const ALLOWED_CHECKOUT_COUNTRIES: Stripe.Checkout.SessionCreateParams.Shi
   ];
 
   export const ORDERS_GOOGLE_SHEET_ID = "1heilbVL1Vq09nW94QTm1gS1sPo9luxCyZCCUKcEkkEE";
+  export const QRS_GOOGLE_SHEET_ID = "1KcWcU1hmGpqTBOk_99uKxSrSRw9qkzhAfuEr-x7Do4M";
 
   export const ORDER_EMAIL_TEMPLATE_ID = "6f632cbe-a7eb-4018-a7f1-30c333e00fad";
 
