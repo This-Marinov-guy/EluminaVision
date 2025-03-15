@@ -35,7 +35,7 @@ export async function POST(request) {
 
     const { data, error } = await supabase
       .from("unfinished_orders")
-      .insert([{ id: orderNumber, content: JSON.stringify(unfinishedOrder) }]);
+      .insert([{ id: orderNumber, items: JSON.stringify(unfinishedOrder) }]);
 
     if (error) throw error;
 
