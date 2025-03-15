@@ -49,7 +49,7 @@ const QrCard = (props) => {
           <InputLeftElement pointerEvents="none">
             <i className="fa-solid fa-link"></i>{" "}
           </InputLeftElement>
-          <Input onChange={handleChangeLink} placeholder="Link" />
+          <Input value={code.link} onChange={handleChangeLink} placeholder="Link" />
         </InputGroup>
         {message && <Badge colorScheme={status}>{message}</Badge>}
 
