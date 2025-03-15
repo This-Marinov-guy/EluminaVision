@@ -44,17 +44,8 @@ export async function POST(req: Request) {
       const phone = customerDetails?.phone;
       const shippingAddress = shippingDetails?.address;
 
-      // Convert metadata into an array of objects
-      items = Object.keys(metadata.items)
-        .map((key) => {
-          try {
-            return metadata["items"][key]; // Attempt to parse the metadata
-          } catch (err) {
-            console.error(`Failed to parse metadata key: ${key}`, err);
-            return null;
-          }
-        })
-        .filter((item) => item !== null); // Filter out any null results if parsing fails
+      // convert items to array without null values
+      items = Object.values(items).filter(Boolean);
 
       const formattedItems = items.map((item) => {
         if (QR_CODES_VARIANTS.map((card) => card.title).includes(item.title)) {
