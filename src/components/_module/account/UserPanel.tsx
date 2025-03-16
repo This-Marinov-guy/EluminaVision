@@ -48,7 +48,7 @@ const UserPanel = () => {
             </div>
             <div>
               <p className="py-2">
-                Qr codes are a wonderful way to share links quickly and in style. We bring more by making them dynamic -
+                We bring more by making QR codes dynamic -
                 you control what the link is while the image never changes. You can order more codes from{" "}
                 <Button size="sm" className="btn-light gap-2" onClick={goToProducts}>
                   The Product Page

@@ -75,7 +75,7 @@ body {
 }
 
 .react-multi-carousel-track {
-  @apply w-full h-full
+  @apply w-full h-full;
 }
 
 .react-multi-carousel-dot-list {
@@ -108,13 +108,17 @@ body {
   background-color: rgb(81 39 53) !important;
 }
 
-
 .btn-light-2 {
   color: black !important;
   background-color: rgb(245 157 106) !important;
 }
 
-[class^="c-"], [class*=" c-"] {
+[class^="c-"],
+[class*=" c-"] {
   font-family: var(--font-poppins) !important;
   color: black;
+}
+
+button {
+  width: auto;
 }
