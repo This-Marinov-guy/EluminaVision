@@ -35,9 +35,14 @@ const UserPanel = () => {
         variants={containerVariants}
       >
         <PageContainer>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <PageSectionHeading title="Welcome" slogan={user?.email} />
-            <Button style={{ minWidth: '100px', zIndex: "999" }} colorScheme="red" variant="solid" onClick={userStore.signOut}>
+            <Button
+              style={{ minWidth: "100px", zIndex: "999" }}
+              colorScheme="red"
+              variant="solid"
+              onClick={userStore.signOut}
+            >
               {/* <i className="mr-2 fa-solid fa-door-open"></i>  */}
               Log out
             </Button>
@@ -48,8 +53,8 @@ const UserPanel = () => {
             </div>
             <div>
               <p className="py-2">
-                We bring more by making QR codes dynamic -
-                you control what the link is while the image never changes. You can order more codes from{" "}
+                We bring more by making QR codes dynamic - you control what the link is while the image never changes.
+                You can order more codes from{" "}
                 <Button size="sm" className="btn-light gap-2" onClick={goToProducts}>
                   The Product Page
                 </Button>{" "}
