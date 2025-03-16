@@ -118,7 +118,3 @@ body {
   font-family: var(--font-poppins) !important;
   color: black;
 }
-
-button {
-  width: auto;
-}
