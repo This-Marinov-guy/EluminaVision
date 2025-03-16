@@ -48,11 +48,10 @@ export async function POST(req: Request) {
           .select("items")
           .eq("id", session.metadata?.orderNumber)
           .single();
-          
+
         if (error) throw error;
 
         unfinishedOrder = data?.items ? JSON.parse(data.items) : null;
-        
       } catch (err) {
         console.error("Error fetching order:", err);
         return NextResponse.json(
@@ -102,21 +101,21 @@ export async function POST(req: Request) {
 
       let qrCodes = [];
 
-      try {
-        if (orderedQrCodesQuantity) {
+      if (orderedQrCodesQuantity) {
+        try {
           qrCodes = await updateFirstNRows(orderedQrCodesQuantity, userId);
           data["qrCodes"] = qrCodes.join(", ");
+        } catch (err) {
+          console.error("Error updating qr codes:", err);
+          return NextResponse.json(
+            {
+              received: true,
+              warning: "Order received but failed to update qr codes",
+              log: err.message,
+            },
+            { status: 200 },
+          );
         }
-      } catch (err) {
-        console.error("Error updating qr codes:", err);
-        return NextResponse.json(
-          {
-            received: true,
-            warning: "Order received but failed to update qr codes",
-            log: err.message,
-          },
-          { status: 200 },
-        );
       }
 
       try {
