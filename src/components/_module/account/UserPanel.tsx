@@ -47,7 +47,7 @@ const UserPanel = () => {
               <h2 className="text-xl mt-10 mb-3">QR codes panels</h2>
             </div>
             <div>
-              <p>
+              <p className="py-2">
                 Qr codes are a wonderful way to share links quickly and in style. We bring more by making them dynamic -
                 you control what the link is while the image never changes. You can order more codes from{" "}
                 <Button size="sm" className="btn-light gap-2" onClick={goToProducts}>
@@ -61,7 +61,6 @@ const UserPanel = () => {
               </p>
             </div>
           </div>
-          <div className={styles.services}></div>
         </PageContainer>
       </motion.div>
     </section>
