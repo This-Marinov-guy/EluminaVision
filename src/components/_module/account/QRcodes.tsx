@@ -19,7 +19,7 @@ const QRcodes = () => {
   if (qrCodesLoading) {
     return (
       <div className={styles.wrapper2}>
-        <h1 className="text-center">Your QR codes</h1>
+        <h1>Your QR codes</h1>
 
         <div className="flex justify-around gap-4 items-center mt-7 px-10">
           <Skeleton height="100px" width="200px" />

@@ -35,18 +35,21 @@ const UserPanel = () => {
         variants={containerVariants}
       >
         <PageContainer>
-          <div className="flex flex-col sm:flex-row sm:text-center items-center justify-between gap-3">
-            <PageSectionHeading title="Welcome" slogan={user?.email} />
-            <Button
-              style={{ minWidth: "100px", zIndex: "999" }}
-              colorScheme="red"
-              variant="solid"
-              onClick={userStore.signOut}
-            >
-              {/* <i className="mr-2 fa-solid fa-door-open"></i>  */}
-              Log out
-            </Button>
-          </div>
+          <PageSectionHeading
+            title="Welcome"
+            slogan={user?.email}
+            button={
+              <Button
+                style={{ minWidth: "100px", zIndex: "999" }}
+                colorScheme="red"
+                variant="solid"
+                onClick={userStore.signOut}
+              >
+                {/* <i className="mr-2 fa-solid fa-door-open"></i>  */}
+                Log out
+              </Button>
+            }
+          />
           <div className="text-white">
             <div className="flex items-center justify-between">
               <h2 className="text-xl mt-10 mb-3">QR codes panels</h2>
