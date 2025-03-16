@@ -48,11 +48,10 @@ export async function POST(req: Request) {
           .select("items")
           .eq("id", session.metadata?.orderNumber)
           .single();
-
+          
         if (error) throw error;
 
         unfinishedOrder = data?.items ? JSON.parse(data.items) : null;
-        console.log(data);
         
       } catch (err) {
         console.error("Error fetching order:", err);
