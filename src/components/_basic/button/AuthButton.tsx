@@ -36,7 +36,7 @@ const AuthButton = () => {
 
   const handleAuthStateChange = (event, session) => {
     if (event === "SIGNED_IN" && session?.user) {
-      setUser({...session.user.user_metadata, token: session.access_token ?? ""});
+      setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
       closeAuthModal();
     }
   };
@@ -46,7 +46,7 @@ const AuthButton = () => {
       const { session } = response.data;
 
       if (session.user) {
-        setUser({ ...session.user.user_metadata, token: session.access_token ?? "" })        
+        setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
       }
     });
 
@@ -85,7 +85,7 @@ const AuthButton = () => {
             >
               <Auth
                 supabaseClient={supabase}
-                providers={["google"]}
+                providers={["google", "facebook"]}
                 view="sign_in"
                 redirectTo={process.env.NEXT_PUBLIC_BASE_URL}
                 socialLayout="horizontal"
