@@ -35,7 +35,7 @@ const UserPanel = () => {
         variants={containerVariants}
       >
         <PageContainer>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex flex-col sm:flex-row sm:text-center items-center justify-between gap-3">
             <PageSectionHeading title="Welcome" slogan={user?.email} />
             <Button
               style={{ minWidth: "100px", zIndex: "999" }}
