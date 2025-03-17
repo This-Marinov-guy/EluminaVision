@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
           lang="en"
           content="We help business show their best side in the digital world by providing online platforms, websites, marketing materials and many more features for bootstrapping a business."
         />
-        <meta property="og:image" content="/img/logo.png" />
+        <meta property="og:image" content="/img/logo-bg.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
