@@ -29,20 +29,28 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=5" />
         <meta name="description" content={metadata.description} />
         <title>{metadata.title}</title>
-
         {/* Open Graph / Facebook Meta Tags */}
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourwebsite.com" />
         <meta property="og:image" content="https://yourwebsite.com/og-image.jpg" />
-
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg" />
 
+        <meta
+          name="description"
+          lang="en"
+          content="We help business show their best side in the digital world by providing online platforms, websites, marketing materials and many more features for bootstrapping a business."
+        />
+        <meta property="og:image" content="/img/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="robots" href="/robots.txt" /> <link rel="manifest" href="/manifest.json" />
         <meta name="facebook-domain-verification" content="sz77ets71sg2lttigkxfx5b2vz075z" />
       </head>
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
