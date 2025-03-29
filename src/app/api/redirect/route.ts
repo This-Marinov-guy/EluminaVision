@@ -11,8 +11,12 @@ export async function GET(req) {
 
   const { data, error } = await supabase.from("qr_codes").select("link").eq("id", id).maybeSingle();
 
-  if (error || !data?.link) {
+  if (error) {
     return NextResponse.json({ error: "QR Code not found" }, { status: 404 });
+  }
+
+  if (!data?.link) {
+    return NextResponse.json({ error: "No link for this QR code" }, { status: 404 });
   }
 
   if (!data.link.startsWith("https://")) {
