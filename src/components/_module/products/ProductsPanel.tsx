@@ -79,6 +79,7 @@ const ProductsPanel = () => {
                 4. Copy the link. Next, download the NFC Tools app from the Apple Store or Google Play Store, and follow
                 the on-screen instructions to set up your NFC review card
               </li>
+              
             </ul>
           </div>
           <div className={styles.services}>
