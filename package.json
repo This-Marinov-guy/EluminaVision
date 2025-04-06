@@ -33,7 +33,7 @@
     "mailtrap": "^3.4.0",
     "mobx": "^6.13.6",
     "mobx-react-lite": "^4.1.0",
-    "motion": "^12.6.2",
+    "motion": "^12.6.3",
     "next": "^14",
     "nodemailer": "^6.10.0",
     "prettier": "^3.4.2",
@@ -44,7 +44,7 @@
     "react-scroll": "^1.9.0",
     "sass": "^1.82.0",
     "stripe": "^17.6.0",
-    "tailwind-merge": "^3.0.2",
+    "tailwind-merge": "^3.1.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

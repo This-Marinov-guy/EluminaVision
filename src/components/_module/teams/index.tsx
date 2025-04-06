@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import { motion } from "framer-motion";
@@ -8,6 +8,7 @@ import PageContainer from "../container";
 import PageSectionHeading from "../../_basic/heading";
 
 import styles from "./style.module.scss";
+import {TeamCard} from "@/components/_basic/cards/Team";
 
 const members = [
   {
@@ -66,6 +67,8 @@ const containerVariants = {
 };
 
 const TeamSection = () => {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
     <section id="team" className={styles.wrapper}>
       <motion.div
@@ -77,33 +80,13 @@ const TeamSection = () => {
       >
         <PageContainer>
           <PageSectionHeading title="Team." slogan="who are the people behind the project" />
-          <Carousel
-            infinite
-            autoPlay
-            autoPlaySpeed={5000}
-            arrows={false}
-            responsive={responsive}
-            className={styles.section}
-          >
-            {members.map((member) => (
-              <div key={member.name} className={styles.member}>
-                <div className={styles.avatar}>
-                  <Image
-                    src={member.avatar}
-                    alt={`${member.name} avatar`}
-                    width={100}
-                    height={100}
-                    className={`${styles.image}`}
-                  />
-                </div>
-                <div className={styles.info}>
-                  <h4 className={styles.name}>{member.name}</h4>
-                  <p className={styles.role}>{member.role}</p>
-                  <p className={styles.description}>{member.description}</p>
-                </div>
-              </div>
-            ))}
-          </Carousel>
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto md:px-8 w-full">
+              {members.map((member, index) => (
+                <TeamCard key={index} card={member} index={index} hovered={hovered} setHovered={setHovered} />
+              ))}
+            </div>
+          </div>
         </PageContainer>
       </motion.div>
     </section>
