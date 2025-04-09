@@ -44,7 +44,7 @@ const ProductsPanel = () => {
         position: 'top',
         title: "Item added to cart.",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
     }
@@ -80,6 +80,7 @@ const ProductsPanel = () => {
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
+        className="my-5"
         variants={containerVariants}
       >
         <PageContainer>
@@ -131,6 +132,7 @@ const ProductsPanel = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={containerVariants}
+          className="my-5"
         >
           <PageContainer>
             <PageSectionHeading title="Dynamic QR codes" slogan="One code - unlimited link possibilities" />
