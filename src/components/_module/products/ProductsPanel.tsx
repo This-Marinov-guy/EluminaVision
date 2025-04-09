@@ -5,11 +5,13 @@ import PageSectionHeading from "../../_basic/heading";
 import PageContainer from "../container";
 import styles from "./style.module.scss";
 import { Skeleton } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { getCurrencySymbol } from "@/utils/helpers";
 import { NFC_GOOGLE_CARDS, QR_CODES_VARIANTS } from "@/utils/products";
 import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
 import axios from "axios";
+import { ExpandableCardList } from "@/components/_basic/cards/ExpandableCardList";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -25,12 +27,27 @@ const ProductsPanel = () => {
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [quantities, setQuantities] = useState(NFC_GOOGLE_CARDS.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {}));
 
+  const toast = useToast();
+
   const handleQuantityChange = (productId, newQuantity) => {
     setQuantities((prev) => ({ ...prev, [productId]: newQuantity }));
   };
 
   const addItemsToCart = (item) => {
     cartStore.addItem(item, 1);
+
+    const id = "cart-item-added";
+
+    if (!toast.isActive(id)) {
+      toast({
+        id,
+        position: 'top',
+        title: "Item added to cart.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
 
     // const quantity = quantities[item.id]; // Get the counter value
     // if (quantity > 0) {
@@ -79,44 +96,16 @@ const ProductsPanel = () => {
                 4. Copy the link. Next, download the NFC Tools app from the Apple Store or Google Play Store, and follow
                 the on-screen instructions to set up your NFC review card
               </li>
-              
             </ul>
           </div>
-          <div className={styles.services}>
-            {NFC_GOOGLE_CARDS.map((item) => (
-              <Card key={item.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="xl">
-                <Image src={item.imageUrl} alt={item.title} />
-                <CardBody className="flex flex-col items-center justify-center gap-2">
-                  <Badge
-                    className="absolute top-1 right-1 text-white text-sm p-2 rounded-full"
-                    style={{ scale: "1.3" }}
-                    colorScheme="blue"
-                  >
-                    {getCurrencySymbol(item.currency)}
-                    {item.price}
-                  </Badge>
-
-                  <CardHeader fontSize="lg" fontWeight="bold">
-                    {item.variant}
-                  </CardHeader>
-
-                  <p>{item.description}</p>
-
-                  <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }}>
-                    <Button className={"btn-light"} onClick={() => addItemsToCart(item)}>
-                      Add to cart
-                    </Button>
-                  </motion.button>
-                  {/* {item.limit && <small className="text-black mt-3">*limited to {item.limit} per purchase</small>} */}
-                </CardBody>
-              </Card>
-            ))}
+          <div>
+            <ExpandableCardList items={NFC_GOOGLE_CARDS} addItemsToCart={addItemsToCart} />
             {loadingProducts && <Skeleton height="220px" width="390px" />}
           </div>
 
           {totalItems > 0 && (
             <motion.button
-              className="m-auto flex justify-center gap-3"
+              className="mt-5 mx-auto flex justify-center gap-3"
               initial={{ scale: 0, opacity: 0, y: -10 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0, opacity: 0, y: -10 }}
@@ -157,41 +146,14 @@ const ProductsPanel = () => {
                 <li>4. Share the code with everybody.</li>
               </ul>
             </div>
-            <div className={styles.services}>
-              {QR_CODES_VARIANTS.map((item) => (
-                <Card key={item.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="xl">
-                  <Image src={item.imageUrl} alt={item.title} />
-                  <CardBody className="flex flex-col items-center justify-center gap-2">
-                    <Badge
-                      className="absolute top-1 right-1 text-white text-sm p-2 rounded-full"
-                      style={{ scale: "1.3" }}
-                      colorScheme="blue"
-                    >
-                      {getCurrencySymbol(item.currency)}
-                      {item.price}
-                    </Badge>
-
-                    <CardHeader fontSize="lg" fontWeight="bold">
-                      {item.variant}
-                    </CardHeader>
-
-                    <p>{item.description}</p>
-
-                    <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }}>
-                      <Button className={"btn-light"} onClick={() => addItemsToCart(item)}>
-                        Add to cart
-                      </Button>
-                    </motion.button>
-                    {/* {item.limit && <small className="text-black mt-3">*limited to {item.limit} per purchase</small>} */}
-                  </CardBody>
-                </Card>
-              ))}
+            <div>
+              <ExpandableCardList items={QR_CODES_VARIANTS} addItemsToCart={addItemsToCart} />
               {loadingProducts && <Skeleton height="220px" width="390px" />}
             </div>
 
             {totalItems > 0 && (
               <motion.button
-                className="m-auto flex justify-center gap-3"
+                className="mx-auto mt-5 flex justify-center gap-3"
                 initial={{ scale: 0, opacity: 0, y: -10 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0, opacity: 0, y: -10 }}

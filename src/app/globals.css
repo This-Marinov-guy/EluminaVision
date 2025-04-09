@@ -118,3 +118,20 @@ body {
   font-family: var(--font-poppins) !important;
   color: black;
 }
+
+.hover-dark-to-light {
+  background-color: rgb(81 39 53) !important;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #171717 !important;
+  }
+}
+
+.light-round-badge {
+  background-color: rgb(245 157 106) !important;
+  color: white !important;
+  width: 2.5em;
+  text-align: center;
+  height: 2.5em;
+  padding: 2px 5px;
+}
