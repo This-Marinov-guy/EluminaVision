@@ -44,7 +44,7 @@ const ProductsPanel = () => {
         position: 'top',
         title: "Item added to cart.",
         status: "success",
-        duration: 3000,
+        duration: 2500,
         isClosable: true,
       });
     }
