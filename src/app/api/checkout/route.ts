@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Stripe from "stripe";
 import { supabase } from "@/utils/config";
 import { content } from "googleapis/build/src/apis/content";
+import { PRODUCT_IDS_WITH_DELIVERY } from "@/utils/products";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -17,8 +18,14 @@ export async function POST(request) {
     }));
 
     const unfinishedOrder = {};
+    let hasShipping = false;
 
     unfinishedOrder["items"] = items.reduce((acc, item, index) => {
+      // check for delivery
+      if (PRODUCT_IDS_WITH_DELIVERY.includes(item.id)) {
+        hasShipping = true;
+      }
+
       acc[`item_${index}`] = item; // Creates a unique key for each item
       return acc;
     }, {});
@@ -46,14 +53,14 @@ export async function POST(request) {
       phone_number_collection: {
         enabled: true,
       },
-      shipping_options: [
+      shipping_options: hasShipping ? [
         {
           shipping_rate: "shr_1Qvm1iLUXmDaRfFYelNucXsc",
         },
         {
           shipping_rate: "shr_1Qvm2JLUXmDaRfFYkVMN5yOr",
         },
-      ],
+      ] : [],
       shipping_address_collection: {
         allowed_countries: ALLOWED_CHECKOUT_COUNTRIES,
       },

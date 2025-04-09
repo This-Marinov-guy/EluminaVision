@@ -1,4 +1,4 @@
-import { title } from "process";
+export const PRODUCT_IDS_WITH_DELIVERY = [1, 2]
 
 export const NFC_GOOGLE_CARDS = [
   {
@@ -61,14 +61,14 @@ export const NFC_GOOGLE_CARDS = [
 
 export const QR_CODES_VARIANTS = [
   {
-    id: 1,
+    id: 3,
     title: "Dynamic QR code",
     variant: "Standard",
     price: 1.49,
     limit: 5,
     currency: "GBP",
     imageUrl: "/img/products/qrCodes1.png",
-    priceId: "price_1R2zSmLUXmDaRfFYmYARxbeW",
+    priceId: "price_1RBrUlLUXmDaRfFYNFv7sfXR",
     description: `<p>
   Boost your business’s online presence with these reusable <strong>Review Tap Stickers</strong> by EluminaVision. Equipped with <strong>NFC and QR code</strong> technology, customers can leave Google reviews effortlessly by tapping their smartphones or scanning the code—compatible with both iPhone and Android devices.
 </p>
