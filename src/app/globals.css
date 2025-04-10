@@ -94,6 +94,10 @@ body {
   background-color: rgb(245 157 106) !important;
 }
 
+.btn-light-ghost {
+  color: rgb(245 157 106) !important;
+}
+
 .bg-orange {
   color: white !important;
   border-radius: 10px;

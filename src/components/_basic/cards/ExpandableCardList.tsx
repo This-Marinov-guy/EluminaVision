@@ -72,8 +72,8 @@ export function ExpandableCardList(props) {
               <motion.div layoutId={`image-${active.title}-${active.id}`}>
                 <Image
                   priority
-                  width={200}
-                  height={200}
+                  width={1000}
+                  height={1000}
                   src={active.imageUrl}
                   alt={active.title}
                   className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
@@ -114,7 +114,7 @@ export function ExpandableCardList(props) {
                 <Button size="sm" className="btn-light" onClick={() => props.addItemsToCart(active)}>
                   Add to cart
                 </Button>
-                <Button colorScheme="red" size="sm" onClick={() => setActive(null)}>
+                <Button colorScheme="red" size="sm" variant="ghost" onClick={() => setActive(null)}>
                   Close
                 </Button>
               </div>
@@ -137,11 +137,12 @@ export function ExpandableCardList(props) {
               </Badge>
               <motion.div layoutId={`image-${card.title}-${card.id}`}>
                 <Image
-                  width={100}
-                  height={100}
+                  width={1000}
+                  height={1000}
                   src={card.imageUrl}
                   alt={card.title}
-                  className="h-60 w-full  rounded-lg object-cover object-top"
+                  style={{minWidth: '18em'}}
+                  className="h-60 w-full rounded-lg object-cover object-top"
                 />
               </motion.div>
               <div className="flex justify-center items-center flex-col">
@@ -150,7 +151,7 @@ export function ExpandableCardList(props) {
                   className="flex justify-center items-center flex-col gap-2 font-medium text-neutral-800 dark:text-neutral-200 md:text-left text-base"
                 >
                   {card.title} {card.variant && `(${card.variant})`}
-                  <Button size="sm" className={"btn-light"}>
+                  <Button size="sm" className={"btn-light-ghost"} variant="ghost">
                     Details
                   </Button>{" "}
                 </motion.h3>

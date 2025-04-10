@@ -14,7 +14,6 @@ const AccountPage = () => {
       <NavBar />
       <LoadingScreen />
       <UserPanel/>
-      <QRcodes/>
     </AuthLayout>
   );
 };

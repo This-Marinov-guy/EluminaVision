@@ -20,4 +20,19 @@
       }
     }
   }
+
+  .servicesTwo {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8 mt-2 py-10;
+
+
+    img {
+      object-fit: contain;
+      width: 200px;
+      height: 200px;
+
+      @media (max-width: 400px) {
+        width: 150px;
+      }
+    }
+  }
 }

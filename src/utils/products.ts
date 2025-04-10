@@ -95,4 +95,39 @@ export const QR_CODES_VARIANTS = [
   <li><strong>DURABLE DESIGN:</strong> Splashproof with unlimited tap functionality</li>
 </ul>`,
   },
+  {
+    id: 3,
+    title: "Dynamic Business Cards",
+    variant: "Standard",
+    price: 1.99,
+    limit: 5,
+    currency: "GBP",
+    imageUrl: "/img/products/qrCodes2.png",
+    priceId: "price_1RBrUlLUXmDaRfFYNFv7sfXR",
+    description: `<p>
+  Boost your business’s online presence with these reusable <strong>Review Tap Stickers</strong> by EluminaVision. Equipped with <strong>NFC and QR code</strong> technology, customers can leave Google reviews effortlessly by tapping their smartphones or scanning the code—compatible with both iPhone and Android devices.
+</p>
+
+<br />
+
+<p>
+  Made from <strong>splashproof vinyl</strong>, these durable stickers are ideal for retail, dining, or service environments. Their sleek rectangular shape (9.9 cm x 14 cm) combines high visibility with a modern, professional look.
+</p>
+
+<br />
+
+<p>
+  Each sticker comes with <strong>step-by-step video instructions</strong> and easy-to-use programming tools. With no subscription fees and unlimited tap functionality, they offer a simple and cost-effective way to grow your online reputation.
+</p>
+
+<br />
+
+<ul>
+  <li><strong>VERSATILE TECHNOLOGY:</strong> NFC + dynamic QR code for flexible updates</li>
+  <li><strong>PERFECT SIZE:</strong> 9.9 cm x 14 cm – visible yet professional</li>
+  <li><strong>EASY SETUP:</strong> Includes video guide and simple programming tools</li>
+  <li><strong>UNIVERSAL COMPATIBILITY:</strong> Works with iPhone and Android devices</li>
+  <li><strong>DURABLE DESIGN:</strong> Splashproof with unlimited tap functionality</li>
+</ul>`,
+  },
 ];
