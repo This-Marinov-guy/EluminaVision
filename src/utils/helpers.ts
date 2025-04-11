@@ -73,3 +73,37 @@ export async function updateFirstNRows(n: number, userId = null): Promise<number
 
   return qrCodeIds;
 }
+
+export const getLinkIcon = (url: string, label: string = "") => {
+  const lowerLabel = label.toLowerCase();
+
+  if (url.includes("facebook") || lowerLabel.includes("facebook")) {
+    return "fa-brands fa-facebook";
+  } else if (url.includes("instagram") || lowerLabel.includes("instagram")) {
+    return "fa-brands fa-instagram";
+  } else if (url.includes("twitter") || lowerLabel.includes("twitter")) {
+    return "fa-brands fa-twitter";
+  } else if (url.includes("linkedin") || lowerLabel.includes("linkedin")) {
+    return "fa-brands fa-linkedin";
+  } else if (url.includes("tiktok") || lowerLabel.includes("tiktok")) {
+    return "fa-brands fa-tiktok";
+  } else if (url.includes("youtube") || lowerLabel.includes("youtube")) {
+    return "fa-brands fa-youtube";
+  } else if (url.includes("pinterest") || lowerLabel.includes("pinterest")) {
+    return "fa-brands fa-pinterest";
+  } else if (url.includes("whatsapp") || lowerLabel.includes("whatsapp")) {
+    return "fa-brands fa-whatsapp";
+  } else if (url.includes("snapchat") || lowerLabel.includes("snapchat")) {
+    return "fa-brands fa-snapchat";
+  } else if (url.includes("twitch") || lowerLabel.includes("twitch")) {
+    return "fa-brands fa-twitch";
+  } else if (url.includes("reddit") || lowerLabel.includes("reddit")) {
+    return "fa-brands fa-reddit";
+  } else if (url.includes("discord") || lowerLabel.includes("discord")) {
+    return "fa-brands fa-discord";
+  } else if (url.includes("telegram") || lowerLabel.includes("telegram")) {
+    return "fa-brands fa-telegram";
+  } else {
+    return "fa-solid fa-globe";
+  }
+};

@@ -41,7 +41,7 @@ const ProductsPanel = () => {
     if (!toast.isActive(id)) {
       toast({
         id,
-        position: 'top',
+        position: "top",
         title: "Item added to cart.",
         status: "success",
         duration: 2500,
@@ -101,7 +101,6 @@ const ProductsPanel = () => {
           </div>
           <div>
             <ExpandableCardList items={NFC_GOOGLE_CARDS} addItemsToCart={addItemsToCart} />
-            {loadingProducts && <Skeleton height="220px" width="390px" />}
           </div>
 
           {totalItems > 0 && (
@@ -149,8 +148,15 @@ const ProductsPanel = () => {
               </ul>
             </div>
             <div>
-              <ExpandableCardList items={QR_CODES_VARIANTS} addItemsToCart={addItemsToCart} />
-              {loadingProducts && <Skeleton height="220px" width="390px" />}
+              {loadingProducts ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                  <Skeleton height="220px" width="330px" />
+                  <Skeleton height="220px" width="330px" />
+                  <Skeleton height="220px" width="330px" />
+                </div>
+              ) : (
+                <ExpandableCardList items={QR_CODES_VARIANTS} addItemsToCart={addItemsToCart} />
+              )}
             </div>
 
             {totalItems > 0 && (

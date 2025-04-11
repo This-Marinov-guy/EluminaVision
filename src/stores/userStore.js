@@ -15,6 +15,26 @@ export class UserStore {
   activationStatus = null;
   activationMessage = "";
 
+  businessCards = [
+    {
+      id: "dasdsadsa-dasdsadas",
+      logo: "dasdsadsa",
+      image: "dsadsa",
+      backgroundColor: "#000000",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      links: [
+        { label: "LinkedIn", url: "https://www.linkedin.com/in/username" },
+        { label: "Twitter", url: "https://twitter.com/username" },
+      ],
+    },
+  ];
+  businessCardsLoading = false;
+
+  activateBusinessCardModal = false;
+  activationBusinessCardLoading = false;
+  activationBusinessCardStatus = null;
+  activationBusinessCardMessage = "";
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this, { rootStore: false });
@@ -71,6 +91,62 @@ export class UserStore {
       this.activationLoading = false;
     }
   };
+
+// Store methods
+setBusinessCardLinkData = (cardIndex, linkIndex, field, value) => {
+  // Make sure we have a copy of the links array to avoid direct mutation
+  const card = this.businessCards[cardIndex];
+  if (!card) return;
+  
+  const links = [...card.links];
+  links[linkIndex] = {
+    ...links[linkIndex],
+    [field]: value
+  };
+  
+  this.businessCards[cardIndex] = {
+    ...card,
+    links: links
+  };
+};
+
+setBusinessCardData = (cardIndex, field, value) => {
+  const card = this.businessCards[cardIndex];
+  if (!card) return;
+  
+  this.businessCards[cardIndex] = {
+    ...card,
+    [field]: value
+  };
+}
+
+removeLink = (cardIndex, linkIndex) => {
+  const card = this.businessCards[cardIndex];
+  if (!card) return;    
+
+  // Create a new array without the link at linkIndex
+  const newLinks = [...card.links];
+  
+  newLinks.splice(linkIndex, 1);
+
+  this.businessCards[cardIndex] = {
+    ...card,
+    links: newLinks,
+  };
+};
+
+addLink = (cardIndex) => {
+  const card = this.businessCards[cardIndex];
+  if (!card) return;
+  
+  // Create a new array with the added link
+  const newLinks = [...card.links, { label: "", url: "" }];
+  
+  this.businessCards[cardIndex] = {
+    ...card,
+    links: newLinks,
+  };
+};
 
   toggleLoading = () => {
     this.loading = !this.loading;

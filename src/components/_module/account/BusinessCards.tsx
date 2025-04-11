@@ -13,15 +13,8 @@ import QrCard from "@/components/_basic/input/QrCard";
 import BusinessCard from "@/components/_basic/input/BusinessCard";
 
 const BusinessCards = () => {
-  const [link, setLink] = useState("");
-
   const { userStore } = useStore();
-  const { user, qrCodesLoading } = userStore;
-
-  const qrCodes = [{
-    id: 'dsadasdas-dsadasdasdas',
-    link: 'dsadas'
-  }]; 
+  const { user, businessCards, businessCardsLoading } = userStore;
 
   const router = useRouter();
 
@@ -29,10 +22,10 @@ const BusinessCards = () => {
     router.push("/products");
   };
 
-  let qrCodesPanel = null;
+  let businessCardsPanel = null;
 
-  if (qrCodesLoading) {
-    qrCodesPanel = (
+  if (businessCardsLoading) {
+    businessCardsPanel = (
       <div className={styles.wrapper2}>
         <h1>Your Business cards</h1>
 
@@ -44,16 +37,16 @@ const BusinessCards = () => {
       </div>
     );
   } else {
-    qrCodesPanel = (
+    businessCardsPanel = (
       <div className={styles.wrapper2}>
         <h1 className="text-center mt-7">Your Business cards</h1>
 
-        {qrCodes.length == 0 ? (
+        {businessCards.length == 0 ? (
           <h2 className="text-center">No cards yet - try ordering some or activating</h2>
         ) : (
           <div className={styles.servicesTwo}>
-            {qrCodes.map((code) => (
-              <BusinessCard key={code.id} code={code} />
+            {businessCards.map((card, index) => (
+              <BusinessCard key={index} card={card} cardIndex={index}/>
             ))}
           </div>
         )}
@@ -78,7 +71,7 @@ const BusinessCards = () => {
           </p>
         </div>
       </div>
-      {qrCodesPanel}
+      {businessCardsPanel}
     </>
   );
 };
