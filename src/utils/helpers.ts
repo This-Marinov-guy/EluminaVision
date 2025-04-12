@@ -124,3 +124,192 @@ export const getLinkIcon = (url: string, label: string = "") => {
     return "fa-solid fa-globe";
   }
 };
+
+/**
+ * Converts an image URL to a data URL
+ * @param {string} imageUrl - The URL of the image to convert
+ * @returns {Promise<string>} - Promise resolving to the data URL
+ */
+export const convertImageToDataURL = (imageUrl: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      
+      const dataUrl = canvas.toDataURL("image/png");
+      resolve(dataUrl);
+    };
+    
+    img.onerror = (error) => {
+      reject(new Error(`Failed to load image: ${error}`));
+    };
+    
+    img.src = imageUrl;
+  });
+};
+
+/**
+ * Embeds external images in an SVG as data URLs
+ * @param {SVGElement} svgElement - The SVG element to process
+ * @param {string} [logoUrl] - Optional URL of logo to ensure is embedded
+ * @returns {Promise<SVGElement>} - Promise resolving to the processed SVG element
+ */
+export const embedImagesInSVG = async (svgElement, logoUrl = null) => {
+  // Create a clone of the SVG to avoid modifying the original
+  const svgClone = svgElement.cloneNode(true);
+  
+  // Find all image elements in the SVG
+  const imageElements = svgClone.querySelectorAll("image");
+  
+  if (imageElements.length === 0) {
+    return svgClone;
+  }
+  
+  // Process all images
+  const imagePromises = Array.from(imageElements).map(async (imgElement) => {
+    const svgImgElement = imgElement as SVGImageElement;
+    const href = svgImgElement.getAttribute("href") || svgImgElement.getAttribute("xlink:href");
+    
+    // Only process if it's a URL (not already a data URL)
+    if (href && !href.startsWith("data:")) {
+      try {
+        const dataUrl = await convertImageToDataURL(href);
+        svgImgElement.setAttribute("href", dataUrl as string);
+        if (svgImgElement.hasAttribute("xlink:href")) {
+          svgImgElement.setAttribute("xlink:href", dataUrl as string);
+        }
+      } catch (error) {
+        console.warn(`Could not embed image: ${error.message}`);
+      }
+    }
+  });
+  
+  // If a specific logo URL was provided but not found in the SVG,
+  // we can add it manually if needed
+  if (logoUrl && !Array.from(imageElements).some((img: SVGImageElement) => 
+    (img.getAttribute("href") === logoUrl || img.getAttribute("xlink:href") === logoUrl))) {
+    try {
+      // This block would handle adding a logo that wasn't already in the SVG
+      // Implementation would depend on how you want to position the logo
+      console.warn("Logo URL provided but not found in SVG");
+    } catch (error) {
+      console.warn(`Could not add logo: ${error.message}`);
+    }
+  }
+  
+  // Wait for all images to be processed
+  await Promise.all(imagePromises);
+  return svgClone;
+};
+
+/**
+ * Converts an SVG element to a PNG data URL
+ * @param {SVGElement} svgElement - The SVG element to convert
+ * @param {number} width - Width of the output PNG
+ * @param {number} height - Height of the output PNG
+ * @returns {Promise<string>} - Promise resolving to the PNG data URL
+ */
+export const convertSVGtoPNG = (svgElement, width, height) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      const img = new Image();
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(url);
+        
+        const pngDataUrl = canvas.toDataURL("image/png");
+        resolve(pngDataUrl);
+      };
+      
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("Failed to load SVG image"));
+      };
+      
+      img.src = url;
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/**
+ * Triggers download of a data URL as a file
+ * @param {string} dataUrl - The data URL to download
+ * @param {string} filename - The filename for the download
+ */
+export const downloadDataURL = (dataUrl, filename) => {
+  const downloadLink = document.createElement("a");
+  downloadLink.href = dataUrl;
+  downloadLink.download = filename;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+};
+
+/**
+ * Main function to download an SVG element as a PNG file
+ * @param {SVGElement|React.RefObject} svgRef - The SVG element or React ref
+ * @param {Object} options - Options for the download
+ * @param {string} options.filename - Filename for the download
+ * @param {number} options.width - Width of the output PNG
+ * @param {number} options.height - Height of the output PNG
+ * @param {string} [options.logoUrl] - Optional URL of logo to ensure is embedded
+ * @param {Function} [options.onStart] - Callback when download starts
+ * @param {Function} [options.onComplete] - Callback when download completes
+ * @param {Function} [options.onError] - Callback when an error occurs
+ * @returns {Promise<void>}
+ */
+export const downloadSVGasPNG = async (svgRef, options) => {
+  const {
+    filename,
+    width = 240,
+    height = 240,
+    logoUrl = null,
+    onStart = () => {},
+    onComplete = () => {},
+    onError = (error) => console.error(error)
+  } = options;
+  
+  try {
+    onStart();
+    
+    // Get the SVG element from the ref or use it directly
+    const svgElement = svgRef.current?.querySelector("svg") || 
+                        svgRef.current || 
+                        (svgRef instanceof SVGElement ? svgRef : null);
+    
+    if (!svgElement) {
+      throw new Error("SVG element not found");
+    }
+    
+    // Embed all images in the SVG
+    const processedSVG = await embedImagesInSVG(svgElement, logoUrl);
+    
+    // Convert the SVG to PNG
+    const pngDataUrl = await convertSVGtoPNG(processedSVG, width, height);
+    
+    // Trigger the download
+    downloadDataURL(pngDataUrl, filename);
+    
+    onComplete();
+  } catch (error) {
+    onError(error);
+  }
+};

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button, Card, CardBody, Input, useToast } from "@chakra-ui/react";
 import { QRCodeSVG } from "qrcode.react";
 import { Textarea } from "@chakra-ui/react";
-import { HexColorPicker } from "react-colorful";
 import { InputGroup } from "@chakra-ui/react";
 import styles from "./style.module.scss";
 import { QR_CODE_DOMAIN } from "@/utils/defines";
@@ -12,6 +11,7 @@ import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
 import ImageInput from "./ImageInput";
 import _ from "lodash"; // For deep comparison
+import { downloadSVGasPNG } from "@/utils/helpers";
 
 const BusinessCard = (props) => {
   const { card, cardIndex } = props;
@@ -19,6 +19,9 @@ const BusinessCard = (props) => {
   const [qrLogoPreview, setQrLogoPreview] = useState(card.logo ?? null);
   const [initialCard, setInitialCard] = useState(() => _.cloneDeep(card));
   const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [downloadLoading, setDownloadLoading] = useState(false);
+
+  const qrRef = useRef(null);
 
   const { userStore } = useStore();
   const {
@@ -91,16 +94,40 @@ const BusinessCard = (props) => {
     }
   };
 
+  const downloadQRCode = () => {
+    downloadSVGasPNG(qrRef, {
+      filename: `business-card-${card.id.slice(0, 8)}.png`,
+      width: 240,
+      height: 240,
+      logoUrl: qrLogoPreview,
+      onStart: () => setDownloadLoading(true),
+      onComplete: () => setDownloadLoading(false),
+      onError: (error) => {
+        console.error("Error downloading QR code:", error);
+        setDownloadLoading(false);
+
+        toast({
+          position: "top",
+          title: "Failed to download QR code",
+          description: "Please try again",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      },
+    });
+  };
+
   return (
     <Card key={card.id} className={`${styles.card} relative`} flexDirection="column" overflow="hidden" maxW="xl">
       <div className="flex flex-row items-center justify-between gap-2 absolute top-2 right-2">
         <Button
           size="sm"
           className="btn-dark justify-self-end self-end -mb-8"
-          onClick={handleSave}
+          onClick={downloadQRCode}
           isDisabled={saveBusinessCardLoading}
           leftIcon={<i className="fa-solid fa-cloud-arrow-down"></i>}
-          isLoading={false}
+          isLoading={downloadLoading}
         >
           Download
         </Button>
@@ -120,6 +147,8 @@ const BusinessCard = (props) => {
         <div className="flex flex-row items-center justify-between gap-8">
           <div className="flex flex-col items-center justify-center gap-2">
             <QRCodeSVG
+              ref={qrRef}
+              id={`business-card-${card.id}`}
               style={{ height: "auto", width: "5em" }}
               value={QR_CODE_DOMAIN + card.id}
               size={240}
