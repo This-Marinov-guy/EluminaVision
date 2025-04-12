@@ -178,6 +178,7 @@ const BusinessCard = (props) => {
               <InputGroup>
                 <Textarea
                   size="sm"
+                  maxLength={600}
                   resize="vertical"
                   placeholder="Give some content"
                   value={card.description}
