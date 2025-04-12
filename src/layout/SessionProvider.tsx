@@ -5,6 +5,11 @@ import { SESSION_REFRESH_INTERVAL, supabase } from "@/utils/config";
 import { useStore } from "@/stores/storeProvider";
 
 const SessionProvider = ({ children }) => {
+  // do not execute on the business card preview page
+  if (window.location.pathname.includes("business-card/preview")) {
+    return;
+  }
+
   const { userStore } = useStore();
   const { closeAuthModal, setUser } = userStore;
 
@@ -34,26 +39,23 @@ const SessionProvider = ({ children }) => {
     // Listen for auth changes
     const { data: listener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
-    refreshInterval = setInterval(
-      async () => {
-        const {
-          data: { session },
-          error,
-        } = await supabase.auth.refreshSession();        
+    refreshInterval = setInterval(async () => {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.refreshSession();
 
-        if (session?.user) {
-          setUser({
-            ...session.user.user_metadata,
-            token: session.access_token ?? "",
-          });
-        }
+      if (session?.user) {
+        setUser({
+          ...session.user.user_metadata,
+          token: session.access_token ?? "",
+        });
+      }
 
-        if (error) {
-          console.error("Error refreshing session:", error.message);
-        }
-      },
-      SESSION_REFRESH_INTERVAL,
-    ); 
+      if (error) {
+        console.error("Error refreshing session:", error.message);
+      }
+    }, SESSION_REFRESH_INTERVAL);
 
     return () => {
       listener.subscription.unsubscribe();
