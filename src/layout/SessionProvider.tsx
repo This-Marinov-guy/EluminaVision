@@ -3,11 +3,14 @@
 import React, { useEffect } from "react";
 import { SESSION_REFRESH_INTERVAL, supabase } from "@/utils/config";
 import { useStore } from "@/stores/storeProvider";
+import { usePathname } from "next/navigation"; 
 
 const SessionProvider = ({ children }) => {
-  // do not execute on the business card preview page
-  if (window.location.pathname.includes("business-card/preview")) {
-    return;
+  const pathname = usePathname(); 
+
+  // Do not execute on the business card preview page
+  if (pathname.includes("business-card/preview")) {
+    return null; 
   }
 
   const { userStore } = useStore();
