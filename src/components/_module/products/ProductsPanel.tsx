@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Badge, Button, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
 import PageSectionHeading from "../../_basic/heading";

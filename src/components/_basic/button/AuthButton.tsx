@@ -1,13 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
   Badge,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
@@ -21,9 +19,8 @@ import { supabase } from "@/utils/config";
 import axios from "axios";
 
 const AuthButton = () => {
-  const { userStore, commonStore } = useStore();
-  const { loading } = commonStore;
-  const { toggleAuthModal, closeAuthModal, isAuthModalOpen, user, setUser } = userStore;
+  const { userStore } = useStore();
+  const { toggleAuthModal, isAuthModalOpen, user } = userStore;
   const router = useRouter();
 
   const handleAuthButton = () => {
@@ -33,25 +30,6 @@ const AuthButton = () => {
       toggleAuthModal();
     }
   };
-
-  const handleAuthStateChange = (event, session) => {
-    if (event === "SIGNED_IN" && session?.user) {
-      setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
-      closeAuthModal();
-    }
-  };
-
-  useEffect(() => {
-    supabase.auth.getSession().then((response) => {
-      const { session } = response.data;
-
-      if (session.user) {
-        setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
-      }
-    });
-
-    supabase.auth.onAuthStateChange(handleAuthStateChange);
-  }, []);
 
   return (
     <>

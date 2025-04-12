@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { Badge, Button, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from "qrcode.react";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@chakra-ui/react";
@@ -44,9 +44,11 @@ const BusinessCards = () => {
         {businessCards.length == 0 ? (
           <h2 className="text-center">No cards yet - try ordering some or activating</h2>
         ) : (
-          <div className={styles.servicesTwo}>
+          <div
+            className={`${styles.servicesTwo} ${businessCards.length < 3 ? `lg:grid-cols-${businessCards.length}` : "lg:grid-cols-2"}`}
+          >
             {businessCards.map((card, index) => (
-              <BusinessCard key={index} card={card} cardIndex={index}/>
+              <BusinessCard key={index} card={card} cardIndex={index} />
             ))}
           </div>
         )}
@@ -59,7 +61,8 @@ const BusinessCards = () => {
       <div className="text-white">
         <div>
           <p className="py-2">
-            Do you want to have a single QR code and be able to change the business card at any time? We provide the best solution for you - a dynamic QR code with customizable data. Get one from the 
+            Do you want to have a single QR code and be able to change the business card at any time? We provide the
+            best solution for you - a dynamic QR code with customizable data. Get one from the
             <Button size="sm" className="btn-light gap-2" onClick={goToProducts}>
               The Product Page
             </Button>{" "}

@@ -66,7 +66,7 @@ const UserPanel = () => {
             slogan={user?.email}
             button={
               <Button
-                style={{ minWidth: "100px", zIndex: "999" }}
+                style={{ minWidth: "100px" }}
                 colorScheme="red"
                 variant="solid"
                 onClick={userStore.signOut}

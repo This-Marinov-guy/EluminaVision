@@ -16,7 +16,6 @@ import _ from "lodash"; // For deep comparison
 const BusinessCard = (props) => {
   const { card, cardIndex } = props;
 
-  const [color, setColor] = useState(card.background_color || '#aaa');
   const [qrLogoPreview, setQrLogoPreview] = useState(card.logo ?? null);
   const [initialCard, setInitialCard] = useState(() => _.cloneDeep(card));
   const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -34,11 +33,7 @@ const BusinessCard = (props) => {
   const toast = useToast();
 
   useEffect(() => {
-    changeColor(color);
-  }, [color]);
-
-  useEffect(() => {
-    if (typeof card.logo !== 'string') {
+    if (typeof card.logo !== "string") {
       setQrLogoPreview(URL.createObjectURL(card.logo));
     }
   }, [card.logo]);
@@ -67,7 +62,7 @@ const BusinessCard = (props) => {
   const handleSave = async () => {
     const saveId = "business-card-saved";
     const failId = "business-card-failed-modification";
-   
+
     const isSuccess = await saveBusinessCard(cardIndex);
 
     if (isSuccess) {
@@ -93,21 +88,33 @@ const BusinessCard = (props) => {
         duration: 2500,
         isClosable: true,
       });
-    } 
+    }
   };
 
   return (
     <Card key={card.id} className={`${styles.card} relative`} flexDirection="column" overflow="hidden" maxW="xl">
-      <Button
-        size="sm"
-        className="btn-dark w-18 justify-self-end self-end -mb-8"
-        onClick={handleSave}
-        isDisabled={!unsavedChanges}
-        leftIcon={<i className="fa-solid fa-floppy-disk"></i>}
-        isLoading={saveBusinessCardLoading}
-      >
-        Save
-      </Button>
+      <div className="flex flex-row items-center justify-between gap-2 absolute top-2 right-2">
+        <Button
+          size="sm"
+          className="btn-dark justify-self-end self-end -mb-8"
+          onClick={handleSave}
+          isDisabled={saveBusinessCardLoading}
+          leftIcon={<i className="fa-solid fa-cloud-arrow-down"></i>}
+          isLoading={false}
+        >
+          Download
+        </Button>
+        <Button
+          size="sm"
+          className="btn-light justify-self-end self-end -mb-8"
+          onClick={handleSave}
+          isDisabled={!unsavedChanges}
+          leftIcon={<i className="fa-solid fa-floppy-disk"></i>}
+          isLoading={saveBusinessCardLoading}
+        >
+          Save
+        </Button>
+      </div>
 
       <CardBody className="flex flex-col items-center justify-center gap-2">
         <div className="flex flex-row items-center justify-between gap-8">
@@ -116,7 +123,7 @@ const BusinessCard = (props) => {
               style={{ height: "auto", width: "5em" }}
               value={QR_CODE_DOMAIN + card.id}
               size={240}
-              bgColor={color}
+              fgColor={card.code_color}
               imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 60, width: 60, excavate: true } : undefined}
             />
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
@@ -147,9 +154,23 @@ const BusinessCard = (props) => {
             />
 
             <div className="flex flex-col items-center justify-center gap-2 mt-3">
+              <label>Code Color</label>
+              <Input
+                type="color"
+                value={card.code_color}
+                onChange={(e) => setBusinessCardData(cardIndex, "code_color", e.target.value)}
+                placeholder="Background color"
+              />
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-2 mt-3">
               <label>Background Color</label>
-              <HexColorPicker color={color} onChange={setColor} />
-              <Input value={color} onChange={(e) => setColor(e.target.value)} placeholder="Background color" />
+              <Input
+                type="color"
+                value={card.background_color}
+                onChange={(e) => setBusinessCardData(cardIndex, "background_color", e.target.value)}
+                placeholder="Background color"
+              />
             </div>
 
             <div className="flex flex-col items-center justify-center gap-2 mt-3">

@@ -45,7 +45,9 @@ const QRcodes = () => {
         {qrCodes.length == 0 ? (
           <h2 className="text-center">No codes yet - try ordering some or activating</h2>
         ) : (
-          <div className={styles.services}>
+          <div
+            className={`${styles.services} ${qrCodes.length < 4 ? `md:grid-cols-${qrCodes.length}` : "lg:grid-cols-3"}`}
+          >
             {qrCodes.map((code) => (
               <QrCard key={code.id} code={code} />
             ))}

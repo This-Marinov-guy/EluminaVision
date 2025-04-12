@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import SessionProvider from "@/layout/SessionProvider";
 
 // Font configuration
 const poppins = Poppins({
@@ -40,7 +41,6 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg" />
-
         <meta
           name="description"
           lang="en"
@@ -56,6 +56,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} overflow-x-hidden w-screen`}>
         <StoreProvider>
           <ChakraProvider>
+            <SessionProvider />
             {children}
             <Footer />
           </ChakraProvider>

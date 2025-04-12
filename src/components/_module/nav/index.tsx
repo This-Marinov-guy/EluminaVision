@@ -11,6 +11,7 @@ import { observer } from "mobx-react-lite";
 import styles from "./style.module.scss";
 import CartButton from "@/components/_basic/button/CartButton";
 import AuthButton from "@/components/_basic/button/AuthButton";
+import Link from "next/link";
 // import AuthButton from "@/components/_basic/button/AuthButton";
 
 const linkMap = [
@@ -70,16 +71,16 @@ const NavBar = () => {
         <CartButton />
         {linkMap.map((item) =>
           item.external ? (
-            <a href={`/${item.link}`} key={item.name} className={classNames(styles.nav, styles[item.className])}>
+            <Link href={`/${item.link}`} key={item.name} className={classNames(styles.nav, styles[item.className])}>
               <motion.div
                 initial={{ y: 0, opacity: 1 }}
                 whileHover={{ y: -20, opacity: 0.5, transition: { duration: 0.5 } }}
               >
                 <div className="h-5">{item.name}</div>
               </motion.div>
-            </a>
+            </Link>
           ) : (
-            <a
+            <Link
               href={`/#${item.link}`}
               key={item.name}
               className={classNames(styles.nav, styles[item.className])}
@@ -98,7 +99,7 @@ const NavBar = () => {
               >
                 <div className="h-5">{item.name}</div>
               </motion.div>
-            </a>
+            </Link>
           ),
         )}
       </div>

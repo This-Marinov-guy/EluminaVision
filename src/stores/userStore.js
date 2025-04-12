@@ -46,7 +46,7 @@ export class UserStore {
 
   loadQrCodes = async () => {
     try {
-    if (!this.user?.token) return;
+      if (!this.user?.token) return;
 
       const response = await axios.get("/api/qr-codes/user-codes");
 
@@ -185,6 +185,7 @@ export class UserStore {
     if (!card) return;
 
     formData.append("description", card.description);
+    formData.append("code_color", card.background_color);
     formData.append("background_color", card.background_color);
     formData.append("logo", card.logo);
     formData.append("image", card.image);
@@ -194,7 +195,7 @@ export class UserStore {
       const response = await axios.put(`/api/business-cards/modify/${card.id}`, formData);
 
       return response.data.status;
-    } catch (error) {      
+    } catch (error) {
       return false;
     } finally {
       this.saveBusinessCardLoading = false;
