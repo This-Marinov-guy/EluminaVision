@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 
-export async function PUT(req, { params }) {
-  const id = params.id;
+export async function PUT(req) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
   const userId = extractIdFromRequest(req.headers.get("authorization"));
 
   if (!userId) {

@@ -16,13 +16,13 @@ export default function BusinessCardPage() {
       return;
     }
 
-    fetch(`/api/business-cards/${id}`, {
+    fetch(`/api/business-cards/preview?id=${id}`, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((parsedResponse) => {
         if (parsedResponse.status) {
-            setData(parsedResponse.businessCard);
+          setData(parsedResponse.businessCard);
         }
       })
       .catch((error) => {

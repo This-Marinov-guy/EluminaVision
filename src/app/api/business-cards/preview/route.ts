@@ -2,15 +2,18 @@ import { supabase } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { NextResponse } from "next/server";
 
-export async function GET(req, { params }) {
-  if (!params.id) {
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
     return NextResponse.json({ error: "Missing Id" }, { status: 404 });
   }
 
   const { data, error } = await supabase
     .from("business_cards")
     .select("logo, image, description, code_color, background_color, links")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (error || !data) {

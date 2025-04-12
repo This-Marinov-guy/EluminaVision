@@ -196,7 +196,7 @@ export class UserStore {
     formData.append("links", JSON.stringify(card.links));
 
     try {
-      const response = await axios.put(`/api/business-cards/modify/${card.id}`, formData);
+      const response = await axios.put(`/api/business-cards/modify?id=${card.id}`, formData);
 
       return response.data.status;
     } catch (error) {
