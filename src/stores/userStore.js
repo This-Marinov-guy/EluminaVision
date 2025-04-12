@@ -46,7 +46,7 @@ export class UserStore {
 
   loadQrCodes = async () => {
     try {
-      if (!this.user?.token) return;
+    if (!this.user?.token) return;
 
       const response = await axios.get("/api/qr-codes/user-codes");
 
@@ -93,6 +93,30 @@ export class UserStore {
       this.activationMessage = error.response.data.message ?? "Error activating code - please try again!";
     } finally {
       this.activationLoading = false;
+    }
+  };
+
+  activateBusinessCard = async (codeId) => {
+    this.activationBusinessCardLoading = true;
+    this.activationBusinessCardStatus = null;
+    this.activationBusinessCardMessage = "";
+
+    try {
+      const response = await axios.put(`/api/business-card/activate`, { id: codeId });
+
+      this.activationBusinessCardStatus = response.data.status;
+      this.activationBusinessCardMessage = response.data.message;
+
+      if (response.data.status === true) {
+        this.loadBusinessCards();
+      }
+    } catch (error) {
+      console.log("Error activating code", error);
+
+      this.activationBusinessCardStatus = false;
+      this.activationBusinessCardMessage = error.response.data.message ?? "Error activating code - please try again!";
+    } finally {
+      this.activationBusinessCardLoading = false;
     }
   };
 
