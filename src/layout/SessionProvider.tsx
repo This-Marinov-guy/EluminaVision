@@ -39,7 +39,7 @@ const SessionProvider = ({ children }) => {
         const {
           data: { session },
           error,
-        } = await supabase.auth.getSession();
+        } = await supabase.auth.refreshSession();        
 
         if (session?.user) {
           setUser({
