@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { supabase } from "@/utils/config";
+import { SESSION_REFRESH_INTERVAL, supabase } from "@/utils/config";
 import { useStore } from "@/stores/storeProvider";
 
 const SessionProvider = ({ children }) => {
@@ -34,7 +34,6 @@ const SessionProvider = ({ children }) => {
     // Listen for auth changes
     const { data: listener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
-    // Refresh session token every 15 minutes
     refreshInterval = setInterval(
       async () => {
         const {
@@ -53,8 +52,8 @@ const SessionProvider = ({ children }) => {
           console.error("Error refreshing session:", error.message);
         }
       },
-      15 * 60 * 1000,
-    ); // 15 minutes
+      SESSION_REFRESH_INTERVAL,
+    ); 
 
     return () => {
       listener.subscription.unsubscribe();
