@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { Poppins } from "next/font/google";
 import { StoreProvider } from "../stores/storeProvider";
-import Footer from "../components/_module/footer";
 import Script from "next/script";
 
 import "./globals.css";
@@ -58,7 +57,6 @@ export default function RootLayout({ children }) {
           <ChakraProvider>
             <SessionProvider />
             {children}
-            <Footer />
           </ChakraProvider>
         </StoreProvider>
       </body>

@@ -9,7 +9,6 @@ export default function BusinessCardPage() {
     const id = params.get("id");
 
     if (!id) {
-      alert("Missing 'id' parameter in the URL.");
       return;
     }
 
