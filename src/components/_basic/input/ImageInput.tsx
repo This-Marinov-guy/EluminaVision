@@ -13,7 +13,7 @@ const ImageInput = ({ label, value, onChange }) => {
     const file = e.target.files?.[0];
     if (file) {
       setPreviewURL(URL.createObjectURL(file));
-      onChange(await resizeFile(file));
+      onChange(await resizeFile(file, 600, 600));
     }
   };
 

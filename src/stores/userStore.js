@@ -102,7 +102,7 @@ export class UserStore {
     this.activationBusinessCardMessage = "";
 
     try {
-      const response = await axios.put(`/api/business-card/activate`, { id: codeId });
+      const response = await axios.put(`/api/business-cards/activate`, { id: codeId });
 
       this.activationBusinessCardStatus = response.data.status;
       this.activationBusinessCardMessage = response.data.message;
@@ -185,14 +185,20 @@ export class UserStore {
     if (!card) return;
 
     formData.append("description", card.description);
-    formData.append("backgroundColor", card.backgroundColor);
+    formData.append("background_color", card.background_color);
     formData.append("logo", card.logo);
     formData.append("image", card.image);
     formData.append("links", JSON.stringify(card.links));
 
-    const response = await axios.put(`/api/business-card/modify`, { id: codeId, data: formData });
+    try {
+      const response = await axios.put(`/api/business-cards/modify/${card.id}`, formData);
 
-    return response.data.status;
+      return response.data.status;
+    } catch (error) {      
+      return false;
+    } finally {
+      this.saveBusinessCardLoading = false;
+    }
   };
 
   toggleLoading = () => {
