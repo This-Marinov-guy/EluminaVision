@@ -38,7 +38,7 @@ const BusinessCard = (props) => {
   }, [color]);
 
   useEffect(() => {
-    if (card.logo) {
+    if (typeof card.logo !== 'string') {
       setQrLogoPreview(URL.createObjectURL(card.logo));
     }
   }, [card.logo]);
