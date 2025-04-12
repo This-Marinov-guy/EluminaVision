@@ -1,8 +1,8 @@
-import BusinessCardPage from "@/app/business-card/preview/[id]/page";
+import BusinessCardPage from "@/app/business-card/preview/page";
 import React from "react";
 
 const index = () => {
-  return <BusinessCardPage params={{ id: 'default' }} />;
+  return <BusinessCardPage />;
 };
 
 export default index;

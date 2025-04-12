@@ -3,14 +3,15 @@
 import PageLoader from "@/components/_page/loading/PageLoader";
 import { useEffect, useState } from "react";
 
-export default function BusinessCardPage({ params }) {
-  const { id } = params;
-
+export default function BusinessCardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
     if (!id) {
       return;
     }
@@ -21,7 +22,7 @@ export default function BusinessCardPage({ params }) {
       .then((response) => response.json())
       .then((parsedResponse) => {
         if (parsedResponse.status) {
-          setData(parsedResponse.businessCard);
+            setData(parsedResponse.businessCard);
         }
       })
       .catch((error) => {
