@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Badge, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
-import QRCode from "react-qr-code";
+import {QRCodeSVG} from 'qrcode.react';
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import styles from "./style.module.scss";
 import { QR_CODE_DOMAIN } from "@/utils/defines";
@@ -39,7 +39,7 @@ const QrCard = (props) => {
 
   return (
     <Card key={code.id} className={styles.card} flexDirection="row" overflow="hidden" maxW="md">
-      <QRCode style={{ height: "auto", width: "5em" }} value={QR_CODE_DOMAIN + code.id} viewBox={`0 0 256 256`} />
+      <QRCodeSVG style={{ height: "auto", width: "5em" }} value={QR_CODE_DOMAIN + code.id} size={240} />
 
       <CardBody className="flex flex-col items-center justify-center gap-2">
         <h2 className="bg-orange ">{code.id.slice(0, 8)}</h2>

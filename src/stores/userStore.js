@@ -18,8 +18,8 @@ export class UserStore {
   businessCards = [
     {
       id: "dasdsadsa-dasdsadas",
-      logo: "dasdsadsa",
-      image: "dsadsa",
+      logo: null,
+      image: null,
       backgroundColor: "#000000",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       links: [

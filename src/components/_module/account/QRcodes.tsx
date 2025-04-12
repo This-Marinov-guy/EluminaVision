@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { Badge, Button, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
-import QRCode from "react-qr-code";
+import {QRCodeSVG} from 'qrcode.react';
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@chakra-ui/react";
