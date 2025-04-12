@@ -9,7 +9,7 @@ export async function GET(req, { params }) {
 
   const { data, error } = await supabase
     .from("business_cards")
-    .select("logo, image, description, background_color, links")
+    .select("logo, image, description, code_color, background_color, links")
     .eq("id", params.id)
     .single();
 
@@ -18,7 +18,7 @@ export async function GET(req, { params }) {
   }
 
   let parsedData = data;
-  
+
   try {
     parsedData.links = JSON.parse(parsedData.links);
   } catch (e) {

@@ -25,8 +25,12 @@ export async function PUT(req, { params }) {
       updatedData.description = formData.get("description");
     }
 
-    if (formData.has("backgroundColor")) {
-      updatedData.background_color = formData.get("backgroundColor");
+    if (formData.has("background_color")) {
+      updatedData.background_color = formData.get("background_color");
+    }
+
+    if (formData.has("code_color")) {
+      updatedData.code_color = formData.get("code_color");
     }
 
     if (formData.has("links")) {
