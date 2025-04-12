@@ -16,7 +16,7 @@ import _ from "lodash"; // For deep comparison
 const BusinessCard = (props) => {
   const { card, cardIndex } = props;
 
-  const [color, setColor] = useState(card.backgroundColor);
+  const [color, setColor] = useState(card.background_color || '#aaa');
   const [qrLogoPreview, setQrLogoPreview] = useState(card.logo ?? null);
   const [initialCard, setInitialCard] = useState(() => _.cloneDeep(card));
   const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -61,7 +61,7 @@ const BusinessCard = (props) => {
   }, [card, initialCard]);
 
   const changeColor = (color) => {
-    setBusinessCardData(cardIndex, "backgroundColor", color);
+    setBusinessCardData(cardIndex, "background_color", color);
   };
 
   const handleSave = async () => {
@@ -122,7 +122,7 @@ const BusinessCard = (props) => {
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
           </div>
           <div>
-            <LinkPreview url="https://domakin.nl/contacts" />
+            <LinkPreview url={card.redirect_url} />
           </div>
         </div>
 
@@ -168,18 +168,19 @@ const BusinessCard = (props) => {
 
           <div className="flex flex-col gap-2">
             <p className="font-bold">Links</p>
-            {card.links.map((link, linkIndex) => (
-              <div key={linkIndex} className="flex items-center gap-2">
-                <LinkWithLabel
-                  link={link}
-                  setLinkData={(field, value) => setBusinessCardLinkData(cardIndex, linkIndex, field, value)}
-                />
-                <i
-                  className="fa-solid fa-minus text-red cursor-pointer"
-                  onClick={() => removeLink(cardIndex, linkIndex)}
-                ></i>
-              </div>
-            ))}
+            {card.links &&
+              card.links.map((link, linkIndex) => (
+                <div key={linkIndex} className="flex items-center gap-2">
+                  <LinkWithLabel
+                    link={link}
+                    setLinkData={(field, value) => setBusinessCardLinkData(cardIndex, linkIndex, field, value)}
+                  />
+                  <i
+                    className="fa-solid fa-minus text-red cursor-pointer"
+                    onClick={() => removeLink(cardIndex, linkIndex)}
+                  ></i>
+                </div>
+              ))}
             <Button variant="outline" colorScheme="green" className="mt-4" size="sm" onClick={() => addLink(cardIndex)}>
               Add link
             </Button>

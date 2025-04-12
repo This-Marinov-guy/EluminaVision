@@ -1,3 +1,4 @@
+import { resizeFile } from "@/utils/helpers";
 import React, { useRef, useState } from "react";
 
 const ImageInput = ({ label, value, onChange }) => {
@@ -8,11 +9,11 @@ const ImageInput = ({ label, value, onChange }) => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
       setPreviewURL(URL.createObjectURL(file));
-      onChange(file);
+      onChange(await resizeFile(file));
     }
   };
 

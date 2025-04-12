@@ -1,4 +1,5 @@
 import { supabase } from "./config";
+import Resizer from "react-image-file-resizer";
 
 export const getCurrencySymbol = (currency: string) => {
   switch (currency) {
@@ -41,6 +42,22 @@ export const extractIdFromRequest = (authHeader: string) => {
     return null;
   }
 };
+
+export const resizeFile = (file, width = 1000, height = 1000, format = "jpg") =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      width,
+      height,
+      format,
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "blob",
+    );
+  });
 
 export async function updateFirstNRows(n: number, table: string, userId = null): Promise<number[] | null> {
   // 1️⃣ Fetch first N rows with status = 1

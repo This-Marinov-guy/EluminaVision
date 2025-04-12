@@ -13,7 +13,7 @@ const LinkWithLabel = (props) => {
 
       <InputGroup>
         <InputLeftElement pointerEvents="none">
-          <i className={getLinkIcon("")}></i>
+          <i className={getLinkIcon(link.url, link.label)}></i>
         </InputLeftElement>
         <Input placeholder="Link" value={link.url} onChange={(e) => setLinkData("url", e.target.value)} />
       </InputGroup>
