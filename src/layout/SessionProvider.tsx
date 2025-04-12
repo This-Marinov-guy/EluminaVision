@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useEffect } from "react";
 import { supabase } from "@/utils/config";
@@ -10,21 +10,56 @@ const SessionProvider = ({ children }) => {
 
   const handleAuthStateChange = (event, session) => {
     if (event === "SIGNED_IN" && session?.user) {
-      setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
+      setUser({
+        ...session.user.user_metadata,
+        token: session.access_token ?? "",
+      });
       closeAuthModal();
     }
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then((response) => {
-      const { session } = response.data;
+    let refreshInterval;
 
-      if (session.user) {
-        setUser({ ...session.user.user_metadata, token: session.access_token ?? "" });
+    // Initial session check
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUser({
+          ...session.user.user_metadata,
+          token: session.access_token ?? "",
+        });
       }
     });
 
-    supabase.auth.onAuthStateChange(handleAuthStateChange);
+    // Listen for auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
+
+    // Refresh session token every 15 minutes
+    refreshInterval = setInterval(
+      async () => {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
+        if (session?.user) {
+          setUser({
+            ...session.user.user_metadata,
+            token: session.access_token ?? "",
+          });
+        }
+
+        if (error) {
+          console.error("Error refreshing session:", error.message);
+        }
+      },
+      15 * 60 * 1000,
+    ); // 15 minutes
+
+    return () => {
+      listener.subscription.unsubscribe();
+      clearInterval(refreshInterval);
+    };
   }, []);
 
   return null;
