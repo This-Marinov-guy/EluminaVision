@@ -32,6 +32,7 @@
     "framer-motion": "^12.4.10",
     "googleapis": "^144.0.0",
     "i": "^0.3.7",
+    "lodash": "^4.17.21",
     "mailtrap": "^3.4.0",
     "mobx": "^6.13.6",
     "mobx-react-lite": "^4.1.0",

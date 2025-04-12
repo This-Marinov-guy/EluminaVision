@@ -77,13 +77,18 @@ export async function POST(req: Request) {
       const userId = unfinishedOrder.userId;
       let items = unfinishedOrder.items;
       let orderedQrCodesQuantity = 0;
+      let orderedBusinessCardsQuantity = 0;
 
       // convert items to array without null values
       items = Object.values(items).filter(Boolean);
 
       const formattedItems = items.map((item) => {
         if (QR_CODES_VARIANTS.map((card) => card.title).includes(item.title)) {
-          orderedQrCodesQuantity += item.quantity;
+          if (item.id === 3) {
+            orderedQrCodesQuantity += item.quantity;
+          } else if (item.id === 4) {
+            orderedBusinessCardsQuantity += item.quantity;
+          }
         }
 
         return `${item.quantity} x ${item.title} (${item.variant}) - ${item.currency}${item.price}`;
@@ -100,10 +105,11 @@ export async function POST(req: Request) {
       ];
 
       let qrCodes = [];
+      let businessCards = [];
 
       if (orderedQrCodesQuantity) {
         try {
-          qrCodes = await updateFirstNRows(orderedQrCodesQuantity, userId);
+          qrCodes = await updateFirstNRows(orderedQrCodesQuantity, 'qr_codes', userId);
           data["qrCodes"] = qrCodes.join(", ");
         } catch (err) {
           console.error("Error updating qr codes:", err);
@@ -111,6 +117,23 @@ export async function POST(req: Request) {
             {
               received: true,
               warning: "Order received but failed to update qr codes",
+              log: err.message,
+            },
+            { status: 200 },
+          );
+        }
+      }
+
+      if (orderedBusinessCardsQuantity) {
+        try {
+          businessCards = await updateFirstNRows(orderedBusinessCardsQuantity, "business_cards", userId);
+          data["businessCards"] = businessCards.join(", ");
+        } catch (err) {
+          console.error("Error updating qr codes:", err);
+          return NextResponse.json(
+            {
+              received: true,
+              warning: "Order received but failed to update business cards",
               log: err.message,
             },
             { status: 200 },

@@ -96,7 +96,7 @@ export const QR_CODES_VARIANTS = [
 </ul>`,
   },
   {
-    id: 3,
+    id: 4,
     title: "Dynamic Business Cards",
     variant: "Standard",
     price: 1.99,

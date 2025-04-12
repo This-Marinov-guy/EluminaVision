@@ -15,20 +15,9 @@ export class UserStore {
   activationStatus = null;
   activationMessage = "";
 
-  businessCards = [
-    {
-      id: "dasdsadsa-dasdsadas",
-      logo: null,
-      image: null,
-      backgroundColor: "#000000",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      links: [
-        { label: "LinkedIn", url: "https://www.linkedin.com/in/username" },
-        { label: "Twitter", url: "https://twitter.com/username" },
-      ],
-    },
-  ];
+  businessCards = [];
   businessCardsLoading = false;
+  saveBusinessCardLoading = false;
 
   activateBusinessCardModal = false;
   activationBusinessCardLoading = false;
@@ -48,6 +37,7 @@ export class UserStore {
     this.isLoading = false;
 
     this.loadQrCodes();
+    this.loadBusinessCards();
   };
 
   toggleQRCodeModal = () => {
@@ -65,6 +55,20 @@ export class UserStore {
       console.error("Error fetching codes", error);
     } finally {
       this.qrCodesLoading = false;
+    }
+  };
+
+  loadBusinessCards = async () => {
+    try {
+      if (!this.user?.token) return;
+
+      const response = await axios.get("/api/business-cards/user-codes");
+
+      this.businessCards = response.data.businessCards;
+    } catch (error) {
+      console.error("Error fetching cards", error);
+    } finally {
+      this.businessCardsLoading = false;
     }
   };
 
@@ -92,61 +96,80 @@ export class UserStore {
     }
   };
 
-// Store methods
-setBusinessCardLinkData = (cardIndex, linkIndex, field, value) => {
-  // Make sure we have a copy of the links array to avoid direct mutation
-  const card = this.businessCards[cardIndex];
-  if (!card) return;
-  
-  const links = [...card.links];
-  links[linkIndex] = {
-    ...links[linkIndex],
-    [field]: value
-  };
-  
-  this.businessCards[cardIndex] = {
-    ...card,
-    links: links
-  };
-};
+  // Store methods
+  setBusinessCardLinkData = (cardIndex, linkIndex, field, value) => {
+    // Make sure we have a copy of the links array to avoid direct mutation
+    const card = this.businessCards[cardIndex];
+    if (!card) return;
 
-setBusinessCardData = (cardIndex, field, value) => {
-  const card = this.businessCards[cardIndex];
-  if (!card) return;
-  
-  this.businessCards[cardIndex] = {
-    ...card,
-    [field]: value
+    const links = [...card.links];
+    links[linkIndex] = {
+      ...links[linkIndex],
+      [field]: value,
+    };
+
+    this.businessCards[cardIndex] = {
+      ...card,
+      links: links,
+    };
   };
-}
 
-removeLink = (cardIndex, linkIndex) => {
-  const card = this.businessCards[cardIndex];
-  if (!card) return;    
+  setBusinessCardData = (cardIndex, field, value) => {
+    const card = this.businessCards[cardIndex];
+    if (!card) return;
 
-  // Create a new array without the link at linkIndex
-  const newLinks = [...card.links];
-  
-  newLinks.splice(linkIndex, 1);
-
-  this.businessCards[cardIndex] = {
-    ...card,
-    links: newLinks,
+    this.businessCards[cardIndex] = {
+      ...card,
+      [field]: value,
+    };
   };
-};
 
-addLink = (cardIndex) => {
-  const card = this.businessCards[cardIndex];
-  if (!card) return;
-  
-  // Create a new array with the added link
-  const newLinks = [...card.links, { label: "", url: "" }];
-  
-  this.businessCards[cardIndex] = {
-    ...card,
-    links: newLinks,
+  removeLink = (cardIndex, linkIndex) => {
+    const card = this.businessCards[cardIndex];
+    if (!card) return;
+
+    // Create a new array without the link at linkIndex
+    const newLinks = [...card.links];
+
+    newLinks.splice(linkIndex, 1);
+
+    this.businessCards[cardIndex] = {
+      ...card,
+      links: newLinks,
+    };
   };
-};
+
+  addLink = (cardIndex) => {
+    const card = this.businessCards[cardIndex];
+    if (!card) return;
+
+    // Create a new array with the added link
+    const newLinks = [...card.links, { label: "", url: "" }];
+
+    this.businessCards[cardIndex] = {
+      ...card,
+      links: newLinks,
+    };
+  };
+
+  saveBusinessCard = async (cardIndex) => {
+    this.saveBusinessCardLoading = true;
+
+    const formData = new FormData();
+    const card = this.businessCards[cardIndex];
+
+    if (!card) return;
+
+    formData.append("description", card.description);
+    formData.append("backgroundColor", card.backgroundColor);
+    formData.append("logo", card.logo);
+    formData.append("image", card.image);
+    formData.append("links", JSON.stringify(card.links));
+
+    const response = await axios.put(`/api/business-card/modify`, { id: codeId, data: formData });
+
+    return response.data.status;
+  };
 
   toggleLoading = () => {
     this.loading = !this.loading;

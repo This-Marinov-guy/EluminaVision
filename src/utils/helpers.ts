@@ -42,10 +42,10 @@ export const extractIdFromRequest = (authHeader: string) => {
   }
 };
 
-export async function updateFirstNRows(n: number, userId = null): Promise<number[] | null> {
+export async function updateFirstNRows(n: number, table: string, userId = null): Promise<number[] | null> {
   // 1️⃣ Fetch first N rows with status = 1
   const { data: rows, error: fetchError } = await supabase
-    .from("qr_codes")
+    .from(table)
     .select("id")
     .eq("status", 1)
     .order("id", { ascending: true }) // Fetch oldest rows first
@@ -56,22 +56,22 @@ export async function updateFirstNRows(n: number, userId = null): Promise<number
     return null;
   }
 
-  const qrCodeIds = rows.map((row) => row.id);
+  const codeIds = rows.map((row) => row.id);
 
   // 2️⃣ Update the fetched rows
   const updatePayload = { status: 2 };
   if (userId) updatePayload["user_id"] = userId;
 
-  const { error: updateError } = await supabase.from("qr_codes").update(updatePayload).in("id", qrCodeIds);
+  const { error: updateError } = await supabase.from(table).update(updatePayload).in("id", codeIds);
 
   if (updateError) {
     console.error("Error updating QR codes:", updateError);
     return null;
   }
 
-  console.log(`Successfully updated ${qrCodeIds.length} QR codes!`);
+  console.log(`Successfully updated ${codeIds.length} QR codes in table ${table}!`);
 
-  return qrCodeIds;
+  return codeIds;
 }
 
 export const getLinkIcon = (url: string, label: string = "") => {
