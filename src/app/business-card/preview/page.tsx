@@ -3,7 +3,7 @@
 import PageLoader from "@/components/_page/loading/PageLoader";
 import { useEffect } from "react";
 
-export default function BusinessCardPreview() {
+export default function BusinessCardPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -24,5 +24,10 @@ export default function BusinessCardPreview() {
     //   });
   }, []);
 
-  return <PageLoader />;
+  return (
+    <>
+      <div>wow</div>
+      {/* <PageLoader /> */}
+    </>
+  );
 }

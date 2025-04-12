@@ -46,7 +46,9 @@ export class UserStore {
 
   loadQrCodes = async () => {
     try {
-      if (!this.user?.token) return;
+      if (!this.user?.token || this.qrCodesLoading) return;
+
+      this.qrCodesLoading = true;
 
       const response = await axios.get("/api/qr-codes/user-codes");
 
@@ -60,7 +62,9 @@ export class UserStore {
 
   loadBusinessCards = async () => {
     try {
-      if (!this.user?.token) return;
+      if (!this.user?.token || this.businessCardsLoading) return;
+
+      this.businessCardsLoading = true;
 
       const response = await axios.get("/api/business-cards/user-codes");
 
