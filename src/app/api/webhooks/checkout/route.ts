@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       const customerDetails = session.customer_details;
       const shippingDetails = session.shipping_details;
       const shippingCost = session.shipping_cost;
-      const shippingCostDetails = getShippingCostDetails(shippingCost.shipping_rate ?? "");
+      const shippingCostDetails = getShippingCostDetails(shippingCost?.shipping_rate ?? "");
 
       const email = customerDetails?.email;
       const name = customerDetails?.name;

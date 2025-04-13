@@ -21,7 +21,7 @@ export const getShippingCostDetails = (id) => {
     case "shr_1Qvm2JLUXmDaRfFYkVMN5yOr":
       return "Europe delivery (Royal Mail) | 2 - 4 business days | £5.00";
     default:
-      return "TBD";
+      return "None";
   }
 };
 
