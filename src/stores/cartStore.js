@@ -23,6 +23,9 @@ export class CartStore {
   addItem(item, quantity = 1) {
     if (quantity <= 0) return;
 
+    item.delete('description');
+    item.delete('imageUrl');
+
     const existingItem = this.items.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {

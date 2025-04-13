@@ -83,10 +83,10 @@ export async function POST(req: Request) {
       items = Object.values(items).filter(Boolean);
 
       const formattedItems = items.map((item) => {
-        if (QR_CODES_VARIANTS.map((card) => card.title).includes(item.title)) {
-          if (item.id === 3) {
+        if (QR_CODES_VARIANTS.map((card) => card.id).includes(item.id)) {
+          if (item.id == 3) {
             orderedQrCodesQuantity += item.quantity;
-          } else if (item.id === 4) {
+          } else if (item.id == 4) {
             orderedBusinessCardsQuantity += item.quantity;
           }
         }
@@ -169,6 +169,7 @@ export async function POST(req: Request) {
             items: formattedItems,
             shippingCostDetails,
             qrCodes,
+            businessCards,
           },
         });
       } catch (err) {
@@ -184,7 +185,7 @@ export async function POST(req: Request) {
       }
 
       try {
-        await supabase.from("unfinished_orders").delete().eq("id", orderNumber);
+        // await supabase.from("unfinished_orders").delete().eq("id", orderNumber);
       } catch (err) {
         console.error("Error deleting finished order:", err);
         return NextResponse.json(

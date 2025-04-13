@@ -1,4 +1,5 @@
-export const PRODUCT_IDS_WITH_DELIVERY = [1, 2]
+export const PRODUCT_IDS_WITH_DELIVERY = [1, 2];
+export const SPECIAL_PRODUCT_IDS = [3, 4];
 
 export const NFC_GOOGLE_CARDS = [
   {
