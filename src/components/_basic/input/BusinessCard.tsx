@@ -36,7 +36,7 @@ const BusinessCard = (props) => {
   const toast = useToast();
 
   useEffect(() => {
-    if (typeof card.logo !== "string") {
+    if (card.logo && typeof card.logo !== "string") {
       setQrLogoPreview(URL.createObjectURL(card.logo));
     }
   }, [card.logo]);

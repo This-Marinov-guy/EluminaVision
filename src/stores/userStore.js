@@ -68,7 +68,18 @@ export class UserStore {
 
       const response = await axios.get("/api/business-cards/user-codes");
 
-      this.businessCards = response.data.businessCards;
+      this.businessCards = [
+        {
+          id: "0035fce3-e779-45e9-8b08-2bda126530e9",
+          redirect_url: "https://eluminavision.com/business-card/preview?id=0035fce3-e779-45e9-8b08-2bda126530e9",
+          logo: null,
+          image: null,
+          description: null,
+          code_color: null,
+          background_color: null,
+          links: null,
+        },
+      ];
     } catch (error) {
       console.error("Error fetching cards", error);
     } finally {
