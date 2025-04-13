@@ -195,6 +195,7 @@ const BusinessCard = (props) => {
             <ImageInput
               label="Logo"
               value={card.logo}
+              imageFormat="png"
               onChange={(value) => {
                 setBusinessCardData(cardIndex, "logo", value);
               }}

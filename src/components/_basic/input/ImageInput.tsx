@@ -1,7 +1,7 @@
 import { resizeFile } from "@/utils/helpers";
 import React, { useRef, useState } from "react";
 
-const ImageInput = ({ label, value, onChange }) => {
+const ImageInput = ({ label, value, onChange, imageFormat = 'jpg' }) => {
   const [previewURL, setPreviewURL] = useState(value ?? null);
   const fileInputRef = useRef(null);
 
@@ -13,7 +13,7 @@ const ImageInput = ({ label, value, onChange }) => {
     const file = e.target.files?.[0];
     if (file) {
       setPreviewURL(URL.createObjectURL(file));
-      onChange(await resizeFile(file, 600, 600));
+      onChange(await resizeFile(file, 600, 600, imageFormat));
     }
   };
 
