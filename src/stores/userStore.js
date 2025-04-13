@@ -190,6 +190,13 @@ export class UserStore {
 
     if (!card) return;
 
+    card.links = card.links
+      .filter((link) => link.url && link.url.trim() !== "")
+      .map((link) => ({
+        ...link,
+        label: link.label?.trim() || "Link",
+      }));
+
     formData.append("description", card.description);
     formData.append("code_color", card.background_color);
     formData.append("background_color", card.background_color);
