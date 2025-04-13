@@ -23,15 +23,17 @@ export class CartStore {
   addItem(item, quantity = 1) {
     if (quantity <= 0) return;
 
-    delete item.description;
-    delete item.imageUrl;
+    const trimmedItem = item;
 
-    const existingItem = this.items.find((cartItem) => cartItem.id === item.id);
+    delete trimmedItem.description;
+    delete trimmedItem.imageUrl;
+
+    const existingItem = this.items.find((cartItem) => cartItem.id === trimmedItem.id);
 
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
-      this.items.push({ ...item, quantity });
+      this.items.push({ ...trimmedItem, quantity });
     }
 
     localStorage.setItem(CART_LOCAL_STORAGE_KEY, JSON.stringify(this.items));
