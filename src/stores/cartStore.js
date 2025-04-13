@@ -23,7 +23,7 @@ export class CartStore {
   addItem(item, quantity = 1) {
     if (quantity <= 0) return;
 
-    const trimmedItem = item;
+    const trimmedItem = {...item};
 
     delete trimmedItem.description;
     delete trimmedItem.imageUrl;
