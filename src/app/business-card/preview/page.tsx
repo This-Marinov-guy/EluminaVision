@@ -62,7 +62,9 @@ export default function BusinessCard() {
             {/* Front of card */}
             <div
               className="absolute inset-0 backface-hidden rounded-2xl shadow-2xl overflow-hidden"
-              style={{ backgroundColor: data.background_color || "#aaa" }}
+              style={{
+                backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${data.background_color || "#aaa"}99 100%)`,
+              }}
             >
               <div className="h-full flex flex-col">
                 {/* Logo section */}
@@ -71,7 +73,7 @@ export default function BusinessCard() {
                     <img
                       src={data.logo || "/api/placeholder/200/100"}
                       alt="Logo"
-                      className="max-h-full object-contain"
+                      className="max-h-full object-contain rounded-md"
                     />
                   </div>
                 )}
@@ -82,7 +84,8 @@ export default function BusinessCard() {
                     <img
                       src={data.image || "/api/placeholder/400/320"}
                       alt="Business Card"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-lg
+"
                     />
                   </div>
                 )}
@@ -99,13 +102,20 @@ export default function BusinessCard() {
             {/* Back of card */}
             <div
               className="absolute inset-0 backface-hidden rounded-2xl shadow-2xl overflow-hidden rotate-y-180"
-              style={{ backgroundColor: data.background_color || "#aaa" }}
+              style={{
+                backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${data.background_color || "#aaa"}99 100%)`,
+              }}
             >
               <div className="h-full flex flex-col p-8">
                 {/* Logo section */}
                 {data.logo && (
                   <div className="flex justify-center mb-8">
-                    <img src={data.logo} alt="Logo" className="h-16 object-contain" />
+                    <img
+                      src={data.logo}
+                      alt="Logo"
+                      className="h-16 object-contain rounded-md
+"
+                    />
                   </div>
                 )}
 
