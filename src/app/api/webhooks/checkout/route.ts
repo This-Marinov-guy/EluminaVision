@@ -95,6 +95,7 @@ export async function POST(req: Request) {
       });
 
       const data = [
+        new Date().toISOString(),
         orderNumber,
         name || "",
         email || "",
