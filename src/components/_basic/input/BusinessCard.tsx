@@ -227,20 +227,6 @@ const BusinessCard = (props) => {
                 placeholder="Background color"
               />
             </div>
-
-            <div className="flex flex-col items-center justify-center gap-2 mt-3">
-              <label>Description</label>
-              <InputGroup>
-                <Textarea
-                  size="sm"
-                  maxLength={600}
-                  resize="vertical"
-                  placeholder="Give some content"
-                  value={card.description}
-                  onChange={(e) => setBusinessCardData(cardIndex, "description", e.target.value)}
-                />
-              </InputGroup>
-            </div>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -258,10 +244,44 @@ const BusinessCard = (props) => {
                   ></i>
                 </div>
               ))}
-            <Button variant="outline" colorScheme="green" className="mt-4" size="sm" onClick={() => addLink(cardIndex)}>
+            <Button
+              variant="outline"
+              colorScheme="green"
+              className="mt-4"
+              size="sm"
+              onClick={() => {
+                const response = addLink(cardIndex);
+
+                if (response?.message) {
+                  toast({
+                    position: "top",
+                    title: response.message,
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                }
+              }}
+            >
               Add link
             </Button>
           </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-2 mt-3 w-full">
+          <label>Description</label>
+          <InputGroup className="relative w-full">
+            <Textarea
+              size="sm"
+              maxLength={400}
+              resize="vertical"
+              placeholder="Give some content"
+              value={card.description}
+              onChange={(e) => setBusinessCardData(cardIndex, "description", e.target.value)}
+              className="pr-16"
+            />
+            <div className="absolute bottom-2 right-2 text-xs text-gray-500">{card.description.length}/400</div>
+          </InputGroup>
         </div>
       </CardBody>
     </Card>

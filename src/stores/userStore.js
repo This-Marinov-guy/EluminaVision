@@ -171,6 +171,8 @@ export class UserStore {
     const card = this.businessCards[cardIndex];
     if (!card) return;
 
+    if (card.links.length >= 10) return {message: 'Limit reached - max 10 links!'}; // Limit to 10 links
+
     // Create a new array with the added link
     const newLinks = [...card.links, { label: "", url: "" }];
 
