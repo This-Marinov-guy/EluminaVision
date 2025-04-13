@@ -34,7 +34,7 @@ export default function BusinessCard() {
         await navigator.share({
           title: "My Business Card",
           text: data.description,
-          url: window.location.href,
+          url: data.redirect_url,
         });
       } catch (error) {
         console.error("Error sharing:", error);

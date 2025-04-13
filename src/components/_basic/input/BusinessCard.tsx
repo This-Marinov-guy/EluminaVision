@@ -118,9 +118,35 @@ const BusinessCard = (props) => {
     });
   };
 
+  // Function to handle sharing
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "My Business Card",
+          text: card.description,
+          url: card.redirect_url,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      alert("Web Share API not supported in your browser");
+    }
+  };
+
   return (
     <Card key={card.id} className={`${styles.card} relative`} flexDirection="column" overflow="hidden" maxW="xl">
       <div className="flex flex-row items-center justify-between gap-2 absolute top-2 right-2">
+        <Button
+          size="sm"
+          className="btn-dark justify-self-end self-end -mb-8"
+          onClick={handleShare}
+          isDisabled={saveBusinessCardLoading}
+          leftIcon={<i className="fa-solid fa-share"></i>}
+        >
+          Share
+        </Button>
         <Button
           size="sm"
           className="btn-dark justify-self-end self-end -mb-8"
