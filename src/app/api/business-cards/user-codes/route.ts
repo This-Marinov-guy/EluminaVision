@@ -22,7 +22,7 @@ export async function GET(req) {
     const parsedItem = { ...item };
 
     try {
-      parsedItem.links = JSON.parse(item.links);
+      parsedItem.links = item.links?.length ? JSON.parse(item.links) : [];
     } catch (e) {
       parsedItem.links = [];
     }
