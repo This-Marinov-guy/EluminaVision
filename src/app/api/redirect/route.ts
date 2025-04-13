@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -9,7 +9,7 @@ export async function GET(req) {
     return NextResponse.json({ error: "Missing id parameter" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.from("qr_codes").select("link").eq("id", id).maybeSingle();
+  const { data, error } = await supabaseAdmin.from("qr_codes").select("link").eq("id", id).maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: "QR Code not found" }, { status: 404 });

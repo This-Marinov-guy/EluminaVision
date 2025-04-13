@@ -1,10 +1,10 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   const LIMIT = 5;
 
-  const { count, error } = await supabase
+  const { count, error } = await supabaseAdmin
     .from("qr_codes")
     .select("*", { count: "exact", head: true }) // Only get the count, no actual data
     .eq("status", 1);

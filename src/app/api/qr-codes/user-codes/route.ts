@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { NextResponse } from "next/server";
 
@@ -9,7 +9,7 @@ export async function GET(req) {
     return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
   }
 
-  const { data, error } = await supabase.from("qr_codes").select("id, link").eq("user_id", userId);
+  const { data, error } = await supabaseAdmin.from("qr_codes").select("id, link").eq("user_id", userId);
 
   if (error || !data) {
     return NextResponse.json({ qrCodes: [] }, { status: 200 });

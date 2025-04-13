@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { NextResponse } from "next/server";
 
@@ -22,7 +22,7 @@ export async function PUT(req: Request) {
     return NextResponse.json({ status: false, message: "Provide at least 8 symbols" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.rpc("find_qr_code_by_partial_id", {
+  const { data, error } = await supabaseAdmin.rpc("find_qr_code_by_partial_id", {
     partial_id: partialId,
   });  
 
@@ -31,7 +31,7 @@ export async function PUT(req: Request) {
   }
 
   try {
-    const { error } = await supabase.from("qr_codes").update({ status: 2, user_id: userId }).eq("id", data[0].id);
+    const { error } = await supabaseAdmin.from("qr_codes").update({ status: 2, user_id: userId }).eq("id", data[0].id);
 
     if (error) {
       return NextResponse.json({ status: false, message: error.message }, { status: 500 });

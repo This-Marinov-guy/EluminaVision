@@ -6,7 +6,7 @@ import { ORDER_EMAIL_TEMPLATE_ID, ORDERS_GOOGLE_SHEET_ID } from "@/utils/defines
 import mailTrap from "@/server/mails/mail-trap";
 import { extractIdFromRequest, getShippingCostDetails, updateFirstNRows } from "@/utils/helpers";
 import { QR_CODES_VARIANTS } from "@/utils/products";
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       let unfinishedOrder = null;
 
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseAdmin
           .from("unfinished_orders")
           .select("items")
           .eq("id", session.metadata?.orderNumber)
@@ -185,7 +185,7 @@ export async function POST(req: Request) {
       }
 
       try {
-        // await supabase.from("unfinished_orders").delete().eq("id", orderNumber);
+        await supabaseAdmin.from("unfinished_orders").delete().eq("id", orderNumber);
       } catch (err) {
         console.error("Error deleting finished order:", err);
         return NextResponse.json(

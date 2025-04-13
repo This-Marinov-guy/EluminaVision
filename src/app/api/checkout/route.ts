@@ -2,7 +2,7 @@ import { ALLOWED_CHECKOUT_COUNTRIES } from "@/utils/defines";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { v4 as uuidv4 } from "uuid";
 import Stripe from "stripe";
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { content } from "googleapis/build/src/apis/content";
 import { PRODUCT_IDS_WITH_DELIVERY } from "@/utils/products";
 
@@ -40,7 +40,7 @@ export async function POST(request) {
 
     const orderNumber = uuidv4();
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("unfinished_orders")
       .insert([{ id: orderNumber, items: JSON.stringify(unfinishedOrder) }]);
 

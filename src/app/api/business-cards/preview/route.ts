@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ export async function GET(req) {
     return NextResponse.json({ error: "Missing Id" }, { status: 404 });
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("business_cards")
     .select("logo, image, description, code_color, background_color, links")
     .eq("id", id)

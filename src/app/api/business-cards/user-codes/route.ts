@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/config";
+import { supabaseAdmin } from "@/utils/config";
 import { extractIdFromRequest } from "@/utils/helpers";
 import { NextResponse } from "next/server";
 
@@ -9,7 +9,7 @@ export async function GET(req) {
     return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("business_cards")
     .select("id, redirect_url, logo, image, description, code_color, background_color, links")
     .eq("user_id", userId);

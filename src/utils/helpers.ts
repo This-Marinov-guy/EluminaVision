@@ -1,4 +1,5 @@
-import { supabase } from "./config";
+import { error } from "console";
+import { supabaseAdmin } from "./config";
 import Resizer from "react-image-file-resizer";
 
 export const getCurrencySymbol = (currency: string) => {
@@ -61,12 +62,14 @@ export const resizeFile = (file, width = 1000, height = 1000, format = "jpg") =>
 
 export async function updateFirstNRows(n: number, table: string, userId = null): Promise<number[] | null> {
   // 1️⃣ Fetch first N rows with status = 1
-  const { data: rows, error: fetchError } = await supabase
+  const { data: rows, error: fetchError } = await supabaseAdmin
     .from(table)
     .select("id")
     .eq("status", 1)
     .order("id", { ascending: true }) // Fetch oldest rows first
     .limit(n);
+
+  console.log(rows, fetchError);
 
   if (fetchError || !rows?.length) {
     console.error("Error fetching rows or no rows found:", fetchError);
@@ -79,7 +82,9 @@ export async function updateFirstNRows(n: number, table: string, userId = null):
   const updatePayload = { status: 2 };
   if (userId) updatePayload["user_id"] = userId;
 
-  const { error: updateError } = await supabase.from(table).update(updatePayload).in("id", codeIds);
+  console.log(table, updatePayload, codeIds);
+
+  const { error: updateError } = await supabaseAdmin.from(table).update(updatePayload).in("id", codeIds);
 
   if (updateError) {
     console.error("Error updating QR codes:", updateError);
@@ -134,22 +139,22 @@ export const convertImageToDataURL = (imageUrl: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
-    
+
     img.onload = () => {
       const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
-      
+
       const dataUrl = canvas.toDataURL("image/png");
       resolve(dataUrl);
     };
-    
+
     img.onerror = (error) => {
       reject(new Error(`Failed to load image: ${error}`));
     };
-    
+
     img.src = imageUrl;
   });
 };
@@ -163,19 +168,19 @@ export const convertImageToDataURL = (imageUrl: string): Promise<string> => {
 export const embedImagesInSVG = async (svgElement, logoUrl = null) => {
   // Create a clone of the SVG to avoid modifying the original
   const svgClone = svgElement.cloneNode(true);
-  
+
   // Find all image elements in the SVG
   const imageElements = svgClone.querySelectorAll("image");
-  
+
   if (imageElements.length === 0) {
     return svgClone;
   }
-  
+
   // Process all images
   const imagePromises = Array.from(imageElements).map(async (imgElement) => {
     const svgImgElement = imgElement as SVGImageElement;
     const href = svgImgElement.getAttribute("href") || svgImgElement.getAttribute("xlink:href");
-    
+
     // Only process if it's a URL (not already a data URL)
     if (href && !href.startsWith("data:")) {
       try {
@@ -189,11 +194,15 @@ export const embedImagesInSVG = async (svgElement, logoUrl = null) => {
       }
     }
   });
-  
+
   // If a specific logo URL was provided but not found in the SVG,
   // we can add it manually if needed
-  if (logoUrl && !Array.from(imageElements).some((img: SVGImageElement) => 
-    (img.getAttribute("href") === logoUrl || img.getAttribute("xlink:href") === logoUrl))) {
+  if (
+    logoUrl &&
+    !Array.from(imageElements).some(
+      (img: SVGImageElement) => img.getAttribute("href") === logoUrl || img.getAttribute("xlink:href") === logoUrl,
+    )
+  ) {
     try {
       // This block would handle adding a logo that wasn't already in the SVG
       // Implementation would depend on how you want to position the logo
@@ -202,7 +211,7 @@ export const embedImagesInSVG = async (svgElement, logoUrl = null) => {
       console.warn(`Could not add logo: ${error.message}`);
     }
   }
-  
+
   // Wait for all images to be processed
   await Promise.all(imagePromises);
   return svgClone;
@@ -221,27 +230,27 @@ export const convertSVGtoPNG = (svgElement, width, height) => {
       const svgData = new XMLSerializer().serializeToString(svgElement);
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
-      
+
       canvas.width = width;
       canvas.height = height;
-      
+
       const img = new Image();
       const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
       const url = URL.createObjectURL(svgBlob);
-      
+
       img.onload = () => {
         ctx.drawImage(img, 0, 0, width, height);
         URL.revokeObjectURL(url);
-        
+
         const pngDataUrl = canvas.toDataURL("image/png");
         resolve(pngDataUrl);
       };
-      
+
       img.onerror = () => {
         URL.revokeObjectURL(url);
         reject(new Error("Failed to load SVG image"));
       };
-      
+
       img.src = url;
     } catch (error) {
       reject(error);
@@ -284,30 +293,29 @@ export const downloadSVGasPNG = async (svgRef, options) => {
     logoUrl = null,
     onStart = () => {},
     onComplete = () => {},
-    onError = (error) => console.error(error)
+    onError = (error) => console.error(error),
   } = options;
-  
+
   try {
     onStart();
-    
+
     // Get the SVG element from the ref or use it directly
-    const svgElement = svgRef.current?.querySelector("svg") || 
-                        svgRef.current || 
-                        (svgRef instanceof SVGElement ? svgRef : null);
-    
+    const svgElement =
+      svgRef.current?.querySelector("svg") || svgRef.current || (svgRef instanceof SVGElement ? svgRef : null);
+
     if (!svgElement) {
       throw new Error("SVG element not found");
     }
-    
+
     // Embed all images in the SVG
     const processedSVG = await embedImagesInSVG(svgElement, logoUrl);
-    
+
     // Convert the SVG to PNG
     const pngDataUrl = await convertSVGtoPNG(processedSVG, width, height);
-    
+
     // Trigger the download
     downloadDataURL(pngDataUrl, filename);
-    
+
     onComplete();
   } catch (error) {
     onError(error);
