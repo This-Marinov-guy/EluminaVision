@@ -74,7 +74,7 @@ const QrCard = (props) => {
           id={`qr-code-${code.id}`}
           style={{ height: "auto", width: "5em" }}
           value={QR_CODE_DOMAIN + code.id}
-          size={240}
+          size={400}
         />
         <Button variant="ghost" onClick={downloadQRCode}>
           Download

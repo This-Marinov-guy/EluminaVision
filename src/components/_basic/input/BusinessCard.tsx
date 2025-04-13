@@ -177,9 +177,9 @@ const BusinessCard = (props) => {
               id={`business-card-${card.id}`}
               style={{ height: "auto", width: "5em" }}
               value={QR_CODE_DOMAIN + card.id}
-              size={240}
+              size={400}
               fgColor={card.code_color}
-              imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 60, width: 60, excavate: true } : undefined}
+              imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 80, width: 80, excavate: true } : undefined}
             />
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
           </div>
