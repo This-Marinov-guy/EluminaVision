@@ -41,7 +41,7 @@ export async function PUT(req) {
 
     // Process logo file if it exists
     const logo = formData.get("logo");
-    if (logo && logo instanceof File && logo.size > 0) {
+    if (logo && logo.size > 0) {
       const logoFileName = `${userId}-logo-${id}`;
       const logoBuffer = await logo.arrayBuffer();
 
@@ -65,7 +65,7 @@ export async function PUT(req) {
 
     // Process image file if it exists
     const image = formData.get("image");
-    if (image && image instanceof File && image.size > 0) {
+    if (image && image.size > 0) {
       const imageFileName = `${userId}-image-${id}`;
       const imageBuffer = await image.arrayBuffer();
 
