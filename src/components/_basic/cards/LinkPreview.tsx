@@ -37,6 +37,7 @@ export const LinkPreviewComponent = ({
   const [currentUrl, setCurrentUrl] = useState(url);
   const [isOpen, setOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Update current URL when the prop changes
   useEffect(() => {
@@ -70,8 +71,8 @@ export const LinkPreviewComponent = ({
       colorScheme: "dark",
       "viewport.isMobile": true,
       "viewport.deviceScaleFactor": 1,
-      "viewport.width": width * 3,
-      "viewport.height": height * 3,
+      "viewport.width": width * 6,
+      "viewport.height": height * 6,
       waitForSelector: "." + id,
     });
 
@@ -102,7 +103,15 @@ export const LinkPreviewComponent = ({
 
   return (
     <a href={url} target="_blank" rel="noopener noreferrer">
-      <Image src={previewSrc} width={width} height={height} quality={quality} alt="hidden preload image" priority />
+      <Image
+        src={previewSrc}
+        width={width}
+        height={height}
+        onLoad={() => setLoading(false)}
+        quality={quality}
+        alt="hidden preload image"
+        priority
+      />
     </a>
   );
 };
