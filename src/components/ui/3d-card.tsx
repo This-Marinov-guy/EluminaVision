@@ -17,11 +17,15 @@ const MouseEnterContext = createContext<
 export const CardContainer = ({
   children,
   className,
+  style,
+  onClick,
   containerClassName,
 }: {
   children?: React.ReactNode;
   className?: string;
   containerClassName?: string;
+  style?: React.CSSProperties;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
@@ -48,13 +52,12 @@ export const CardContainer = ({
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
       <div
-        className={cn(
-          "py-20 flex items-center justify-center",
-          containerClassName
-        )}
+        className={className}
         style={{
           perspective: "1000px",
+          ...style,
         }}
+        onClick={onClick}
       >
         <div
           ref={containerRef}
@@ -79,16 +82,19 @@ export const CardContainer = ({
 export const CardBody = ({
   children,
   className,
+  onClick,
+  style
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  style?: React.CSSProperties;
 }) => {
   return (
     <div
-      className={cn(
-        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
-        className
-      )}
+      className={cn("h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]", className)}
+      onClick={onClick}
+      style={style}
     >
       {children}
     </div>
@@ -137,7 +143,7 @@ export const CardItem = ({
   return (
     <Tag
       ref={ref}
-      className={cn("w-fit transition duration-200 ease-linear", className)}
+      className={cn("transition duration-200 ease-linear", className)}
       {...rest}
     >
       {children}
