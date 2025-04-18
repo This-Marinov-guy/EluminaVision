@@ -27,7 +27,7 @@ export const metadata = {
     url: "https://www.eluminavision.com",
     name: "Elumina Vision",
     description: "Your portal to the digital world!",
-    image: "https://www.eluminavision.com/assets/img/logo.png",
+    image: "https://www.eluminavision.com/assets/img/logo-bg.png",
   };
 
 export default function RootLayout({ children }) {
@@ -42,13 +42,13 @@ export default function RootLayout({ children }) {
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/img/logo.png" />
-        <meta property="og:image" content="/img/logo.png" />
+        <meta property="og:url" content="/img/logo-bg.png" />
+        <meta property="og:image" content="/img/logo-bg.png" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content="/img/logo.png" />
+        <meta name="twitter:image" content="/img/logo-bg.png" />
         <meta
           name="description"
           lang="en"
