@@ -11,7 +11,7 @@ export async function GET(req) {
 
   const { data, error } = await supabaseAdmin
     .from("business_cards")
-    .select("id, redirect_url, logo, image, description, code_color, background_color, links")
+    .select("id, redirect_url, logo, image, description, code_color, card_color, background_color, links")
     .eq("user_id", userId);
 
   if (error || !data) {

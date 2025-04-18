@@ -1,20 +1,15 @@
-import React, { use, useEffect, useState } from "react";
-import { Badge, Button, Card, CardBody, CardHeader, HStack, Image } from "@chakra-ui/react";
-import { QRCodeSVG } from "qrcode.react";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import React from "react";
+import { Button } from "@chakra-ui/react";
 import { Skeleton } from "@chakra-ui/react";
 import styles from "./style.module.scss";
 import { useRouter } from "next/navigation";
-import { QR_CODE_DOMAIN } from "@/utils/defines";
 import { useStore } from "@/stores/storeProvider";
 import { observer } from "mobx-react-lite";
-import QrCard from "@/components/_basic/input/QrCard";
 import BusinessCard from "@/components/_basic/input/BusinessCard";
 
 const BusinessCards = () => {
   const { userStore } = useStore();
-  const { user, businessCards, businessCardsLoading } = userStore;
+  const { businessCards, businessCardsLoading } = userStore;
 
   const router = useRouter();
 

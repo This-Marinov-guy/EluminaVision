@@ -8,7 +8,15 @@ import { Badge } from "@chakra-ui/react";
 
 export default function BusinessCard() {
   const [flipped, setFlipped] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({
+    description: "",
+    logo: null,
+    image: null,
+    links: [],
+    card_color: "#aaa",
+    background_color: "#aaa",
+    redirect_url: '',
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -52,7 +60,12 @@ export default function BusinessCard() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gradient-to-br  bg-dark-gradient">
+    <main
+      style={{
+        backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${data.background_color || "#aaa"}99 100%)`,
+      }}
+      className="flex min-h-screen flex-col items-center justify-center p-4"
+    >
       <CardContainer className="max-w-md w-full border-s-white border-2 rounded-2xl shadow-lg overflow-hidden">
         {/* Card container with perspective for 3D flip effect */}
         <div className="relative h-[600px] w-full perspective">
@@ -66,7 +79,7 @@ export default function BusinessCard() {
             <div
               className="absolute inset-0 backface-hidden rounded-2xl shadow-2xl overflow-hidden"
               style={{
-                backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${data.background_color || "#aaa"}99 100%)`,
+                backgroundColor: data.card_color,
               }}
             >
               <div className="h-full flex flex-col">
@@ -95,7 +108,7 @@ export default function BusinessCard() {
 
                 {/* Name and description section */}
                 <CardItem translateZ="50" className="mt-6">
-                  <p className=" text-gray-800 text-center font-medium">
+                  <p className=" text-white text-center font-medium">
                     {data.description || "Digital Business Card"}
                   </p>
                 </CardItem>
@@ -106,7 +119,7 @@ export default function BusinessCard() {
             <div
               className="absolute inset-0 backface-hidden rounded-2xl shadow-2xl overflow-hidden rotate-y-180"
               style={{
-                backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${data.background_color || "#aaa"}99 100%)`,
+                backgroundColor: data.card_color,
               }}
             >
               <div className="h-full flex flex-col p-8">

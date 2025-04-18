@@ -202,7 +202,8 @@ export class UserStore {
       }));
 
     formData.append("description", card.description);
-    formData.append("code_color", card.background_color);
+    formData.append("code_color", card.code_color);
+    formData.append("card_color", card.card_color);
     formData.append("background_color", card.background_color);
     formData.append("logo", card.logo);
     formData.append("image", card.image);

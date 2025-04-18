@@ -30,6 +30,10 @@ export async function PUT(req) {
       updatedData.background_color = formData.get("background_color");
     }
 
+    if (formData.has("card_color")) {
+      updatedData.card_color = formData.get("card_color");
+    }
+
     if (formData.has("code_color")) {
       updatedData.code_color = formData.get("code_color");
     }

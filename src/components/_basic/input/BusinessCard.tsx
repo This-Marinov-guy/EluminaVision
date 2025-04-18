@@ -58,10 +58,6 @@ const BusinessCard = (props) => {
     setUnsavedChanges(changed);
   }, [card, initialCard]);
 
-  const changeColor = (color) => {
-    setBusinessCardData(cardIndex, "background_color", color);
-  };
-
   const handleSave = async () => {
     const saveId = "business-card-saved";
     const failId = "business-card-failed-modification";
@@ -208,26 +204,6 @@ const BusinessCard = (props) => {
                 setBusinessCardData(cardIndex, "image", value);
               }}
             />
-
-            <div className="flex flex-col items-center justify-center gap-2 mt-3">
-              <label>Code Color</label>
-              <Input
-                type="color"
-                value={card.code_color}
-                onChange={(e) => setBusinessCardData(cardIndex, "code_color", e.target.value)}
-                placeholder="Background color"
-              />
-            </div>
-
-            <div className="flex flex-col items-center justify-center gap-2 mt-3">
-              <label>Background Color</label>
-              <Input
-                type="color"
-                value={card.background_color}
-                onChange={(e) => setBusinessCardData(cardIndex, "background_color", e.target.value)}
-                placeholder="Background color"
-              />
-            </div>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -266,6 +242,38 @@ const BusinessCard = (props) => {
             >
               Add link
             </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-3 w-full">
+          <div className="flex flex-col items-center justify-center gap-2 w-32">
+            <label>Code Color</label>
+            <Input
+              type="color"
+              value={card.code_color}
+              onChange={(e) => setBusinessCardData(cardIndex, "code_color", e.target.value)}
+              placeholder="Code color"
+            />
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-2 w-32">
+            <label>Background Color</label>
+            <Input
+              type="color"
+              value={card.background_color}
+              onChange={(e) => setBusinessCardData(cardIndex, "background_color", e.target.value)}
+              placeholder="Background color"
+            />
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-2 w-32">
+            <label>Card Color</label>
+            <Input
+              type="color"
+              value={card.card_color}
+              onChange={(e) => setBusinessCardData(cardIndex, "card_color", e.target.value)}
+              placeholder="Card color"
+            />
           </div>
         </div>
 
