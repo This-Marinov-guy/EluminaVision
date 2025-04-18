@@ -67,7 +67,7 @@ const BusinessCards = () => {
               The Product Page
             </Button>{" "}
             or activate the ones you do not see here from the{" "}
-            <Button size="sm" variant="solid" onClick={userStore.toggleQRCodeModal}>
+            <Button size="sm" variant="solid" onClick={userStore.toggleBusinessCardModal}>
               <i className="mr-2 fa-solid fa-qrcode"></i> Activate
             </Button>{" "}
             button

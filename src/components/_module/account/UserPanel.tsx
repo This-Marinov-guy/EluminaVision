@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import ActivateQRCode from "@/components/_basic/modals/ActivateQRCode";
 import QRcodes from "./QRcodes";
 import BusinessCards from "./BusinessCards";
+import ActivateBusinessCard from "@/components/_basic/modals/ActivateBusinessCard";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -53,6 +54,7 @@ const UserPanel = () => {
   return (
     <section id="service" className={styles.wrapper}>
       <ActivateQRCode />
+      <ActivateBusinessCard />
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -65,12 +67,7 @@ const UserPanel = () => {
             title="Welcome"
             slogan={user?.email}
             button={
-              <Button
-                style={{ minWidth: "100px" }}
-                colorScheme="red"
-                variant="solid"
-                onClick={userStore.signOut}
-              >
+              <Button style={{ minWidth: "100px" }} colorScheme="red" variant="solid" onClick={userStore.signOut}>
                 {/* <i className="mr-2 fa-solid fa-door-open"></i>  */}
                 Log out
               </Button>

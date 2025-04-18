@@ -97,9 +97,11 @@ export const LinkPreviewComponent = ({
     </Link>
   );
 
-  const linkRenderer = renderLink || defaultRenderLink;
-
-  return <Image src={previewSrc} width={width} height={height} quality={quality} alt="hidden preload image" priority />;
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer">
+      <Image src={previewSrc} width={width} height={height} quality={quality} alt="hidden preload image" priority />
+    </a>
+  );
 };
 
 export default LinkPreviewComponent;
