@@ -17,6 +17,7 @@ type LinkPreviewComponentProps = {
   layout?: string;
   children?: React.ReactNode;
   renderLink?: (props: { url: string; children: React.ReactNode }) => React.ReactNode;
+  id: string;
 } & ({ isStatic: true; imageSrc: string } | { isStatic?: false; imageSrc?: never });
 
 export const LinkPreviewComponent = ({
@@ -31,6 +32,7 @@ export const LinkPreviewComponent = ({
   imageSrc = "",
   children,
   renderLink,
+  id,
 }: LinkPreviewComponentProps) => {
   const [currentUrl, setCurrentUrl] = useState(url);
   const [isOpen, setOpen] = useState(false);
@@ -70,6 +72,7 @@ export const LinkPreviewComponent = ({
       "viewport.deviceScaleFactor": 1,
       "viewport.width": width * 3,
       "viewport.height": height * 3,
+      waitForSelector: "." + id,
     });
 
     return `https://api.microlink.io/?${params}`;

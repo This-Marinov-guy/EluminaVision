@@ -1,10 +1,9 @@
-// components/BusinessCardClient.tsx
 "use client";
 
 import { AnimatedTooltip } from "@/components/ui/tootltip";
 import { getLinkIcon } from "@/utils/helpers";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Badge } from "@chakra-ui/react";
 
 export default function BusinessCardClient({ data }) {
@@ -25,6 +24,10 @@ export default function BusinessCardClient({ data }) {
       alert("Web Share API not supported in your browser");
     }
   };
+
+  useEffect(() => {
+    document.body.classList.add("card-loaded");
+  }, []);
 
   if (!data) return null;
 

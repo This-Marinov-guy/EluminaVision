@@ -180,7 +180,7 @@ const BusinessCard = (props) => {
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
           </div>
           <div>
-            <LinkPreview url={card.redirect_url} />
+            <LinkPreview url={card.redirect_url} id="card-loaded" />
           </div>
         </div>
 
