@@ -68,7 +68,7 @@ export default function BusinessCard() {
       }}
       className="flex min-h-screen flex-col items-center justify-center p-4"
     >
-      <CardContainer className="max-w-md w-full shadow-lg overflow-hidden">
+      <CardContainer className="max-w-md w-full">
         {/* Card container with perspective for 3D flip effect */}
         <div className="relative h-[600px] w-full perspective">
           <CardBody
