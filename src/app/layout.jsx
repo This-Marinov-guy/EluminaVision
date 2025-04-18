@@ -21,6 +21,15 @@ export const metadata = {
     "Elumina Vision is a forward-thinking marketing agency dedicated to helping brands grow, engage, and thrive in the digital world. We specialize in brand strategy, digital marketing, content creation, and social media management, crafting data-driven campaigns that drive real results.",
 };
 
+  const jsonLdData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: "https://www.eluminavision.com",
+    name: "Elumina Vision",
+    description: "Your portal to the digital world!",
+    image: "https://www.eluminavision.com/assets/img/logo.png",
+  };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -33,19 +42,18 @@ export default function RootLayout({ children }) {
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourwebsite.com" />
-        <meta property="og:image" content="https://yourwebsite.com/og-image.jpg" />
+        <meta property="og:url" content="/img/logo.png" />
+        <meta property="og:image" content="/img/logo.png" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg" />
+        <meta name="twitter:image" content="/img/logo.png" />
         <meta
           name="description"
           lang="en"
           content="We help business show their best side in the digital world by providing online platforms, websites, marketing materials and many more features for bootstrapping a business."
         />
-        <meta property="og:image" content="/img/logo-bg.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
@@ -72,6 +80,7 @@ export default function RootLayout({ children }) {
         })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");
       `}
       </Script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }} />
     </html>
   );
 }
