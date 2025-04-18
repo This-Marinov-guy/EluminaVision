@@ -17,6 +17,7 @@ export default function BusinessCard() {
     background_color: "#aaa",
     redirect_url: '',
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -32,6 +33,7 @@ export default function BusinessCard() {
       .then((response) => response.json())
       .then((parsedResponse) => {
         setData(parsedResponse.businessCard);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -55,7 +57,7 @@ export default function BusinessCard() {
     }
   };
 
-  if (!data) {
+  if (!data || loading) {
     return null;
   }
 
@@ -66,7 +68,7 @@ export default function BusinessCard() {
       }}
       className="flex min-h-screen flex-col items-center justify-center p-4"
     >
-      <CardContainer className="max-w-md w-full border-s-white border-2 rounded-2xl shadow-lg overflow-hidden">
+      <CardContainer className="max-w-md w-full shadow-lg overflow-hidden">
         {/* Card container with perspective for 3D flip effect */}
         <div className="relative h-[600px] w-full perspective">
           <CardBody
