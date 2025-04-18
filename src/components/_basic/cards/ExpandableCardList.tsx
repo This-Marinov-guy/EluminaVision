@@ -127,7 +127,7 @@ export function ExpandableCardList(props) {
         {props.items.map((card, index) => (
           <motion.div
             layoutId={`card-${card.title}-${card.id}`}
-            key={card.title}
+            key={index}
             onClick={() => setActive(card)}
             className="p-4 flex flex-col hover-dark-to-light rounded-xl cursor-pointer"
           >
@@ -148,7 +148,7 @@ export function ExpandableCardList(props) {
               <div className="flex justify-center items-center flex-col">
                 <motion.h3
                   layoutId={`title-${card.title}-${card.id}`}
-                  className="flex justify-center items-center flex-col gap-2 font-medium text-neutral-800 dark:text-neutral-200 md:text-left text-base"
+                  className="flex justify-center items-center flex-col gap-2 font-medium text-white md:text-left text-base"
                 >
                   {card.title} {card.variant && `(${card.variant})`}
                   <Button size="sm" className={"btn-light-ghost"} variant="ghost">
