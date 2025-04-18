@@ -12,7 +12,7 @@ export async function GET(req) {
 
   const { data, error } = await supabaseAdmin
     .from("business_cards")
-    .select("logo, image, description, code_color, card_color, background_color, links")
+    .select("logo, image, description, code_color, card_color, background_color, redirect_url, links")
     .eq("id", id)
     .single();
 
