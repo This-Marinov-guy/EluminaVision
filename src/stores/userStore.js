@@ -29,15 +29,17 @@ export class UserStore {
     makeAutoObservable(this, { rootStore: false });
   }
 
-  setUser = (user) => {
+  setUser = (user, refreshData = true) => {
     this.user = user;
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
     this.isLoading = false;
 
-    this.loadQrCodes(false);
-    this.loadBusinessCards(false);
+    if (refreshData) {
+      this.loadQrCodes();
+      this.loadBusinessCards();
+    }
   };
 
   toggleQRCodeModal = () => {
@@ -48,9 +50,7 @@ export class UserStore {
     this.activateBusinessCardModal = !this.activateBusinessCardModal;
   };
 
-  loadQrCodes = async (withRefresh = true) => {
-    // if (!withRefresh && !this.qrCodesLoading) return;
-
+  loadQrCodes = async () => {
     try {
       if (!this.user?.token || this.qrCodesLoading) return;
 
@@ -66,9 +66,7 @@ export class UserStore {
     }
   };
 
-  loadBusinessCards = async (withRefresh = true) => {
-    // if (!withRefresh && !this.businessCardsLoading) return;
-
+  loadBusinessCards = async () => {
     try {
       if (!this.user?.token || this.businessCardsLoading) return;
 

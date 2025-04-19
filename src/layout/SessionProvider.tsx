@@ -52,7 +52,7 @@ const SessionProvider = ({ children }) => {
         setUser({
           ...session.user.user_metadata,
           token: session.access_token ?? "",
-        });
+        }, false);
       }
 
       if (error) {
