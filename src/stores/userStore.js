@@ -36,8 +36,8 @@ export class UserStore {
 
     this.isLoading = false;
 
-    this.loadQrCodes();
-    this.loadBusinessCards();
+    this.loadQrCodes(false);
+    this.loadBusinessCards(false);
   };
 
   toggleQRCodeModal = () => {
@@ -48,7 +48,9 @@ export class UserStore {
     this.activateBusinessCardModal = !this.activateBusinessCardModal;
   };
 
-  loadQrCodes = async () => {
+  loadQrCodes = async (withRefresh = true) => {
+    if (!withRefresh && !this.qrCodesLoading) return;
+
     try {
       if (!this.user?.token || this.qrCodesLoading) return;
 
@@ -64,7 +66,9 @@ export class UserStore {
     }
   };
 
-  loadBusinessCards = async () => {
+  loadBusinessCards = async (withRefresh = true) => {
+    if (!withRefresh && !this.businessCardsLoading) return;
+
     try {
       if (!this.user?.token || this.businessCardsLoading) return;
 

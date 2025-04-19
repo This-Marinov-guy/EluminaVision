@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { Textarea } from "@chakra-ui/react";
 import { InputGroup } from "@chakra-ui/react";
 import styles from "./style.module.scss";
-import { QR_CODE_DOMAIN } from "@/utils/defines";
+import { BUSINESS_CARD_DOMAIN } from "@/utils/defines";
 import LinkPreview from "../cards/LinkPreview";
 import LinkWithLabel from "./LinkWithLabel";
 import { useStore } from "@/stores/storeProvider";
@@ -172,7 +172,7 @@ const BusinessCard = (props) => {
               ref={qrRef}
               id={`business-card-${card.id}`}
               style={{ height: "auto", width: "5em" }}
-              value={QR_CODE_DOMAIN + card.id}
+              value={BUSINESS_CARD_DOMAIN + card.id}
               size={400}
               fgColor={card.code_color}
               imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 80, width: 80, excavate: true } : undefined}

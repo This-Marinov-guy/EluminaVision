@@ -62,3 +62,4 @@ export const ALLOWED_CHECKOUT_COUNTRIES: Stripe.Checkout.SessionCreateParams.Shi
   export const ORDER_EMAIL_TEMPLATE_ID = "6f632cbe-a7eb-4018-a7f1-30c333e00fad";
 
   export const QR_CODE_DOMAIN = "https://eluminavision.com/api/redirect?id=";
+  export const BUSINESS_CARD_DOMAIN = "https://www.eluminavision.com/business-card/preview?id=";
