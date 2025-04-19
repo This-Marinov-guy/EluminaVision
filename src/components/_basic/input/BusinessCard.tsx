@@ -289,7 +289,7 @@ const BusinessCard = (props) => {
               onChange={(e) => setBusinessCardData(cardIndex, "description", e.target.value)}
               className="pr-16"
             />
-            <div className="absolute bottom-2 right-2 text-xs text-gray-500">{card.description.length}/400</div>
+            <div className="absolute bottom-2 right-2 text-xs text-gray-500">{card.description?.length ?? 0}/400</div>
           </InputGroup>
         </div>
       </CardBody>
