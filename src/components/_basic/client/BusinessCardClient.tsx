@@ -66,10 +66,10 @@ export default function BusinessCardClient({ data }) {
                   </CardItem>
                 )}
 
-                <CardItem translateZ="50" className="mt-6">
-                  <p className="text-white whitespace-pre-line text-center font-medium">
+                <CardItem translateZ="50" className="mt-6 d-flex text-center justify-center">
+                  <Badge style={{ whiteSpace: "pre-line", padding: '5px 10px' }} className="text-center font-medium">
                     {data.description || "Digital Business Card"}
-                  </p>
+                  </Badge>
                 </CardItem>
               </div>
             </div>

@@ -16,7 +16,7 @@ export class UserStore {
   activationMessage = "";
 
   businessCards = [];
-  businessCardsLoading = false;
+  businessCardsLoading = true;
   saveBusinessCardLoading = false;
 
   activateBusinessCardModal = false;
@@ -49,7 +49,7 @@ export class UserStore {
   };
 
   loadQrCodes = async (withRefresh = true) => {
-    if (!withRefresh && !this.qrCodesLoading) return;
+    // if (!withRefresh && !this.qrCodesLoading) return;
 
     try {
       if (!this.user?.token || this.qrCodesLoading) return;
@@ -67,7 +67,7 @@ export class UserStore {
   };
 
   loadBusinessCards = async (withRefresh = true) => {
-    if (!withRefresh && !this.businessCardsLoading) return;
+    // if (!withRefresh && !this.businessCardsLoading) return;
 
     try {
       if (!this.user?.token || this.businessCardsLoading) return;
