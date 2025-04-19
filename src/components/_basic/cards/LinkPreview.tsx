@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Spinner } from "@chakra-ui/react";
 
 type LinkPreviewComponentProps = {
   url: string;
@@ -102,17 +103,21 @@ export const LinkPreviewComponent = ({
   );
 
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      <Image
-        src={previewSrc}
-        width={width}
-        height={height}
-        onLoad={() => setLoading(false)}
-        quality={quality}
-        alt="hidden preload image"
-        priority
-      />
-    </a>
+    <>
+      {loading && <Spinner className="my-20 mx-10"/>}
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <Image
+          src={previewSrc}
+          width={width}
+          height={height}
+          onLoad={() => setLoading(false)}
+          quality={quality}
+          alt="hidden preload image"
+          priority
+          style={{ display: loading ? "none" : "block" }}
+        />
+      </a>
+    </>
   );
 };
 
