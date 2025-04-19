@@ -52,15 +52,23 @@
   font-style: normal;
 }
 
-html, body {
+html,
+body {
   background-color: rgb(81 39 53);
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100%;
 }
 
 body {
   font-family: var(--font-poppins) !important;
+  min-height: 100vh;
+}
+
+main {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
 }
 
 .react-multi-carousel-list {
@@ -142,8 +150,8 @@ body {
 label {
   display: block;
   font-size: 0.875rem; /* Tailwind's text-sm */
-  font-weight: 500;     /* Tailwind's font-medium */
-  color: #374151;       /* Tailwind's text-gray-700 */
+  font-weight: 500; /* Tailwind's font-medium */
+  color: #374151; /* Tailwind's text-gray-700 */
 }
 
 @layer utilities {
@@ -160,8 +168,6 @@ label {
     transform: rotateY(180deg);
   }
 }
-
-
 
 @layer base {
   :root {
@@ -218,8 +224,6 @@ label {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
