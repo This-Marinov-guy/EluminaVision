@@ -37,6 +37,7 @@ export default function BusinessCardClient({ data }) {
         backgroundImage: `linear-gradient(to bottom, ${data.background_color || "#aaa"} 0%, ${
           data.background_color || "#aaa"
         }99 100%)`,
+        height: "100%",
       }}
       className="flex flex-col items-center justify-center p-4"
     >
