@@ -14,7 +14,7 @@ const SessionProvider = ({ children }) => {
   }
 
   const { userStore } = useStore();
-  const { closeAuthModal, setUser } = userStore;
+  const { closeAuthModal, setUser, setToken } = userStore;
 
   const handleAuthStateChange = (event, session) => {
     if (event === "SIGNED_IN" && session?.user) {
@@ -48,11 +48,8 @@ const SessionProvider = ({ children }) => {
         error,
       } = await supabase.auth.refreshSession();
 
-      if (session?.user) {
-        setUser({
-          ...session.user.user_metadata,
-          token: session.access_token ?? "",
-        }, false);
+      if (session?.access_token) {
+        setToken(session.access_token ?? "");
       }
 
       if (error) {

@@ -42,6 +42,11 @@ export class UserStore {
     }
   };
 
+  setToken = (token) => {
+    this.user = { ...this.user, token };
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  };
+
   toggleQRCodeModal = () => {
     this.activateQrCodeModal = !this.activateQrCodeModal;
   };
