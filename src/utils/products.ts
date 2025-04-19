@@ -65,11 +65,11 @@ export const QR_CODES_VARIANTS = [
     id: 3,
     title: "Dynamic QR code",
     variant: "Standard",
-    price: 1.49,
+    price: 4.99,
     limit: 5,
     currency: "GBP",
     imageUrl: "/img/products/qrCodes1.png",
-    priceId: "price_1RBrUlLUXmDaRfFYNFv7sfXR",
+    priceId: "price_1RFZNfLUXmDaRfFYaIs3yxHt",
     description: `<p>
   Boost your business’s online presence with these reusable <strong>Review Tap Stickers</strong> by EluminaVision. Equipped with <strong>NFC and QR code</strong> technology, customers can leave Google reviews effortlessly by tapping their smartphones or scanning the code—compatible with both iPhone and Android devices.
 </p>
@@ -100,11 +100,11 @@ export const QR_CODES_VARIANTS = [
     id: 4,
     title: "Dynamic Business Cards",
     variant: "Standard",
-    price: 1.99,
+    price: 19.99,
     limit: 5,
     currency: "GBP",
     imageUrl: "/img/products/qrCodes2.png",
-    priceId: "price_1RD64GLUXmDaRfFYnJnsaBRl",
+    priceId: "price_1RFZMoLUXmDaRfFY0PdQMcYp",
     description: `<p>
   Elevate your professional presence with <strong>Smart Business Card QR Codes</strong> by EluminaVision. These dynamic QR codes link to a personalized digital profile—complete with your <strong>logo, description, and contact links</strong>—offering a sleek, paperless way to connect.
 </p>
