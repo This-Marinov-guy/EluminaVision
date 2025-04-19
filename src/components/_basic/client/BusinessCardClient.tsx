@@ -67,7 +67,9 @@ export default function BusinessCardClient({ data }) {
                 )}
 
                 <CardItem translateZ="50" className="mt-6">
-                  <p className="text-white text-center font-medium">{data.description || "Digital Business Card"}</p>
+                  <p className="text-white whitespace-pre-line text-center font-medium">
+                    {data.description || "Digital Business Card"}
+                  </p>
                 </CardItem>
               </div>
             </div>
