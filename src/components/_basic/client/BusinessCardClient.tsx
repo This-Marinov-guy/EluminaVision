@@ -38,7 +38,7 @@ export default function BusinessCardClient({ data }) {
           data.background_color || "#aaa"
         }99 100%)`,
       }}
-      className="flex min-h-screen flex-col items-center justify-center p-4"
+      className="flex flex-col items-center justify-center p-4"
     >
       <CardContainer className="max-w-md w-full">
         <div className="relative h-[600px] w-full perspective">
