@@ -57,7 +57,7 @@ export class UserStore {
 
   loadQrCodes = async () => {
     try {
-      if (!this.user?.token || this.qrCodesLoading) return;
+      if (this.qrCodesLoading) return;
 
       this.qrCodesLoading = true;
 
@@ -73,7 +73,7 @@ export class UserStore {
 
   loadBusinessCards = async () => {
     try {
-      if (!this.user?.token || this.businessCardsLoading) return;
+      if (this.businessCardsLoading) return;
 
       this.businessCardsLoading = true;
 

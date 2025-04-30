@@ -52,7 +52,7 @@ const UserPanel = () => {
   };
 
   return (
-    <section id="service" className={styles.wrapper}>
+    <section id="service" className={`pt-24 ${styles.wrapper}`}>
       <ActivateQRCode />
       <ActivateBusinessCard />
       <motion.div
