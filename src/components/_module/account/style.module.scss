@@ -1,10 +1,9 @@
 .wrapper {
-  @apply pt-24;
   background-color: rgb(81 39 53);
 }
 
 .wrapper2 {
-  @apply text-white pt-24 pb-10;
+  @apply text-white pb-10;
   min-height: 46vh;
 
   .services {
