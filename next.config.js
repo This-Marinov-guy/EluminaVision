@@ -1,10 +1,6 @@
 
 const nextConfig = {
   reactStrictMode: false,
-  domains: [
-    // Include your existing domains here
-    "api.microlink.io",
-  ],
   images: {
     remotePatterns: [
       // Include your existing patterns here

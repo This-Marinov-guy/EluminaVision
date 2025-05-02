@@ -6,6 +6,7 @@ import Script from "next/script";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import SessionProvider from "@/layout/SessionProvider";
+import CookieModal from "@/components/_basic/modals/CookieModal";
 
 // Font configuration
 const poppins = Poppins({
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
         <StoreProvider>
           <ChakraProvider>
             <SessionProvider />
+            <CookieModal/>
             {children}
           </ChakraProvider>
         </StoreProvider>
