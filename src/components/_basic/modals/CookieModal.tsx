@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
 
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -10,16 +10,19 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Badge,
 } from "@chakra-ui/react";
 
 const CookieModal = () => {
   const LOCAL_STORAGE_COOKIE_CONSENT = "cookie-consent";
 
-  const [visible, setVisible] = React.useState(
-    localStorage.getItem(LOCAL_STORAGE_COOKIE_CONSENT) !== "1" ||
-      !window.location.pathname.includes("business-card/preview"),
-  );
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Run only on client
+    const hasConsent = localStorage.getItem(LOCAL_STORAGE_COOKIE_CONSENT) === "1";
+    const isPreviewPage = window.location.pathname.includes("business-card/preview");
+    setVisible(!hasConsent || !isPreviewPage);
+  }, []);
 
   const closeModal = () => {
     setVisible(false);
