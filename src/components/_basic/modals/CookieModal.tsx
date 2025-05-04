@@ -21,7 +21,7 @@ const CookieModal = () => {
     // Run only on client
     const hasConsent = localStorage.getItem(LOCAL_STORAGE_COOKIE_CONSENT) === "1";
     const isPreviewPage = window.location.pathname.includes("business-card/preview");
-    setVisible(!hasConsent || !isPreviewPage);
+    setVisible(!hasConsent && !isPreviewPage);
   }, []);
 
   const closeModal = () => {
