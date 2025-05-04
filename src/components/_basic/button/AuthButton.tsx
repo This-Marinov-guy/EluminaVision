@@ -63,7 +63,9 @@ const AuthButton = () => {
             >
               <Auth
                 supabaseClient={supabase}
-                providers={["google", "facebook"]}
+                providers={["google"
+                  // , "facebook"
+                ]}
                 view="sign_in"
                 redirectTo={process.env.NEXT_PUBLIC_BASE_URL}
                 socialLayout="horizontal"
