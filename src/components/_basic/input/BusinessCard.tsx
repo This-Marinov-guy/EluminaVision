@@ -93,8 +93,8 @@ const BusinessCard = (props) => {
   const downloadQRCode = () => {
     downloadSVGasPNG(qrRef, {
       filename: `business-card-${card.id.slice(0, 8)}.png`,
-      width: 240,
-      height: 240,
+      width: 500,
+      height: 500,
       logoUrl: qrLogoPreview,
       onStart: () => setDownloadLoading(true),
       onComplete: () => setDownloadLoading(false),
@@ -171,11 +171,11 @@ const BusinessCard = (props) => {
             <QRCodeSVG
               ref={qrRef}
               id={`business-card-${card.id}`}
-              style={{ height: "auto", width: "5em" }}
+              style={{ height: "auto", width: "6em" }}
               value={BUSINESS_CARD_DOMAIN + card.id}
-              size={400}
+              size={700}
               fgColor={card.code_color}
-              imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 80, width: 80, excavate: true } : undefined}
+              imageSettings={qrLogoPreview ? { src: qrLogoPreview, height: 160, width: 160, excavate: true } : undefined}
             />
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
           </div>
