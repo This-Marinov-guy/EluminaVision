@@ -8,6 +8,7 @@ import { Badge } from "@chakra-ui/react";
 
 export default function BusinessCardClient({ data }) {
   const [flipped, setFlipped] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -26,8 +27,38 @@ export default function BusinessCardClient({ data }) {
   };
 
   useEffect(() => {
-    document.body.classList.add("card-loaded");
-  }, []);
+    // Wait for images to load before marking as loaded
+    const images = document.querySelectorAll('img');
+    let loadedImages = 0;
+    
+    const handleImageLoad = () => {
+      loadedImages++;
+      if (loadedImages === images.length) {
+        document.body.classList.add("card-loaded");
+        setIsLoaded(true);
+      }
+    };
+
+    images.forEach(img => {
+      if (img.complete) {
+        handleImageLoad();
+      } else {
+        img.addEventListener('load', handleImageLoad);
+      }
+    });
+
+    // If no images, mark as loaded immediately
+    if (images.length === 0) {
+      document.body.classList.add("card-loaded");
+      setIsLoaded(true);
+    }
+
+    return () => {
+      images.forEach(img => {
+        img.removeEventListener('load', handleImageLoad);
+      });
+    };
+  }, [data]);
 
   if (!data) return null;
 
@@ -41,6 +72,9 @@ export default function BusinessCardClient({ data }) {
       }}
       className="flex flex-col items-center justify-center p-4"
     >
+      {!isLoaded && <div className="absolute top-0 left-0 w-full h-full bg-white/50 z-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>}
       <CardContainer className="max-w-md w-full">
         <div className="relative h-[600px] w-full perspective">
           <CardBody

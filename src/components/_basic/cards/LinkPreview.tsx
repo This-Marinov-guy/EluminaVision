@@ -39,10 +39,12 @@ export const LinkPreviewComponent = ({
   const [isOpen, setOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [timestamp, setTimestamp] = useState(Date.now());
 
   // Update current URL when the prop changes
   useEffect(() => {
     setCurrentUrl(url);
+    setTimestamp(Date.now()); // Force refresh when URL changes
   }, [url]);
 
   useEffect(() => {
@@ -74,7 +76,10 @@ export const LinkPreviewComponent = ({
       "viewport.deviceScaleFactor": 1,
       "viewport.width": width * 6,
       "viewport.height": height * 6,
-      waitForSelector: "." + id,
+      waitForSelector: ".card-loaded",
+      waitUntil: "networkidle0",
+      timeout: 10000,
+      _t: timestamp // Add timestamp for cache busting
     });
 
     return `https://api.microlink.io/?${params}`;
@@ -85,6 +90,7 @@ export const LinkPreviewComponent = ({
   // Function to refresh the link if onChange is provided
   const refreshLink = (newUrl: string) => {
     setCurrentUrl(newUrl);
+    setTimestamp(Date.now()); // Force refresh when link is refreshed
     if (onChange) {
       onChange(newUrl);
     }

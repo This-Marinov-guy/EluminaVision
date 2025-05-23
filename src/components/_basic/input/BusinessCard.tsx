@@ -20,6 +20,7 @@ const BusinessCard = (props) => {
   const [initialCard, setInitialCard] = useState(() => _.cloneDeep(card));
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [downloadLoading, setDownloadLoading] = useState(false);
+  const [lastSavedTimestamp, setLastSavedTimestamp] = useState(Date.now());
 
   const qrRef = useRef(null);
 
@@ -67,6 +68,7 @@ const BusinessCard = (props) => {
     if (isSuccess) {
       setInitialCard(_.cloneDeep(card));
       setUnsavedChanges(false);
+      setLastSavedTimestamp(Date.now());
 
       if (!toast.isActive(saveId)) {
         toast({
@@ -180,7 +182,14 @@ const BusinessCard = (props) => {
             <h2 className="bg-orange ">{card.id.slice(0, 8)}</h2>
           </div>
           <div>
-            <LinkPreview url={card.redirect_url} id="card-loaded" />
+            <LinkPreview 
+              url={card.redirect_url} 
+              id="card-loaded" 
+              key={`preview-${lastSavedTimestamp}`}
+            />
+            <div className={`text-center text-sm -mt-4 text-gray-500 transition-opacity duration-200 ${unsavedChanges ? 'opacity-100' : 'opacity-0'}`}>
+              Save to update preview
+            </div>
           </div>
         </div>
 
