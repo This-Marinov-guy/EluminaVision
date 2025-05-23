@@ -27,7 +27,7 @@ export const LinkPreviewComponent = ({
   className,
   width = 200,
   height = 125,
-  quality = 50,
+  quality = 75,
   layout = "fixed",
   isStatic = false,
   imageSrc = "",
@@ -44,7 +44,7 @@ export const LinkPreviewComponent = ({
   // Update current URL when the prop changes
   useEffect(() => {
     setCurrentUrl(url);
-    setTimestamp(Date.now()); // Force refresh when URL changes
+    setTimestamp(Date.now());
   }, [url]);
 
   useEffect(() => {
@@ -74,12 +74,12 @@ export const LinkPreviewComponent = ({
       colorScheme: "dark",
       "viewport.isMobile": true,
       "viewport.deviceScaleFactor": 1,
-      "viewport.width": width * 6,
-      "viewport.height": height * 6,
+      "viewport.width": width * 3,
+      "viewport.height": height * 3,
       waitForSelector: ".card-loaded",
       waitUntil: "networkidle0",
-      timeout: 10000,
-      _t: timestamp // Add timestamp for cache busting
+      timeout: 5000,
+      _t: timestamp
     });
 
     return `https://api.microlink.io/?${params}`;
@@ -120,6 +120,7 @@ export const LinkPreviewComponent = ({
           quality={quality}
           alt="hidden preload image"
           priority
+          loading="eager"
           style={{ display: loading ? "none" : "block" }}
         />
       </a>

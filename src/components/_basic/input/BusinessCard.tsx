@@ -188,7 +188,7 @@ const BusinessCard = (props) => {
               key={`preview-${lastSavedTimestamp}`}
             />
             <div className={`text-center text-sm -mt-4 text-gray-500 transition-opacity duration-200 ${unsavedChanges ? 'opacity-100' : 'opacity-0'}`}>
-              Save to update preview
+              *Save to update
             </div>
           </div>
         </div>
