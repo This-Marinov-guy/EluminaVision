@@ -46,8 +46,8 @@ const QrCard = (props) => {
   const downloadQRCode = () => {
     downloadSVGasPNG(qrRef, {
       filename: `qr-code-${code.id.slice(0, 8)}.png`,
-      width: 240,
-      height: 240,
+      width: 500,
+      height: 500,
       onStart: () => setDownloadLoading(true),
       onComplete: () => setDownloadLoading(false),
       onError: (error) => {
